@@ -55,8 +55,7 @@ The referenced object originates from an `own` reference, and can temporarily be
 
 ## Parameters, Return Values and Local Variables
 
-Parameters, return values, and local variables default to `shared` semantics.
-It is also possible to make them uniquely mutable by stating `own` before their type.  
+Parameters, return values, and local variables default to `own` semantics.
 This forces the caller or the assigner to provide a uniquely mutable reference.
 
 ## Providing uniquely mutable references
@@ -67,13 +66,15 @@ A uniquely mutable reference can be provided either by passing or by copying the
 The `pass` keyword can be used to pass `own` references.
 After passing a reference, the reference cannot be used anymore.  
 
-> This behaves like the negative of declaring a variable: after passing, it's like the variable was never declared in the first place.
+> This behaves like the oppesite of declaring a variable: after passing, the reference is no longer usable and usages .
 
 ### Using `opt:move(v)`
 
-The `opt:move(v)` function can be used to pass `own` references inside optionals.
+The `opt:move(v)` function can be used to pass `own` references inside optionals. `v` is replaced with the name of any reassignable (`var`), optional (`opt`) field, local variable, or parameter.
 
-After passing a reference, the optional is made empty. This is only possible if the field, local variable, or parameter is `var`.
+After passing a reference, the optional is made empty. This is only possible if reassignment to `v` is allowed.
+
+`opt:move(v)` allows fields to transfer ownership inside mutating methods.
 
 ## Constants (`const`)
 Constants are static fields in a class, non-reassignable, and immutable.
