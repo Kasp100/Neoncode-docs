@@ -1,0 +1,204 @@
+[← Go back](./intro.md#10-examples-1)
+
+# Neoncode Examples
+
+## 1. Mutable Person Class
+
+```
+pkg main;
+
+import std::time::e_date;
+
+public class person mut
+{
+	e_date birthdate; // Assuming that a person cannot change their birthdate.
+	var string name; // Assuming that a person may change their name.
+
+	public constructor(e_date birthdate, string name)
+	{
+		this.birthdate = birthdate; // "this" is a reference to the object self. It can is used to make sure the field is assigned to, not the parameter.
+		this.name = name;
+	}
+
+	public e_date get_birthdate()
+	{
+		ret birthdate;
+	}
+
+	public void set_name(string new_name) mut
+	{
+		name = new_name;
+	}
+
+	public string get_name()
+	{
+		ret name;
+	}
+
+}
+```
+
+## 2. Bank Account
+
+```
+pkg main;
+
+import std::collections::trace; // trace: a variable size list
+
+public class bank_account mut
+{
+	string name;
+	mut:trace<transaction> transactions_history;
+	shared bank keeper;
+
+	public constructor(bank set_keeper)
+	{
+		keeper = set_keeper;
+		transactions_history = ();
+	}
+
+	public void perform_transaction(transaction tr) mut
+	{
+		transactions_history.add(tr);
+	}
+
+	public trace<transaction> get_transactions_history()
+	{
+		ret transactions_history; // An immutable view can always be returned
+	}
+
+	public float get_balance()
+	{
+		var float balance = 0;
+
+		for_each_in transactions_history (transaction tr)
+		{
+			balance += tr.get_balance_diff(this);
+		}
+
+		ret balance;
+	}
+
+}
+
+public class transaction
+{
+
+	shared bank_account source;
+	shared bank_account destination;
+
+	float amount;
+
+	string<255> comment;
+
+	public constructor(bank_account set_source, bank_account set_destination, float set_amount, string<255> set_comment) {
+		source = set_source;
+		destination = set_destination;
+		amount = set_amount;
+		comment = set_comment;
+	}
+
+	public float get_balance_diff(bank_account for_account)
+	{
+		if(for_account == source)
+		{
+			ret -amount;
+		}
+		if(for_account == destination)
+		{
+			ret amount;
+		}
+		ret 0;
+	}
+
+}
+
+
+public class bank mut
+{
+	string name;
+	mut:trace<bank_account> accounts = ();
+
+	public constructor(string set_name)
+	{
+		name = set_name;
+	}
+
+	public string get_name()
+	{
+		ret name;
+	}
+
+	public void add(bank_account ba) mut
+	{
+		accounts.add(ba);
+	}
+
+}
+
+```
+
+### 3. Licence Plate
+
+```
+pkg main;
+
+public class s_license_plate serialisable
+{
+	array<char,7> chars;
+
+	public constructor(license_plate original)
+	{
+		chars = original.get_chars();
+	}
+
+	public license_plate create() throws invalid_char, invalid_length
+	{
+		ret license_plate(chars);
+	}
+
+}
+
+public class license_plate
+{
+	const nat LENGTH = 7;
+	const array<char> VALID_CHARS = ('A','B','C'); // To be expanded
+
+	array<char,LENGTH> chars;
+
+	public constructor(array<char,LENGTH> set_chars) throws invalid_char, invalid_length
+	{
+		mut:trace<char> validated_chars = trace::with_capacity(LENGTH);
+
+		for_each_in set_chars (char c)
+		{
+			if(!is_valid(c))
+			{
+				throw invalid_char(c);
+			}
+			else
+			{
+				validated_chars.add(c);
+			}
+		}
+
+		chars = validated_chars.to_array(); // This may throw invalid_length.
+	}
+
+	bool is_valid(char check_char)
+	{
+		for_each_in VALID_CHARS (char c)
+		{
+			if(c == check_char)
+			{
+				ret true;
+			}
+		}
+
+		ret false;
+	}
+
+}
+```
+
+[→ Next: Name Inference](./name_inference.md)
