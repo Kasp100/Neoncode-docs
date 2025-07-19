@@ -161,7 +161,7 @@ public class parking_lot mut
 
     public bool is_occupied()
     {
-        ret opt:is_present(o);
+        ret opt:is_present(occupant);
     }
 
 }
