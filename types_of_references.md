@@ -63,8 +63,8 @@ This forces the caller or the assigner to provide a uniquely mutable reference.
 A uniquely mutable reference can be provided either by passing or by copying the object.
 
 ### Using the `pass` keyword
-The `pass` keyword can be used to pass `own` references.
-After passing a reference, the reference cannot be used anymore.  
+The `pass` keyword can be used in expressions to pass `own` references.
+After passing a reference, it cannot be used anymore.  
 
 > This behaves like the oppesite of declaring a variable: after passing, the reference is no longer usable and usages .
 
@@ -107,7 +107,6 @@ Example Value Type: `int`
 
 |  Return Reference Type (from example)  |        Syntax        |                                                   Description                                                   |
 |----------------------------------------|----------------------|-----------------------------------------------------------------------------------------------------------------|
-| `opt int`                              | `opt:of(v)`          | Create a present optional from the present value `v`.                                                           |
 | `opt int`                              | `opt:empty`          | Create an empty optional.                                                                                       |
 | `bool`                                 | `opt:is_present(o)`  | Return `true` if the optional `o` has a value. If used safely, it allows dereferencing `o` (compiler-enforced). |
 | `bool`                                 | `opt:is_empty(o)`    | Return `true` if the optional `o` is empty.                                                                     |
@@ -116,6 +115,11 @@ Example Value Type: `int`
 | `opt int`                              | `opt:move(o)`        | Moves the optional value, making `o` empty. \*                                                                  |
 
 \* Used to provide `own` references.
+
+#### Notes
+
+- `opt int x = 7` assigns a present value to the optional reference.
+- Prefer `opt:is_present(o)` over `o == opt:empty`, as `==` depends
 
 ### Dereferencing optionals
 
@@ -157,8 +161,8 @@ public class parking_lot mut
 			ret opt:empty;
 		}
 
-		occupant = opt:of(driving_vehicle);
-		ret opt:of(success());
+		occupant = driving_vehicle;
+		ret success();
 	}
 
     public bool is_occupied()
