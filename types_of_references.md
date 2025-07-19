@@ -105,17 +105,19 @@ A reference is optional when it is declared with `opt`, e.g. `opt int get_option
 
 Example Value Type: `int`
 
-|  Return Type (from example)  |        Syntax        |                       Description                       |
-|------------------------------|----------------------|---------------------------------------------------------|
-| `opt int`                    | `opt:of(v)`          | Create a present optional from the present value `v`.   |
-| `opt int`                    | `opt:empty`          | Create an empty optional.                               |
-| `bool`                       | `opt:is_present(o)`  | Check if the optional `o` has a value.                  |
-| `bool`                       | `opt:is_empty(o)`    | Check if the optional `o` is empty.                     |
-| `int`                        | `opt:or(o, v)`       | If the optional `o` is empty, replace it with `v`.      |
-| `int` (may throw exception)  | `opt:or_throw(o)`    | If the optional `o` is empty, throw `unexpected_empty`. |
-| `opt int`                    | `opt:move(o)`        | Moves the optional value, making `o` empty. \*          |
+|  Return Reference Type (from example)  |        Syntax        |                                                   Description                                                   |
+|----------------------------------------|----------------------|-----------------------------------------------------------------------------------------------------------------|
+| `opt int`                              | `opt:of(v)`          | Create a present optional from the present value `v`.                                                           |
+| `opt int`                              | `opt:empty`          | Create an empty optional.                                                                                       |
+| `bool`                                 | `opt:is_present(o)`  | Return `true` if the optional `o` has a value. If used safely, it allows dereferencing `o` (compiler-enforced). |
+| `bool`                                 | `opt:is_empty(o)`    | Return `true` if the optional `o` is empty.                                                                     |
+| `int`                                  | `opt:or(o, v)`       | If the optional `o` is empty, return `v`, otherwise return the value of `o` as a non-optional.                  |
+| `int` (may throw exception)            | `opt:or_throw(o)`    | If the optional `o` is empty, throw `unexpected_empty`, otherwise return the value of `o` as a non-optional.    |
+| `opt int`                              | `opt:move(o)`        | Moves the optional value, making `o` empty. \*                                                                  |
 
-\* Used to provide uniquely mutable references.
+\* Used to provide `own` references.
+
+### Dereferencing optionals
 
 An optional reference may be used as a regular reference when the compiler knows for sure there's a value present.
 The example demonstrates this.
