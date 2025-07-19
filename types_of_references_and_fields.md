@@ -10,9 +10,9 @@ Mutations to objects of mutable types are controlled through various keywords.
 
 **As described in [Immutability and Const by Default](./immutability_and_const_by_default.md), a `mut:` reference is needed to mutate an object or to pass it to other `mut:` references.**
 
-**`own`** means the object **cannot** be mutated from elsewhere unless borrowed. This is the default in **fields** and **locals**.  
-**`shared`** means the object **can** be mutated from elsewhere. This is the default in parameters, local variables, and return values.  
-**`borrow`** means the object can temporarily be mutated here.
+**`own`** means the object **cannot** be mutated from elsewhere unless borrowed. This is default in **fields** and **locals**.  
+**`shared`** means the object **can** be mutated from elsewhere.  
+**`borrow`** means the object **can temporarily** be mutated here (if `mut:` is present). This is default for **parameters** and **return values**.
 
 `own`, `shared`, and `borrow` **cannot** be used with **immutable types**, as these concepts are reduntant when the data is immutable.
 
@@ -36,7 +36,7 @@ The referenced object can be mutated from elsewhere.
 > This is the most permissive type of reference. It carries the most risk.
 
 - Mutating the referenced object is **not** considered mutating the container.
-- Can be freely passed to immutable **and mutable** `shared` or `borrow` references
+- Can be freely passed to immutable **and mutable** `shared` or `borrow` references.
 
 > Use `shared` cautiously to avoid unintended side effects.
 
@@ -146,7 +146,7 @@ public class parking_lot mut
 {
 	var opt shared mut:vehicle occupant = opt:empty;
 
-	public opt success park(mut:vehicle driving_vehicle) mut
+	public opt success park(shared mut:vehicle driving_vehicle) mut
 	{
 		if(opt:is_present(occupant))
 		{
