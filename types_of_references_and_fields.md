@@ -11,7 +11,7 @@ Mutations to objects of mutable types are controlled through various keywords.
 **As described in [Immutability and Const by Default](./immutability_and_const_by_default.md), a `mut:` reference is needed to mutate an object or to pass it to other `mut:` references.**
 
 **`own`** means the object **cannot** be mutated from elsewhere unless borrowed. This is the default in **fields** and **locals**.  
-**`shared`** means the object **can** be mutated from elsewhere. This is the default in parameters, local variables, and return values.
+**`shared`** means the object **can** be mutated from elsewhere. This is the default in parameters, local variables, and return values.  
 **`borrow`** means the object can temporarily be mutated here.
 
 `own`, `shared`, and `borrow` **cannot** be used with **immutable types**, as these concepts are reduntant when the data is immutable.
