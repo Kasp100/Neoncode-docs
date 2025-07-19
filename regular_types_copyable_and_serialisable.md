@@ -93,4 +93,4 @@ In copyables:
 
 > If custom copying behavior is required, you cannot use these keywords and must implement copying manually.
 
-[→ Next: Small Immutable Types & Primitives](./small_immutable_types_and_primitives.md)
+[→ Next: Primitives](./primitives.md)

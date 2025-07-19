@@ -1,26 +1,11 @@
-[← Go back](./intro.md#3-small-immutable-types--primitives)
+[← Go back](./intro.md#3-primitives)
 
-# Small Immutable Types and Primitives
-
-## Small Immutable Types
-
-In Neoncode, immutable types with a memory footprint smaller than or equal to 64 bits are considered **small immutable types**.
-
-This means they fit to be passed by value. The compiler optimises these types accordingly.
-
-### Small contract types (`small`)
-
-If a type is marked with `small`, it signals that the type is meant to be a **small immutable type**. The compiler will enforce this.
-
-> Note: This disallows inheritance.
-> It's only applicable for **concrete types** (i.e. classes)
-
-## Primitives
+# Primitives
 Primitives are built-in, small, pass-by-value, and serialisable.
 
 Here's a full list of Neoncode's primitives:
 
-### Table
+## Table
 
 |  Type Name  |     Aliases     |                      Description                      |
 |-------------|-----------------|-------------------------------------------------------|
@@ -50,7 +35,7 @@ All built-in primitive types are **numeric** except for booleans (`bool`), chara
 Numeric means that arithmetic operations can be performed on them by default.
 (You can also create custom grammar allowing you to create custom numeric types, whether they're primitive or not.)
 
-## Notation
+### Notation
 
 Each of the numeric types can be written in decimal, hexadecimal, and binary notation.
 E.g. `21` = `0x15` = `0b10101`
