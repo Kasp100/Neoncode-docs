@@ -43,4 +43,4 @@ When overriding a method from a supertype, a method declared non-mutating cannot
 
 > This means that the keywords `shared`, `own`, and `mut:` can be used with fields, variables, parameters, and return types. 
 
-[→ Next: Types of References and Fields](./types_of_references_and_fields.md)
+[→ Next: Types of References](./types_of_references.md)

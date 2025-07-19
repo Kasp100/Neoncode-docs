@@ -1,6 +1,6 @@
-[← Go back](./intro.md#5-types-of-references-and-fields)
+[← Go back](./intro.md#5-types-of-references)
 
-# Types of References and Fields
+# Types of References
 
 Mutations to objects of mutable types are controlled through various keywords.
 
