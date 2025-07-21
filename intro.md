@@ -99,12 +99,9 @@ pkg main;
 
 import std::console;
 
-public class hello_world
+entrypoint main(array<string> args)
 {
-	public constructor(array<string> args)
-	{
-		console::print_line("Hello, world!");
-	}
+	console::print_line("Hello, world!");
 }
 ```
 
