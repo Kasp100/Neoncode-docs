@@ -18,6 +18,7 @@ Here is a full list of all access control / visibility keywords and their meanin
 \* A **package member** can be one of the following:
 - types (classes, abstract classes, and interfaces)
 - pure function sets
+- entrypoints
 - grammar sets
 - compile functions
 
