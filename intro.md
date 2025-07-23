@@ -46,9 +46,13 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 
 #### 7. [Arrays](./arrays.md)
 1. [Types of Arrays](./arrays.md#types-of-arrays)
-2. [Reference Semantics of Array Elements](./arrays.md#reference-semantics-of-array-elements)
-3. [Interacting with Arrays](./arrays.md#interacting-with-arrays)
-4. [Array Examples](./arrays.md#array-examples)
+2. [Fixed-size & Runtime-sized](./arrays.md#fixed-size--runtime-sized)
+3. [Arrays of immutable type](./arrays.md#arrays-of-immutable-type)
+4. [Arrays of immutable `own` references](./arrays.md#arrays-of-immutable-own-references)
+5. [Arrays of mutable `own` references](./arrays.md#arrays-of-mutable-own-references)
+6. [Arrays of immutable `shared` references](./arrays.md#arrays-of-immutable-shared-references)
+7. [Arrays of mutable `shared` references](./arrays.md#arrays-of-mutable-shared-references)
+8. [Array Example](./arrays.md#array-example)
 
 #### 8. [Developer Guidelines and Naming Conventions](./developer_guidelines_and_naming_conventions.md)
 1. [Developer Guidelines](./developer_guidelines_and_naming_conventions.md#developer-guidelines)
