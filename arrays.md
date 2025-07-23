@@ -7,115 +7,134 @@ Array references require the `mut:` prefix to be able to change the array's valu
 
 ## Types of Arrays
 
-In Neoncode, there are four types of arrays:
+`array` is an overloaded type — it has several types, based on its generic parameters.
 
-**Fixed-size array**: size is a constant known at compile time  
-**Runtime-sized array**: size is determined when the array is created and cannot be changed later  
+The following overloads exist:
+- `array<immut_type elem_type>`
+- `array<immut_type elem_type, nat size>`
+- `array<mut_type__own elem_type>`
+- `array<mut_type__own elem_type, nat size>`
+- `array<mut_type__own_mut elem_type>`
+- `array<mut_type__own_mut elem_type, nat size>`
+- `array<mut_type__shared elem_type>`
+- `array<mut_type__shared elem_type, nat size>`
+- `array<mut_type__shared_mut elem_type>`
+- `array<mut_type__shared_mut elem_type, nat size>`
 
-Which each can be divided further according to their semantics:
+### Fixed-size & Runtime-sized
 
-**`shared` semantics**: `sharing_array` - accept and returns `shared` references
-**`own` semantics**: `owning_array` - accepts and returns `own` references
+**Fixed-size arrays**: size is a constant known at compile time: `nat size`  
+**Runtime-sized arrays**: size is determined when the array is created and cannot be changed later (without size parameter)  
 
-Here's full list:
-
-|                      Syntax                      |                  Alias                  |          Description          |
-|--------------------------------------------------|-----------------------------------------|-------------------------------|
-| `sharing_array<type element_type, uint size>`    |                                         | Fixed-size sharing array      |
-| `sharing_array<type element_type>`               |                                         | Runtime sized sharing array   |
-| `owning_array<type element_type, uint size>`     | `array<type element_type, uint size>`   | Fixed-size owning array       |
-| `owning_array<type element_type>`                | `array<type element_type>`              | Runtime size owning array     |
-
-### Conversion Rules
+Conversion Rules:
 - A fixed-size array can be converted into a runtime-sized array.
 - A runtime-sized array **cannot** be converted into a fixed-size array, since its size is not known at compile time.
 
-## Reference Semantics of Array Elements
+### Arrays of immutable type
 
-It is possible to have an array that carries mutable references. E.g. `array<mut:string_builder>`
-This way it is possible to get `mut:` references from the array.
+These are the overloads with `immut_type`.
 
-In arrays, all assignments and reads operate on references. Mutating an element does not mutate the array, but the object (to which the array has a reference).
-This model applies to each type of array, and ensures high performance with predictable semantics.
+**Example**: `array<string>` (`string` is immutable)
 
-### `sharing_array`
+**API**:
+`nat get_size()`
+`opt elem_type get(nat index)`
+`elem_type get_throws(nat index) throws index_out_of_range`
+`elem_type set(nat index, elem_type replacement) mut`
+`elem_type set_throws(nat index, elem_type replacement) mut throws index_out_of_range`
 
-In sharing arrays, elements behave like `shared` fields in a class:
+### Arrays of immutable `own` references
 
-Multiple arrays or variables may share references to the objects behind its element.
+These are the overloads with `mut_type__own`.
 
-### `owning_array`
+**Example**: `array<own string_builder>` (`string_builder` is mutable)
 
-In owning arrays, elements behave like regular (`own`) fields inside a class:
+**API**:
+`nat get_size()`
+`opt borrow elem_type get(nat index)`
+`borrow elem_type get_throws(nat index) throws index_out_of_range`
+`own elem_type set(nat index, own elem_type replacement) mut`
+`own elem_type set_throws(nat index, own elem_type replacement) mut throws index_out_of_range`
 
-Only the array has a mutable reference to the objects behind its elements.
+**Note**: `get` and `get_throws` return an immutable `borrow` reference. Immutable borrow references are effectively the same as immutable shared references.
 
-## Interacting with Arrays
+### Arrays of mutable `own` references
 
-Both fixed-size and runtime-sized arrays have the same interface.
+These are the overloads with `mut_type__own_mut`.
 
-Here's a full list:
+**Example**: `array<own mut:string_builder>` (`string_builder` is mutable)
 
-### Getting the size of an array
+**API**:
+`nat get_size()`
+`opt borrow mut:elem_type get(nat index)`
+`borrow mut:elem_type get_throws(nat index) throws index_out_of_range`
+`own mut:elem_type set(nat index, own mut:elem_type replacement) mut`
+`own mut:elem_type set_throws(nat index, own mut:elem_type replacement) mut throws index_out_of_range`
 
-`get_size()` returns the size of the array. This is independent of whether it's a fixed-size or runtime-sized array.
+### Arrays of immutable `shared` references
 
-### Getting elements from the array
+These are the overloads with `mut_type__shared`.
 
-Depending on the element type (`element_type`), it returns a mutable or immutable reference.
+**Example**: `array<shared string_builder>` (`string_builder` is mutable)
 
-#### Sharing arrays
+**API**:
+`nat get_size()`
+`opt shared elem_type get(nat index)`
+`shared elem_type get_throws(nat index) throws index_out_of_range`
+`shared elem_type set(nat index, shared elem_type replacement) mut`
+`shared elem_type set_throws(nat index, shared elem_type replacement) mut throws index_out_of_range`
 
-Sharing arrays cannot have empty values, but can return empty optionals if the index is out of range.
+**Note**: `get` and `get_throws` return an immutable `borrow` reference. Immutable borrow references are effectively the same as immutable shared references.
 
-|                            Signature                            |                                     Summary                                     |       If `index >= size`       |
-|-----------------------------------------------------------------|---------------------------------------------------------------------------------|--------------------------------|
-| `opt element_type get(uint index)`                              | Returns the element at the given index, or an empty optional if out of bounds.  | returns empty optional         |
-| `element_type get_throws(uint index) throws index_out_of_range` | Returns the element at the index or throws if out of bounds.                    | throws `index_out_of_range`    |
+### Arrays of mutable `shared` references
 
-#### Owning arrays
+These are the overloads with `mut_type__shared_mut`.
 
-In owning arrays, getting elements removes them. This ensures no `mut:` references are duplicated, abiding by its `own` semantics.
-Owning arrays may have empty values. This is handled through optionals or exceptions.
+**Example**: `array<shared mut:string_builder>` (`string_builder` is mutable)
 
-|                                         Signature                                         |                               Summary                               |       If `index >= size`       |      If no value present     |
-|-------------------------------------------------------------------------------------------|---------------------------------------------------------------------|--------------------------------|------------------------------|
-| `opt element_type move_out(uint index)`                                                   | Moves the element at the given index or returns an empty optional.  | returns empty optional         | returns empty optional       |
-| `element_type move_out_throws(uint index) throws index_out_of_range, no_element_present`  | Returns the element at the index or throws.                         | throws `index_out_of_range`    | throws `no_element_present`  |
+**API**:
+`nat get_size()`
+`opt shared mut:elem_type get(nat index)`
+`shared mut:elem_type get_throws(nat index) throws index_out_of_range`
+`shared mut:elem_type set(nat index, shared mut:elem_type replacement) mut`
+`shared mut:elem_type set_throws(nat index, shared mut:elem_type replacement) mut throws index_out_of_range`
 
-### Setting elements in an array
-
-Setting elements in an array is considered mutating it. It requires a `mut:` reference to the array.
-
-#### Sharing arrays
-
-Setting elements in a sharing array requires it to have `shared` semantics (default for local variables, parameters, and return values)
-
-|                                      Signature                                      |                               Summary                               |       If `index >= size`       |
-|-------------------------------------------------------------------------------------|---------------------------------------------------------------------|--------------------------------|
-| `opt index_out_of_range set(uint index, element_type new_value) mut`                | Attempts to set the value at the index. Returns an optional error.  | returns optional with error    |
-| `void set_throws(uint index, element_type new_value) mut throws index_out_of_range` | Sets the value or throws if out of bounds.                          | throws `index_out_of_range`    |
-
-#### Owning arrays
-
-Setting elements in owning arrays can be done in the following ways depending on the type:
-- `copy` (for copyable types)
-- `opt:move(v)`: Getting a value out of an `opt`. This makes the optional empty.
-- `pass`: Giving up the reference. Cannot be used with fields or if the reference is needed later.
-
-|                                          Signature                                          |                               Summary                               |       If `index >= size`       |
-|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------|--------------------------------|
-| `opt index_out_of_range move_in(uint index, own element_type new_value) mut`                | Attempts to move the value to the index. Returns an optional error. | returns optional with error    |
-| `void move_in_throws(uint index, own element_type new_value) mut throws index_out_of_range` | Moves the value or throws if out of bounds.                         | throws `index_out_of_range`    |
-
-## Array Examples
+## Array Example
 
 ```
 pkg main;
 
 import std::stringable;
 
-class player mut implements stringable
+public class using_arrays_example
+{
+    public void use_sharing_array(logger l)
+    {
+        mut:array<shared mut:player> players =
+        (
+            player("Alice"),
+            player("Bob")
+        );
+
+        shared player b = players[1]; // or `players.get(1)`
+
+        l::info(b); // output: "Bob 0"
+
+        // setting
+
+        shared mut:player c = ("Carol");
+
+        players[1] = c; // or `players.set(1, c)`
+
+        l.info
+        (
+            std::array_utilities::to_string(players) // output: "Alice 0", "Carol 0"
+        );
+    }
+
+}
+
+public class player mut impl stringable
 {
     string name;
     var int score = 0;
@@ -137,30 +156,6 @@ class player mut implements stringable
 
 }
 
-class using_arrays_example
-{
-    void use_sharing_array(logger l)
-    {
-        mut:sharing_array<mut:player> sa =
-        (
-            player("Alice"),
-            player("Bob")
-        );
-
-        player b = sa.get(1);
-
-        l::info(b);// output: "Bob"
-
-        // setting
-
-        mut:player c = ("Carol");
-
-        sa.set(1, c);
-
-        l.info(std::array_utilities::to_string(sa));// output: "Alice", "Carol"
-    }
-
-}
 
 ```
 
