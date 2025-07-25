@@ -83,9 +83,9 @@ class person mut
 A pure function set is collection of pure functions.
 
 ```
-pkg neoncode;
+pkg std;
 
-import neoncode::collections::list;
+import std::collections::list;
 
 public pure_function_set collection_utilities
 {
