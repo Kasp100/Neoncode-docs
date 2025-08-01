@@ -128,7 +128,7 @@ The example demonstrates this.
 
 ### Example
 ```
-pkg main
+pkg main;
 
 public class vehicle mut
 {
