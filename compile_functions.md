@@ -9,94 +9,94 @@ The `auto:` directive tells the compiler to run a compile function.
 ```
 pkg main;
 
-import std::codegen::public_constructor;
-import std::codegen::public_getters;
+// optional (imports are optional for built-in compile functions like "constructor")
+import std::codegen::constructor;
+import std::codegen::getters;
 
 public class person
 {
-    string name;
-    date birthdate;
+	string name;
+	date birthdate;
 
-    auto:public_constructor();
-    auto:public_getters(name, birthdate);
+	auto:constructor(public);
+	auto:getters(public, name, birthdate);
 }
 ```
 Here, there are two compile functions being called: "constructor" and "getters".
 
 It's a powerful system for writing less code.
 
-### `auto:public_constructor`
-This compile function creates a **public constructor** based on all unitialised fields (which in the above example are "name" and "birthdate").
+### `auto:constructor`
+This compile function creates a **constructor** based on all unitialised fields (which in the above example are "name" and "birthdate").
 The resulting constructor will look like this:
 ```
 public constructor(string name, date birthdate)
 {
-    this.name = name;
-    this.birthdate = birthdate;
+	this.name = name;
+	this.birthdate = birthdate;
 }
 ```
 
-### `auto:public_getters`
-This compile function creates **public getters** for the fields passed in its parameters.
+### `auto:getters(...)`
+This compile function creates **getters** for the fields passed in its parameters.
 The resulting methods will look like this:
 ```
 public string get_name()
 {
-    ret name;
+	ret name;
 }
 
 public date get_birthdate()
 {
-    ret birthdate;
+	ret birthdate;
 }
 ```
 
 In case of mutable references (i.e., fields with `mut:`), an **immutable reference is returned**.
 
-## Compile functions with body
+## Enum Example
 
 ```
 pkg main;
 
+// optional (imports are optional for built-in compile functions like enum)
 import std::codegen::enum;
 
-auto:enum(public, skill_level)
-{
-    BEGINNER,
-    INTERMEDIATE,
-    ADVANCED
-}
+auto:enum
+(
+	public,			// <- visibility
+	skill_level,	// <- name
+	BEGINNER,
+	INTERMEDIATE,
+	ADVANCED
+);
+
 ```
 
 ## Writing Compile Functions
 
 The language allows hooking in on the compilation process with the keyword `compile_function`.
 
-Depending on the signature of the compile function, it can be used either inside code blocks, type definitions, pure function set definitions, or at package level.
-
-Here is an example for a compile function called "constructor".
+Here is an example for a compile function called "getters".
 ```
-public compile_function constructor(type_member_emitter t, array<token_reader> head, token_reader body)
+public compile_function getters(type_member_emitter e, cf_param visibility, cf_param... field_names)
 throws invalid_argument
 {
-	// insert code here to generate
+	// generation code here
 }
 ```
-Parameters:
-1. `type_member_emitter t`: used for compile functions targetting type definitions, giving the ability to add type members.
-2. `array<token_reader> head` (optional): contains parameters between `(` and `)`.
-3. `token_reader body` (optional): contains tokens between `{` and `}`.
 
-It is possible to overload compile functions based on name and parameters.
-
-In the above example, `t` can be one of the following types:
+In the above example `e` can be one of the following types:
 - `statement_emitter` for code inside blocks
 - `type_member_emitter` for code inside type definitions (constants, fields, constructors, and methods)
 - `pure_function_set_member_emitter` for code inside type definitions (constants, fields, constructors, and methods)
 - `package_member_emitter` for code at the package-level (classes, abstract classes, and interfaces)
 
-These allow you to look at, and add to the code inside these AST (abstract syntax tree) nodes.
+`cf_param` stands for "compile function parameter" and holds **compiler tokens**.
+`...` allows a variable amount of parameters to be passed. It translates to `array<cf_param>`.
 
-Compile functions are package members — They also need to be imported with `import` if they originate from another package.
+These allow you to append to the AST (abstract syntax tree).
+
+Compile functions are package members, so they are private by default. They need to be imported if used from another package.
 
 [→ Next: Pure Functions](./pure_functions.md)
