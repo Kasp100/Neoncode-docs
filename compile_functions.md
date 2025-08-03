@@ -61,7 +61,7 @@ Depending on the signature of the compile function, it can be used either inside
 
 Here is an example for a compile function called "constructor".
 ```
-public compile_function constructor(mut:type t, owning_array<compile_function_parameter> params)
+public compile_function constructor(type_member_emitter t, array<compile_function_parameter> head, array<token> body)
 throws invalid_argument
 {
 	// insert code here to generate
@@ -69,7 +69,7 @@ throws invalid_argument
 ```
 1. Compile functions can either be public or private inside of their package.
 2. `type` is used for compile functions targetting type definitions, giving the ability to add type members.
-3. `owning_array<compile_function_parameter>` is in every compile function, it contains an `owning_array<token>` that contains compile tokens.
+3. `array<compile_function_parameter>` is in every compile function, it contains an `array<token>` that contains compile tokens.
 
 In the above example, `t` can be one of the following types:
 - `statement_emitter` for code inside blocks
