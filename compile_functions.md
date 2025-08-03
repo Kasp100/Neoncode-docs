@@ -53,23 +53,41 @@ public date get_birthdate()
 
 In case of mutable references (i.e., fields with `mut:`), an **immutable reference is returned**.
 
+## Compile functions with body
+
+```
+pkg main;
+
+import std::codegen::enum;
+
+auto:enum(public, skill_level)
+{
+    BEGINNER,
+    INTERMEDIATE,
+    ADVANCED
+}
+```
+
 ## Writing Compile Functions
 
 The language allows hooking in on the compilation process with the keyword `compile_function`.
 
-Depending on the signature of the compile function, it can be used either inside code blocks, type definitions, pure function set definitions, or at package-level.
+Depending on the signature of the compile function, it can be used either inside code blocks, type definitions, pure function set definitions, or at package level.
 
 Here is an example for a compile function called "constructor".
 ```
-public compile_function constructor(type_member_emitter t, array<compile_function_parameter> head, array<token> body)
+public compile_function constructor(type_member_emitter t, array<token_reader> head, token_reader body)
 throws invalid_argument
 {
 	// insert code here to generate
 }
 ```
-1. Compile functions can either be public or private inside of their package.
-2. `type` is used for compile functions targetting type definitions, giving the ability to add type members.
-3. `array<compile_function_parameter>` is in every compile function, it contains an `array<token>` that contains compile tokens.
+Parameters:
+1. `type_member_emitter t`: used for compile functions targetting type definitions, giving the ability to add type members.
+2. `array<token_reader> head` (optional): contains parameters between `(` and `)`.
+3. `token_reader body` (optional): contains tokens between `{` and `}`.
+
+It is possible to overload compile functions based on name and parameters.
 
 In the above example, `t` can be one of the following types:
 - `statement_emitter` for code inside blocks
