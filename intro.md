@@ -103,10 +103,9 @@ pkg main;
 
 import std::console;
 
-entrypoint int main(array<string> args)
+entrypoint main(array<string> args)
 {
 	console::print_line("Hello, world!");
-	ret 0;
 }
 ```
 
