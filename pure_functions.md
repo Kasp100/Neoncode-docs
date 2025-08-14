@@ -103,3 +103,5 @@ public pure_function_set collection_utilities
 
 }
 ```
+
+[→ Next: Functional & Lambda](./functional_and_lambda.md)
