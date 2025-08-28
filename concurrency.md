@@ -72,7 +72,7 @@ class int_container mut
 
 entrypoint main(array<string> args)
 {
-	shared mutex int_container c;
+	shared mutex mut:int_container c;
 
 	thread::start(() ->
 	{
