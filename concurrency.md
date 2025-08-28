@@ -2,7 +2,7 @@
 
 # Concurrency
 
-Modern programs often need to do things simultaneously. For example, handling user input from a GUI or communicating over a network. Concurrency allows a program to make progress on multiple tasks simultaneously, improving performance, responsiveness, and taking advantage of modern multi-core processors.
+Modern programs often need to do things simultaneously. For example, handling user input from a GUI or communicating over a network. Concurrency allows a program to make progress on multiple tasks simultaneously. This improves performance, responsiveness, and takes advantage of modern multi-core processors.
 
 ## Multithreading
 
@@ -48,7 +48,8 @@ class program
 
 ## Mutex
 
-If a mutable object is accessed from multiple threads and at least one access is mutable, then it **must** be guarded by a mutex unless it's atomic for thread-safety.
+If a mutable object is accessed from multiple threads and at least one can mutate the object, then it **must** be guarded by a mutex unless it's atomic.
+This ensures thread safety.
 
 ### Example
 
