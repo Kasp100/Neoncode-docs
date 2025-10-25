@@ -119,7 +119,6 @@ Example Value Type: `int`
 #### Notes
 
 - `opt int x = 7` assigns a present value to the optional reference.
-- Prefer `opt:is_present(o)` over `o == opt:empty`, as `==` depends
 
 ### Dereferencing optionals
 
