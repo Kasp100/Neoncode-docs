@@ -18,8 +18,8 @@ public class person
 	string name;
 	date birthdate;
 
-	auto:constructor(public);
-	auto:getters(public, name, birthdate);
+	public auto:constructor;
+	public auto:getters(name, birthdate);
 }
 ```
 Here, there are two compile functions being called: "constructor" and "getters".
@@ -62,14 +62,12 @@ pkg main;
 // optional (imports are optional for built-in compile functions like enum)
 import std::codegen::enum;
 
-auto:enum
-(
-	public,			// <- visibility
-	skill_level,	// <- name
+public auto:enum skill_level
+{
 	BEGINNER,
 	INTERMEDIATE,
 	ADVANCED
-);
+}
 
 ```
 
@@ -79,7 +77,7 @@ The language allows hooking in on the compilation process with the keyword `comp
 
 Here is an example for a compile function called "getters".
 ```
-public compile_function getters(type_member_emitter e, cf_param visibility, cf_param... field_names)
+public compile_function getters(type_member_emitter e, cf_param... field_names)
 throws invalid_argument
 {
 	// generation code here
