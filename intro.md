@@ -75,10 +75,10 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 3. [Why no type inference](./name_inference.md#why-no-type-inference)
 4. [Example](./name_inference.md#example)
 
-#### 12. [Custom Grammar](./custom_grammar.md)
-1. [Using Custom Grammar Sets](./custom_grammar.md#using-custom-grammar-sets)
-2. [Defining Custom Grammar Sets](./custom_grammar.md#defining-custom-grammar-sets)
-3. [Example](./custom_grammar.md#example)
+#### 12. [Custom Expression Grammar](./custom_expression_grammar.md)
+1. [Using Custom Expression Grammar](./custom_expression_grammar.md#using-custom-expression-grammar)
+2. [Defining Custom Expression Grammar](./custom_expression_grammar.md#defining-custom-expression-grammar)
+3. [Example](./custom_expression_grammar.md#example)
 
 #### 13. [Compile Functions](./compile_functions.md)
 1. [Example Usage](./compile_functions.md#example-usage)
@@ -91,6 +91,10 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 #### 15. [Functional & Lambda](./functional_and_lambda.md)
 
 #### 16. [Concurrency](./concurrency.md)
+
+#### 17. [Equality](./equality.md)
+
+#### 18. [Indexing Syntax](./indexing_syntax.md)
 
 ## About Neoncode
 

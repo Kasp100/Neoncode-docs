@@ -33,7 +33,7 @@ Here's a full list of Neoncode's primitives:
 
 All built-in primitive types are **numeric** except for booleans (`bool`), characters (`char`).  
 Numeric means that arithmetic operations can be performed on them by default.
-(You can also create custom grammar allowing you to create custom numeric types, whether they're primitive or not.)
+(You can also create custom expression grammar allowing you to create custom numeric types, whether they're primitive or not.)
 
 ### Notation
 

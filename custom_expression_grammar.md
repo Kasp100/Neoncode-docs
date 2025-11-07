@@ -1,11 +1,11 @@
-[← Go back](./intro.md#12-custom-grammar)
+[← Go back](./intro.md#12-custom-expression-grammar)
 
-# Custom Grammar
+# Custom Expression Grammar
 
-Neoncode allows custom grammar using the `grammar_set` keyword. This indicates the definition of a **grammar set**.  
-Custom grammar will be parsed if the `parse` keyword is used. This makes the parser take the custom grammar into account.
+Neoncode allows custom expression grammar using the `expression_grammar` keyword. This indicates the definition of an **expression grammar set**.  
+Custom expression grammar will be parsed if the `parse` keyword is used. This makes the parser take the custom expression grammar into account.
 
-## Using Custom Grammar Sets
+## Using Custom Expression Grammar
 
 Grammar sets will apply within blocks (between `{` and `}`) where the `parse` keyword is used.
 If the `parse` is not within `{` and `}`, it applies to the **whole file**.
@@ -14,7 +14,7 @@ If the `parse` is not within `{` and `}`, it applies to the **whole file**.
 - Use `import some_lib::some_sub_package::big_decimal_math` and `parse big_decimal_math` if parsing at multiple locations is needed.
 - Use `parse some_lib::some_sub_package::big_decimal_math` if parsing is needed at just one location, typically done for the whole file.
 
-## Defining Custom Grammar Sets
+## Defining Custom Expression Grammar
 
 A **rule** inside grammar sets is a special kind of **pure function**.
 
@@ -29,7 +29,7 @@ Rules follow the following syntax:
 ```
 pkg temperature;
 
-public grammar_set temperature_notation
+public expression_grammar temperature_notation
 {
 	0 temperature (double value)°K
 	{
@@ -48,7 +48,7 @@ public grammar_set temperature_notation
 
 }
 
-public grammar_set temperature_arithmetic
+public expression_grammar temperature_arithmetic
 {
 	1 temperature (temperature a)*(temperature b)
 	{
