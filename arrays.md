@@ -37,11 +37,11 @@ These are the overloads with `immut_type`.
 **Example**: `array<string>` (`string` is immutable)
 
 **API**:
-`nat get_size()`
-`opt elem_type get(nat index)`
-`elem_type get_throws(nat index) throws index_out_of_range`
-`elem_type set(nat index, elem_type replacement) mut`
-`elem_type set_throws(nat index, elem_type replacement) mut throws index_out_of_range`
+- `nat get_size()`
+- `opt elem_type get(nat index)`
+- `elem_type get_throws(nat index) throws index_out_of_range`
+- `elem_type set(nat index, elem_type replacement) mut`
+- `elem_type set_throws(nat index, elem_type replacement) mut throws index_out_of_range`
 
 ### Arrays of immutable `own` references
 
@@ -50,11 +50,11 @@ These are the overloads with `mut_type__own`.
 **Example**: `array<own string_builder>` (`string_builder` is mutable)
 
 **API**:
-`nat get_size()`
-`opt borrow elem_type get(nat index)`
-`borrow elem_type get_throws(nat index) throws index_out_of_range`
-`own elem_type set(nat index, own elem_type replacement) mut`
-`own elem_type set_throws(nat index, own elem_type replacement) mut throws index_out_of_range`
+- `nat get_size()`
+- `opt borrow elem_type get(nat index)`
+- `borrow elem_type get_throws(nat index) throws index_out_of_range`
+- `own elem_type set(nat index, own elem_type replacement) mut`
+- `own elem_type set_throws(nat index, own elem_type replacement) mut throws index_out_of_range`
 
 **Note**: `get` and `get_throws` return an immutable `borrow` reference. Immutable borrow references are effectively the same as immutable shared references.
 
@@ -65,11 +65,11 @@ These are the overloads with `mut_type__own_mut`.
 **Example**: `array<own mut:string_builder>` (`string_builder` is mutable)
 
 **API**:
-`nat get_size()`
-`opt borrow mut:elem_type get(nat index)`
-`borrow mut:elem_type get_throws(nat index) throws index_out_of_range`
-`own mut:elem_type set(nat index, own mut:elem_type replacement) mut`
-`own mut:elem_type set_throws(nat index, own mut:elem_type replacement) mut throws index_out_of_range`
+- `nat get_size()`
+- `opt borrow mut:elem_type get(nat index)`
+- `borrow mut:elem_type get_throws(nat index) throws index_out_of_range`
+- `own mut:elem_type set(nat index, own mut:elem_type replacement) mut`
+- `own mut:elem_type set_throws(nat index, own mut:elem_type replacement) mut throws index_out_of_range`
 
 ### Arrays of immutable `shared` references
 
@@ -78,11 +78,11 @@ These are the overloads with `mut_type__shared`.
 **Example**: `array<shared string_builder>` (`string_builder` is mutable)
 
 **API**:
-`nat get_size()`
-`opt shared elem_type get(nat index)`
-`shared elem_type get_throws(nat index) throws index_out_of_range`
-`shared elem_type set(nat index, shared elem_type replacement) mut`
-`shared elem_type set_throws(nat index, shared elem_type replacement) mut throws index_out_of_range`
+- `nat get_size()`
+- `opt shared elem_type get(nat index)`
+- `shared elem_type get_throws(nat index) throws index_out_of_range`
+- `shared elem_type set(nat index, shared elem_type replacement) mut`
+- `shared elem_type set_throws(nat index, shared elem_type replacement) mut throws index_out_of_range`
 
 **Note**: `get` and `get_throws` return an immutable `borrow` reference. Immutable borrow references are effectively the same as immutable shared references.
 
@@ -93,11 +93,11 @@ These are the overloads with `mut_type__shared_mut`.
 **Example**: `array<shared mut:string_builder>` (`string_builder` is mutable)
 
 **API**:
-`nat get_size()`
-`opt shared mut:elem_type get(nat index)`
-`shared mut:elem_type get_throws(nat index) throws index_out_of_range`
-`shared mut:elem_type set(nat index, shared mut:elem_type replacement) mut`
-`shared mut:elem_type set_throws(nat index, shared mut:elem_type replacement) mut throws index_out_of_range`
+- `nat get_size()`
+- `opt shared mut:elem_type get(nat index)`
+- `shared mut:elem_type get_throws(nat index) throws index_out_of_range`
+- `shared mut:elem_type set(nat index, shared mut:elem_type replacement) mut`
+- `shared mut:elem_type set_throws(nat index, shared mut:elem_type replacement) mut throws index_out_of_range`
 
 ## Array Example
 
