@@ -45,14 +45,13 @@ By keeping fields private, types can expose controlled access through methods. T
 The `exclusive` keyword restricts access to the specified package members or patterns. Patterns use **package member pattern matching** to determine which members may access the declaration.
 Patterns can match by exact name, qualified name, wildcards, inheritance (extends), or combinations thereof.
 
-|                         Package Member Pattern                         |                                                          Who can use                                                          |
-|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| *package member name* (without `::`)                                   | A package member named *package member name* inside the current package (i.e., the package from the file's `pkg` declaration) |
-| *package path* + `::` + *package member name*                          | A package member named *package member name* inside *package path*                                                            |
-| *package path* + `::` + `*`                                            | Any package member in *package path*, without its subpackages                                                                 |
-| *package path* + `::` + `...`                                          | Any package member in *package path* **and** its subpackages                                                                  |
-| `extends` + *package member pattern*                                   | Any type that inherits from the types found by *package member pattern*                                                       |
-| *package member pattern A* + `extends` + *package member pattern B*    | Any type found by *package member pattern A* that inherits from the types found by *package member pattern B*                 |
+|                    Package Member Pattern                    |                                              Who can use                                              |
+|--------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| *package member path*                                        | The specified package member                                                                          |
+| `shallow` + `pkg` + *package path*                           | Any package member in *package path*, without its subpackages                                         |
+| `deep` + `pkg` + *package path*                              | Any package member in *package path* **and** its subpackages                                          |
+| `extends` + *package member path*                            | Any type that inherits from the type found by *package member path*                                   |
+| *package member pattern* + `extends` + *package member path* | Any type found by *package member pattern* that inherits from the type found by *package member path* |
 
 Note: a *package path* may consist of several `::` as well.
 
