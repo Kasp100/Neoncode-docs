@@ -68,7 +68,7 @@ entrypoint main(array<string> args)
 	{
 		var int i = c.get();
 		i++;
-		c.set(i); // Because "c" is mutated here, "c" needs to be mutably shared.
+		c.set(i); // Because "c" is mutated here, shared mutability is needed with "c".
 	};
 
 	console::print_line(conversions::number_to_string(c.get())); // 0

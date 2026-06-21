@@ -29,7 +29,7 @@ The referenced object can be **viewed** elsewhere (by whoever has a reference), 
 - Can be freely passed to immutable `shared` references.
 - `own` is often paired with `mut:` (to mutate a mutable type)
 
-## Mutably Shared (`shared`) 
+## Shared Mutability (`shared`) 
 
 The referenced object can be mutated from elsewhere.
 

@@ -30,7 +30,7 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 #### 5. [Types of References](./types_of_references.md)
 1. [Defaults](./types_of_references.md#defaults)
 3. [Controlled Mutations](./types_of_references.md#controlled-mutations-own)
-4. [Mutably Shared](./types_of_references.md#mutably-shared-shared)
+4. [Shared Mutability](./types_of_references.md#mutably-shared-shared)
 5. [Borrowed Mutability](./types_of_references.md#borrowed-mutability-borrow)
 6. [Parameters, Return Values and Local Variables](./types_of_references.md#parameters-return-values-and-local-variables)
 7. [Providing Unique References](./types_of_references.md#providing-unique-references)
