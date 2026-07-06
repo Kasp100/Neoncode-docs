@@ -59,8 +59,8 @@ Note: a *package path* may consist of several `::` as well.
 
 Imports are used to bring **public** package members from other packages (and subpackages) into a **file** to be used.
 
-`import std::collections::trace` 
+Example: `import my_domain::my_project::my_class` 
 
-Package members of the same package do not need importing.
+Package members from the current package (see the `pkg` package declaration in the file), including packages which contain the current package package do not need importing.
 
 [→ Next: Arrays](./arrays.md)
