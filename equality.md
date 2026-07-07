@@ -9,10 +9,10 @@ If a type implements the interface `equatable`, the `==` operator can be used wi
 ```neoncode
 pkg std;
 
-public interface equatable
+public interface equatable mut
 {
 	/** Check whether this object is conceptually equal to the other. */
-	bool equals(object other);
+	bool equals(equatable other);
 }
 
 ```
