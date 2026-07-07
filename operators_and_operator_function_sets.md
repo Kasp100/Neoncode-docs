@@ -9,7 +9,7 @@
 
 Operators (`operator`) define the syntax of an operator.
 
-They are a unique kind of **package member**; they are **package-private** and have **no name**, but a grammar.
+Operators are scoped to their package hierarchy and are not importable/exportable as named members.
 
 They have:
 - a grammar: a set of syntax tokens with parameters (untyped) within round brackets `()`, e.g. `(a) + (b)` which defines them
