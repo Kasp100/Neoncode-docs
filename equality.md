@@ -19,24 +19,6 @@ public interface equatable mut
 
 ## Operator implementation
 
-The operator (`==`) is implemented using automatically applied [custom expression grammar](custom_expression_grammar.md).
+The operator (`==`) is implemented using **default** [operator functions](operators_and_operator_function_sets.md).
 
-There's no need to explicitly use `parse`.
-
-```
-pkg std::default_expression_grammar;
-
-public expression_grammar equals_operator
-{
-	1 bool (equatable lhs) == (object rhs)
-	{
-		ret lhs.equals(rhs);
-	}
-
-	1 bool (equatable lhs) != (object rhs)
-	{
-		ret !lhs.equals(rhs);
-	}
-}
-
-```
+There's no need to explicitly write `use`.

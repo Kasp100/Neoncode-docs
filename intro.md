@@ -75,10 +75,10 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 3. [Why no type inference](./name_inference.md#why-no-type-inference)
 4. [Example](./name_inference.md#example)
 
-#### 12. [Custom Expression Grammar](./custom_expression_grammar.md)
-1. [Using Custom Expression Grammar](./custom_expression_grammar.md#using-custom-expression-grammar)
-2. [Defining Custom Expression Grammar](./custom_expression_grammar.md#defining-custom-expression-grammar)
-3. [Example](./custom_expression_grammar.md#example)
+#### 12. [Operators and Operator Function Sets](./operators_and_operator_function_sets.md)
+1. [Operators](./operators_and_operator_function_sets.md#operators)
+2. [Operator Function Sets](./operators_and_operator_function_sets.md#operator-function-sets)
+3. [Examples](./operators_and_operator_function_sets.md#examples)
 
 #### 13. [Compile Functions](./compile_functions.md)
 1. [Example Usage](./compile_functions.md#example-usage)

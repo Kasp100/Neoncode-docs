@@ -4,34 +4,20 @@
 
 Allowing indexing using square brackets on a type requires it implementing the interface `indexable`.
 
-## `indexable` interface and grammar
+Example: getting the 8th element from an array
 
-```neoncode
-pkg std;
+We define an array: `array<string> strings = ("ab", "cd", "ef", "gh", "ij");`
 
-public interface indexable<type key_type, type value_type> mut
-{
-	value_type get(key_type key);
-}
+Now, `strings[3]` will give the **fourth** element from the array, which will be "gh".
 
-```
+
+## Time Complexity Note
+
+The `[]` syntax implies constant-time (`O(1)`) lookup, so indexable types that do not guarantee this use a `get(index)` method.
+
 
 ## Operator implementation
 
-The operator (`[]`) is implemented using automatically applied [custom expression grammar](custom_expression_grammar.md).
+The operator (`[]`) is implemented using default [operator functions](operators_and_operator_function_sets.md).
 
-There's no need to explicitly use `parse`.
-
-```neoncode
-std::default_expression_grammar;
-
-public expression_grammar indexing_brackets
-{
-	0 <type key_type, type value_type> value_type (indexable<key_type, value_type>)[(key_type key)]
-	{
-		ret indexable.get(key);
-	}
-}
-
-```
-
+There's no need to explicitly write `use`.
