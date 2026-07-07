@@ -33,8 +33,11 @@ Operator function sets (`operator_function_set`) define what operators **do**.
 
 A custom operator function set applies where it is the `use` keyword is used.
 
-Operator function sets will apply within blocks (between `{}` backets) where the `use` keyword is used with its package member name or path.
+Operator function sets will apply within blocks (between `{}` backets) where the `use` keyword is used with its package member name or path, including nested scopes.
+
 If the `use` statement is outside any `{}` brackets, it applies to the **whole file**.
+
+**Conflicts**: If two or more operator functions implement the same operator with the same parameter types *and* are simultaneously applied, the compiler will **not try to disambiguate them** and gives an **error**. 
 
 
 ## Usage Tips
