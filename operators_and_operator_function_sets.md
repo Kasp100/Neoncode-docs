@@ -106,7 +106,7 @@ operator (lhs) - (rhs)
 
 
 ```
-pkg temperature;
+pkg my_project::temperature;
 
 operator (v) °K
 {
@@ -123,7 +123,7 @@ operator (v) °F
 	subordination 0;
 }
 
-public operator_function_sets temperature_notation
+public operator_function_set temperature_notation
 {
 	temperature (double v)°K
 	{
