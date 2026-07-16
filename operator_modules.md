@@ -1,54 +1,46 @@
 [← Go back](./intro.md#12-operators-and-operator-function-sets)
 
-# Operators and Operator Function Sets
+# Operator Modules
 
-**Operators** and **operator function sets** work together to extend how you can write **expressions**.
+**Operator modules** (`operator_module`) extend how you can write **expressions**.
+
+A custom operator module applies starting from where it is activated with a `use` statement until the end of the block (`}`) or for the rest of the file.
+
+Operator modules can contain `operator` declarations and operator functions.
+
+> Operators: define **syntax**  
+> Operator functions: define **semantics**
 
 
 ## Operators
 
-Operators (`operator`) define the syntax of an operator.
-
-Operators are scoped to their package hierarchy and are not importable/exportable as named members.
+**Operators** (`operator`) inside operator modules define or confirm the **syntax** of an operator.
 
 They have:
 - a grammar: a set of syntax tokens with parameters (untyped) within round brackets `()`, e.g. `(a) + (b)` which defines them
 - a `subordination` level (the opposite of precedence, with 0 being the highest precedence)
 - an optional `associativity` (`left`/`right` associativity)
 
-### Using Operators
 
-An operator is usable in the package they are defined in, including subpackages.
-However, if they don't have any meaning, they are useless in expressions.
+## Operator Functions
 
-> Operators: define **syntax**  
-> Operator function sets: define **meaning**/**semantics**
+An operator function defines what an operator **does**.
 
+It is like a function, but instead of a name+parameters based signature, a pattern with `()` brackets around each parameter.
+The parameters must be typed here and the function must be pure.
 
-## Operator Function Sets
-
-Operator function sets (`operator_function_set`) define what operators **do**.
-
-### Using Custom Operator Function Sets
-
-A custom operator function set applies where it is the `use` keyword is used.
-
-Operator function sets will apply within blocks (between `{}` backets) where the `use` keyword is used with its package member name or path, including nested scopes.
-
-If the `use` statement is outside any `{}` brackets, it applies to the **whole file**.
-
-**Conflicts**: If two or more operator functions implement the same operator with the same parameter types *and* are simultaneously applied, the compiler will **not try to disambiguate them** and gives an **error**. 
+**Conflicts**: If two or more operator functions implement the same operator with the same parameter types *and* are simultaneously applied, the compiler will **not try to disambiguate them** but give an **error**.
 
 
 ## Usage Tips
 
-It is possible to immediately make the operator function set apply to the whole file:
+It is possible to immediately make the operator module apply to the rest of the file:
 
 `use some_lib::some_sub_package::big_decimal_math`.
 
 This works for most use cases.
 
-Alternatively, you can import an operator function set so you can directly reference it by its name:
+Alternatively, you can import an operator module so you can directly reference it by its name:
 
 `import some_lib::some_sub_package::big_decimal_math`
 
@@ -56,13 +48,7 @@ and put `use` statements where it is needed:
 
 `use big_decimal_math`
 
-if you only want this operator function set to apply in specific locations.
-
-### Defining Custom Operator Function Sets
-
-Operator function sets may contain constants and **operator functions**, a kind of **pure function** that uses an operator instead of a name.
-
-An operator function has a return type and requires **typed parameters**.
+if you only want this operator module to apply in specific locations.
 
 
 ## Examples

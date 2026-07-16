@@ -70,4 +70,4 @@ public class example mut
 
 ```
 
-[→ Next: Operators and Operator Function Sets](./operators_and_operator_function_sets.md.md)
+[→ Next: Operator Modules](./operator_modules.md)
