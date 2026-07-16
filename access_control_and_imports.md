@@ -19,7 +19,7 @@ Here is a full list of all access control / visibility keywords and their meanin
 - types (classes, abstract classes, and interfaces)
 - pure function sets
 - entrypoints
-- grammar sets
+- operator modules
 - compile functions
 
 ## Defaults
