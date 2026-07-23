@@ -2,102 +2,100 @@
 
 # Arrays
 
-Arrays are used to hold N amount of objects of the same type.  
-Array references require the `mut:` prefix to be able to change the array's values (i.e. to set an element to reference a different object, not change the object).  
+Arrays are used to hold N amount of objects of the same type in an order.  
+
 
 ## Types of Arrays
 
-`array` is an overloaded type — it has several types, based on its generic parameters.
+There are several kinds of arrays in Neoncode.
 
-The following overloads exist:
-- `array<immut_type elem_type>`
-- `array<immut_type elem_type, nat size>`
-- `array<mut_type__own elem_type>`
-- `array<mut_type__own elem_type, nat size>`
-- `array<mut_type__own_mut elem_type>`
-- `array<mut_type__own_mut elem_type, nat size>`
-- `array<mut_type__shared elem_type>`
-- `array<mut_type__shared elem_type, nat size>`
-- `array<mut_type__shared_mut elem_type>`
-- `array<mut_type__shared_mut elem_type, nat size>`
+Note: in Neoncode, "ownership", "borrowing", "sharing", and "view" are terminology for mutating permission rather than memory ownership.
 
-### Fixed-size & Runtime-sized
+|      Type Name + Parameter      | Can others mutate the elements? | Can you mutate the elements?  |
+| ------------------------------- | ------------------------------- | ----------------------------- |
+| `array<immut_type E>`           | No (`E` is an immutable type)   | No (`E` is an immutable type) |
+| `owning_view_array<mut_type E>` | No                              | No                            |
+| `owning_mut_array<mut_type E>`  | No                              | Yes\*                         |
+| `observer_array<mut_type E>`    | Yes                             | No                            |
+| `sharing_array<mut_type E>`     | Yes                             | Yes                           |
 
-**Fixed-size arrays**: size is a constant known at compile time: `nat size`  
-**Runtime-sized arrays**: size is determined when the array is created and cannot be changed later (without size parameter)  
+\* Considered to also be a mutation of the array and, as a consequence, a mutation of the owner of that array if the array is **not** `shared`.
 
-Conversion Rules:
-- A fixed-size array can be converted into a runtime-sized array.
-- A runtime-sized array **cannot** be converted into a fixed-size array, since its size is not known at compile time.
+Each of these array types has a fixed-length sibling:
+- name is prefixed with `fl_` for "fixed-length"
+- an additional generic parameter `nat L` for its length
 
-### Arrays of immutable type
+Example: `fl_array<immut_type E, nat L>`
 
-These are the overloads with `immut_type`.
+The length of these fixed-length arrays is known at compile time, making them safer and slightly faster.
 
-**Example**: `array<string>` (`string` is immutable)
 
-**API**:
-- `nat get_size()`
-- `opt elem_type get(nat index)`
-- `elem_type get_throws(nat index) throws index_out_of_range`
-- `elem_type set(nat index, elem_type replacement) mut`
-- `elem_type set_throws(nat index, elem_type replacement) mut throws index_out_of_range`
+## Array APIs
 
-### Arrays of immutable `own` references
+### Replacing elements
 
-These are the overloads with `mut_type__own`.
+|      Array Type      |                           API                           |
+| -------------------- | ------------------------------------------------------- |
+| `array`              | `E set(index, E replacement) mut`                       |
+| `owning_view_array`  | `own E set(index, own E replacement) mut`               |
+| `owning_mut_array`   | `own mut:E set(index, own mut:E replacement) mut`       |
+| `observer_array`     | `shared E set(index, shared E replacement) mut`         |
+| `sharing_array`      | `shared mut:E set(index, shared mut:E replacement) mut` |
 
-**Example**: `array<own string_builder>` (`string_builder` is mutable)
+Replaces an element in the array, returning the original value at `index`.
 
-**API**:
-- `nat get_size()`
-- `opt borrow elem_type get(nat index)`
-- `borrow elem_type get_throws(nat index) throws index_out_of_range`
-- `own elem_type set(nat index, own elem_type replacement) mut`
-- `own elem_type set_throws(nat index, own elem_type replacement) mut throws index_out_of_range`
+This is considered a mutation of the array, even if it's a `observer_array` or a `sharing_array`.
 
-**Note**: `get` and `get_throws` return an immutable `borrow` reference. Immutable borrow references are effectively the same as immutable shared references.
 
-### Arrays of mutable `own` references
+### Getting views of elements
 
-These are the overloads with `mut_type__own_mut`.
+|      Array Type      |          API          |
+| -------------------- | --------------------- |
+| `array`              | `E get(index)`        |
+| `owning_view_array`  | `borrow E get(index)` |
+| `owning_mut_array`   | `borrow E get(index)` |
+| `observer_array`     | `shared E get(index)` |
+| `sharing_array`      | `shared E get(index)` |
 
-**Example**: `array<own mut:string_builder>` (`string_builder` is mutable)
+Gets a view (a reference **without `mut:`**) of the element at `index`.
 
-**API**:
-- `nat get_size()`
-- `opt borrow mut:elem_type get(nat index)`
-- `borrow mut:elem_type get_throws(nat index) throws index_out_of_range`
-- `own mut:elem_type set(nat index, own mut:elem_type replacement) mut`
-- `own mut:elem_type set_throws(nat index, own mut:elem_type replacement) mut throws index_out_of_range`
+This is never considered a mutating operation.
 
-### Arrays of immutable `shared` references
+#### O(1) Lookup
 
-These are the overloads with `mut_type__shared`.
+Because arrays support constant time lookup, the `[]` syntax is supported according to the language's philosophy. For example:
 
-**Example**: `array<shared string_builder>` (`string_builder` is mutable)
+```
+array<int> arr = array::of<int>(-1, 2, 3, 5, 7);
+int elem3 = arr[3];
+```
 
-**API**:
-- `nat get_size()`
-- `opt shared elem_type get(nat index)`
-- `shared elem_type get_throws(nat index) throws index_out_of_range`
-- `shared elem_type set(nat index, shared elem_type replacement) mut`
-- `shared elem_type set_throws(nat index, shared elem_type replacement) mut throws index_out_of_range`
+`elem3` contains 5.
 
-**Note**: `get` and `get_throws` return an immutable `borrow` reference. Immutable borrow references are effectively the same as immutable shared references.
 
-### Arrays of mutable `shared` references
+### Mutating elements
 
-These are the overloads with `mut_type__shared_mut`.
+|      Array Type      |                API                |
+| -------------------- | --------------------------------- |
+| `owning_mut_array`   | `borrow mut:E get_mut(index) mut` |
+| `sharing_array`      | `shared mut:E get_mut(index)`     |
 
-**Example**: `array<shared mut:string_builder>` (`string_builder` is mutable)
+Gets a reference which allows the caller to mutate the element at `index`.
 
-**API**:
-- `nat get_size()`
-- `opt shared mut:elem_type get(nat index)`
-- `shared mut:elem_type get_throws(nat index) throws index_out_of_range`
-- `shared mut:elem_type set(nat index, shared mut:elem_type replacement) mut`
-- `shared mut:elem_type set_throws(nat index, shared mut:elem_type replacement) mut throws index_out_of_range`
+For `owning_mut_array`, this method is marked with `mut` (because it requires returning a `mut:` reference), but the method itself does not mutate the array.
+Rather, it returns a mutable `borrow` reference to the caller, meaning the caller can temporarily mutate the element, which is owned by the array.
+
+For `sharing_array`, this method is **not** marked with `mut` because the array does not own its elements, but keeps mutable `shared` references.
+
+The other array types do not keep `mut:` references.
+
+
+### Getting the lenght
+
+`nat get_length()`
+
+Getting the length of an array is trivial and constant time.
+
 
 ## Array Example
 
@@ -108,28 +106,21 @@ import std::stringable;
 
 public class using_arrays_example
 {
-    public void use_sharing_array(logger l)
+    public void use_owning_mut_array(logger l)
     {
-        mut:array<shared mut:player> players =
+        mut:owning_mut_array<player> players =
         (
             player("Alice"),
             player("Bob")
         );
 
-        shared player b = players[1]; // or `players.get(1)`
+        borrow mut:player b = players.get_mut(1)
 
-        l::info(b); // output: "Bob 0"
+        l::info(b.to_string()); // output: "Bob 0"
 
-        // setting
+        b.increment_score();
 
-        shared mut:player c = ("Carol");
-
-        players[1] = c; // or `players.set(1, c)`
-
-        l.info
-        (
-            std::array_utilities::to_string(players) // output: "Alice 0", "Carol 0"
-        );
+        l::info(players[1].to_string()); // output: "Bob 0"
     }
 
 }
@@ -156,7 +147,7 @@ public class player mut impl stringable
 
 }
 
-
 ```
+
 
 [→ Next: Developer Guidelines and Naming Conventions](./developer_guidelines_and_naming_conventions.md)
