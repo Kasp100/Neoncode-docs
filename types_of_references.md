@@ -55,23 +55,13 @@ The object is owned by someone else, but it won't be mutated by its owner or by 
 Parameters, return values, and local variables default to `own` semantics.  
 The caller or the assigner must provide an `own` reference.
 
-## Providing uniquely mutable references
+## Giving up ownership
 
-A uniquely mutable reference can be provided either by passing or by copying the object.
+An `own` reference can be provided either by giving or by copying the object.
 
-### Using the `pass` keyword
-The `pass` keyword can be used in expressions to pass `own` references.
-After passing a reference, it cannot be used anymore.  
+A `give` expression transfers ownership. After giving, the reference becomes **`shared` without `mut:`**.  
+If the original reference had `mut:`, the mutating permission is also provided.
 
-> This behaves like the oppesite of declaring a variable: after passing, the reference is no longer usable and usages .
-
-### Using `opt:move(v)`
-
-The `opt:move(v)` function can be used to pass `own` references inside optionals. `v` is replaced with the name of any reassignable (`var`), optional (`opt`) field, local variable, or parameter.
-
-After passing a reference, the optional is made empty. This is only possible if reassignment to `v` is allowed.
-
-`opt:move(v)` allows fields to transfer ownership inside mutating methods.
 
 ## Constants (`const`)
 Constants are static fields in a class, non-reassignable, and immutable.
@@ -112,9 +102,7 @@ Example Value Type: `int`
 | `bool`                                 | `opt:is_empty(o)`    | Return `true` if the optional `o` is empty.                                                                     |
 | `int`                                  | `opt:or(o, v)`       | If the optional `o` is empty, return `v`, otherwise return the value of `o` as a non-optional.                  |
 | `int` (may throw exception)            | `opt:or_throw(o)`    | If the optional `o` is empty, throw `unexpected_empty`, otherwise return the value of `o` as a non-optional.    |
-| `opt int`                              | `opt:move(o)`        | Moves the optional value, making `o` empty. \*                                                                  |
 
-\* Used to provide `own` references.
 
 #### Notes
 
