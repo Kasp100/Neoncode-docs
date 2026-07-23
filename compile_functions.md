@@ -52,7 +52,7 @@ public date get_birthdate()
 }
 ```
 
-In case of mutable references (i.e., fields with `mut:`), an **immutable reference is returned**.
+In case of fields declared with `mut:`, a reference **without `mut:`** is returned.
 
 ## Enum Example
 

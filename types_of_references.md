@@ -2,61 +2,58 @@
 
 # Types of References
 
-Mutations to objects of mutable types are controlled through various keywords.
+Mutations to objects of mutable types are controlled through the keywords `own`, `borrow`, `shared`, and `give`.
 
-> In some other languages, the concept of ownership and borrowing is about **who is reponsible for deallocating them**, here it is about **who can mutate and who cannot**.
+As described in [Immutability and Const by Default](./immutability_and_const_by_default.md), a `mut:` reference is needed to mutate an object or to pass it to other `mut:` references.
 
-> When talking about a **mutable reference**, a reference declared with `mut:` is meant.
+> **Important language notes**:
+> - In Neoncode, "ownership", "borrowing", "sharing", and "view" are terminology for **mutating permission** rather than memory ownership like in traditional languages.
+> - 
 
-**As described in [Immutability and Const by Default](./immutability_and_const_by_default.md), a `mut:` reference is needed to mutate an object or to pass it to other `mut:` references.**
-
-**`own`** means the object **cannot** be mutated from elsewhere unless borrowed. This is default in **fields** and **locals**.  
-**`shared`** means the object **can** be mutated from elsewhere.  
-**`borrow`** means the object **can temporarily** be mutated here (if `mut:` is present). This is default for **parameters** and **return values**.
-
-`own`, `shared`, and `borrow` **cannot** be used with **immutable types**, as these concepts are reduntant when the data is immutable.
 
 ## Defaults
 
 - **Fields** and **local variables** are `own` by default, without keyword, but can be set `shared`
 - **Parameters** and **return values** are `borrow` by default, but can be set explicitly `own` or `shared`
 
+
 ## Controlled Mutations (`own`)
 
-The referenced object can be **viewed** elsewhere (by whoever has a reference), but can only be **mutated** here (if `mut:` is used, by calling mutating methods), can be [**borrowed**](#borrowed-borrow).
+You own the object, no one else can mutate it unless you let them [**borrow**](#borrowed-mutability-borrow) it **with a `mut:` reference**.
 
-- Mutating the referenced object is considered mutating the container.
+Properties:
+- Mutating the object is considered mutating the owner - the type it's inside must be mutable.
 - Can be freely passed to immutable `shared` references.
 - `own` is often paired with `mut:` (to mutate a mutable type)
 
-## Shared Mutability (`shared`) 
 
-The referenced object can be mutated from elsewhere.
+## Shared Mutability (`shared`)
 
-> This is the most permissive type of reference. It carries the most risk.
+The object is owned by no one and can possibly be mutated by others.
 
 - Mutating the referenced object is **not** considered mutating the container.
 - Can be freely passed to immutable **and mutable** `shared` or `borrow` references.
 
-> Use `shared` cautiously to avoid unintended side effects.
+This is the most permissive type of reference. It carries the most risk. Use `shared` cautiously to avoid unintended side effects.
+
 
 ## Borrowed Mutability (`borrow`)
 
-**Only for return values and parameters!**
+This concept is only applicable for **return values and parameters.**
 
-The referenced object originates from an `own` reference, and can temporarily be **mutated** from here (if `mut:` is used).
+The object is owned by someone else, but it won't be mutated by its owner or by other borrowers while you have the reference.  
+**With `mut:`**, you get exclusive mutating permission.
 
 `borrow` references:
-- Cannot be passed to `own` or mutable `shared` references
+- **Cannot** be passed to `own` or mutable `shared` references
 - **Can** be passed to immutable `shared` references
 - **Can** be passed to mutable `borrow` references
 
-> If `borrow` is not paired with `mut:`, it's effectively an immutable `shared` reference.
 
 ## Parameters, Return Values and Local Variables
 
-Parameters, return values, and local variables default to `own` semantics.
-This forces the caller or the assigner to provide a uniquely mutable reference.
+Parameters, return values, and local variables default to `own` semantics.  
+The caller or the assigner must provide an `own` reference.
 
 ## Providing uniquely mutable references
 
@@ -80,6 +77,7 @@ After passing a reference, the optional is made empty. This is only possible if 
 Constants are static fields in a class, non-reassignable, and immutable.
 Conventionally, their names are in UPPERCASE_SNAKE_CASING.
 
+
 ## Optional
 
 In Neoncode, variables can never hold a `null` value — the language does not support nullability.  
@@ -97,9 +95,11 @@ Optional:
 
 The compiler ensures optional is used safely, without unexpected exceptions or segmentation faults.
 
+
 ### Declaring optionals
 
 A reference is optional when it is declared with `opt`, e.g. `opt int get_optional_number()`.
+
 
 ### `opt:` functions
 
@@ -124,6 +124,7 @@ Example Value Type: `int`
 
 An optional reference may be used as a regular reference when the compiler knows for sure there's a value present.
 The example demonstrates this.
+
 
 ### Example
 ```
@@ -172,5 +173,6 @@ public class parking_lot mut
 }
 
 ```
+
 
 [→ Next: Access Control & Imports](./access_control_and_imports.md)
