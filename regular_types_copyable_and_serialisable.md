@@ -30,7 +30,7 @@ Serialisable types do not need an explicit constructor. The compiler provides a 
 - Cannot have `shared` fields.
 - Instances can be freely copied using `copy`.
 - Instead of fields being fully private (which is the case for normal types), fields can be **read** (from the outside) using `serialising` blocks.
-- String literals may be used for field names — they possibly (depending on the type of serialisation) reflect the names in its serialised form.
+
 
 ### Example
 

@@ -26,7 +26,7 @@ Here is a full list of all access control / visibility keywords and their meanin
 
 There are a few defaults to take into account.
 - **Package members** are private by default. They can be set public using the `public` keyword.
-- **Fields** are irrevertably **private**. This is by design — getters and setters are used to allow access from the outside. 
+- **Fields** are irrevertably **private**. This is by design - getters and setters are used to allow access from the outside. 
 - **Fields** inside **serialisable** types are only directly readable from the outside within `serialising` blocks.
 - **Methods and constructors** are in classes and abstract classes private by default.
 - **Abstract methods** (incl. methods inside interfaces) are **public by default**, and cannot be set `private`.
@@ -38,7 +38,7 @@ There are a few defaults to take into account.
 > Fields are always private by default, and this visibility cannot be changed.
 
 This design ensures that a type maintains full control over how its internal state is accessed and modified. Public fields allow unrestricted external access, making it impossible to enforce invariants.  
-By keeping fields private, types can expose controlled access through methods. This is valuable in inheritance hierarchies — where subclasses may override getters or setters to implement custom behaviour.  
+By keeping fields private, types can expose controlled access through methods. This is valuable in inheritance hierarchies - where subclasses may override getters or setters to implement custom behaviour.  
 
 ## Exclusive
 

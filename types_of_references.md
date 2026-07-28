@@ -22,7 +22,7 @@ As described in [Immutability and Const by Default](./immutability_and_const_by_
 You own the object, no one else can mutate it unless you let them [**borrow**](#borrowed-mutability-borrow) it **with a `mut:` reference**.
 
 Properties:
-- Mutating the object is considered mutating the owner - the type it's inside must be mutable.
+- Mutating the object is considered mutating the owner, so the type it's inside must be mutable.
 - Can be freely passed to immutable `shared` references.
 - `own` is often paired with `mut:` (to mutate a mutable type)
 
@@ -70,7 +70,7 @@ Conventionally, their names are in UPPERCASE_SNAKE_CASING.
 
 ## Optional
 
-In Neoncode, variables can never hold a `null` value — the language does not support nullability.  
+In Neoncode, variables can never hold a `null` value - the language does not support nullability.  
 Instead, optional (`opt`) is used to explicitly represent values that may or may not be present.
 
 Nullable:
