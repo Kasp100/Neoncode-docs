@@ -1,46 +1,40 @@
 [← Go back](./intro.md#3-primitives)
 
 # Primitives
-Primitives are built-in, small, pass-by-value, and serialisable.
-
-Here's a full list of Neoncode's primitives:
+Here's a full list of Neoncode's primitive types:
 
 ## Table
 
-|  Type Name  |     Aliases     |                      Description                      |
-|-------------|-----------------|-------------------------------------------------------|
-| `uint`      | `nat`, `index`  | 64 bit unsigned integer                               |
-| `int`       |                 | 64 bit signed integer                                 |
-| `char`      |                 | 32 bit single character in UTF-32                     |
-| `bool`      | `bit`           | Boolean, with values `true` or `false`                |
-| `fp16`      | `half`          | Floating point number with half precision (16 bit)    |
-| `fp32`      | `float`         | Floating point number with single precision (32 bit)  |
-| `fp64`      | `double`        | Floating point number with double precision (64 bit)  |
-| `uint64`    | `nat64`         | 64 bit unsigned integer                               |
-| `int64`     |                 | 64 bit signed integer                                 |
-| `uint32`    | `nat32`         | 32 bit unsigned integer                               |
-| `int32`     |                 | 32 bit signed integer                                 |
-| `uint16`    | `nat16`         | 16 bit unsigned integer                               |
-| `int16`     |                 | 16 bit signed integer                                 |
-| `uint8`     | `nat8`, `byte`  | Single byte, 8 bit unsigned integer                   |
-| `int8`      |                 | 8 bit signed integer                                  |
+|    Type Name + Aliases    |       Name Description       |                          Implementation Description                          |
+| ------------------------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| `char`                    | Character                    | Extended grapheme cluster in UTF-8, representing a user-perceived character  |
+| `nat`, `index`, `nat64`   | Natural number (64 bit)      | 64 bit unsigned integer                                                      |
+| `nat32`                   | Natural number (32 bit)      | 32 bit unsigned integer                                                      |
+| `nat16`                   | Natural number (16 bit)      | 16 bit unsigned integer                                                      |
+| `byte`, `nat8`            | Byte, natural number (8 bit) | Single byte, 8 bit unsigned integer                                          |
+| `int`, `int64`            | Integer (64 bit)             | 64 bit signed integer                                                        |
+| `int32`                   | Integer (32 bit)             | 32 bit signed integer                                                        |
+| `int16`                   | Integer (16 bit)             | 16 bit signed integer                                                        |
+| `int8`                    | Integer (8 bit)              | 8 bit signed integer                                                         |
+| `real`, `real64`, `fp64`  | Real number (64 bit)         | Floating point number with double precision (64 bit)                         |
+| `real32`, `fp32`          | Real number (32 bit)         | Floating point number with single precision (32 bit)                         |
+| `real16`, `fp16`          | Real number (16 bit)         | Floating point number with half precision (16 bit)                           |
+| `bool`, `bit`             | Boolean, bit                 | Single bit                                                                   |
 
 **Notes**
-- "nat" stands for **natural number**
-- Prefer `index` over `int` when talking about an index in an array or different collection.
+- `nat` stands for **natural number**.
+- `index` is preferred over `int` for indexing.
 
-## Numeric Types
+## Notation
 
-All built-in primitive types are **numeric** except for booleans (`bool`), characters (`char`).  
-Numeric means that arithmetic operations can be performed on them by default.
-(You can also create custom expression grammar allowing you to create custom numeric types, whether they're primitive or not.)
+**Character literals** are written in between single quotes and may contain an escape sequence.
 
-### Notation
+Example: `'C'`
 
-Each of the numeric types can be written in decimal, hexadecimal, and binary notation.
-E.g. `21` = `0x15` = `0b10101`
+**Number literals** can be written in decimal, hexadecimal, and binary notation.
 
-Booleans can be `true` or `false`.
-Characters can be any character in UTF-32.
+Example: `21` = `0x15` = `0b10101`
+
+**Boolean literals** can be `true` or `false`.
 
 [→ Next: Immutability and Const by Default](./immutability_and_const_by_default.md)

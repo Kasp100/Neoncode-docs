@@ -20,7 +20,7 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 
 #### 3. [Primitives](./primitives.md)
 1. [Table](./primitives.md#table)
-2. [Numeric Types](./primitives.md#numeric-types)
+2. [Notation](./primitives.md#notation)
 
 #### 4. [Immutability and Const by Default](./immutability_and_const_by_default.md)
 1. [Immutability by Default](./immutability_and_const_by_default.md#immutability-by-default)
