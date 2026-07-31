@@ -108,7 +108,7 @@ public class using_arrays_example
 {
     public void use_owning_mut_array(logger l)
     {
-        mut:owning_mut_array<player> players =
+        mut:owning_mut_array<player> players = owning_mut_array::of<player>
         (
             player("Alice"),
             player("Bob")
