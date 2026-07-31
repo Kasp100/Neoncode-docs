@@ -11,13 +11,12 @@ There are several kinds of arrays in Neoncode.
 
 Note: in Neoncode, "ownership", "borrowing", "sharing", and "view" are terminology for mutating permission rather than memory ownership.
 
-|      Type Name + Parameter      | Can others mutate the elements? | Can you mutate the elements?  |
-| ------------------------------- | ------------------------------- | ----------------------------- |
-| `array<immut_type E>`           | No (`E` is an immutable type)   | No (`E` is an immutable type) |
-| `owning_view_array<mut_type E>` | No                              | No                            |
-| `owning_mut_array<mut_type E>`  | No                              | Yes\*                         |
-| `observer_array<mut_type E>`    | Yes                             | No                            |
-| `sharing_array<mut_type E>`     | Yes                             | Yes                           |
+|     Type Name + Parameter     | Can others mutate the elements? | Can you mutate the elements?  |
+| ----------------------------- | ------------------------------- | ----------------------------- |
+| `array<type E>`               | No                              | No                            |
+| `owning_mut_array<type E>`    | No                              | Yes\*                         |
+| `sharing_view_array<type E>`  | Yes                             | No                            |
+| `sharing_mut_array<type E>`   | Yes                             | Yes                           |
 
 \* Considered to also be a mutation of the array and, as a consequence, a mutation of the owner of that array if the array is **not** `shared`.
 
@@ -25,7 +24,7 @@ Each of these array types has a fixed-length sibling:
 - name is prefixed with `fl_` for "fixed-length"
 - an additional generic parameter `nat L` for its length
 
-Example: `fl_array<immut_type E, nat L>`
+Example: `fl_array<type E, nat L>`
 
 The length of these fixed-length arrays is known at compile time, making them safer and slightly faster.
 
@@ -34,28 +33,26 @@ The length of these fixed-length arrays is known at compile time, making them sa
 
 ### Replacing elements
 
-|      Array Type      |                           API                           |
-| -------------------- | ------------------------------------------------------- |
-| `array`              | `E set(index, E replacement) mut`                       |
-| `owning_view_array`  | `own E set(index, own E replacement) mut`               |
-| `owning_mut_array`   | `own mut:E set(index, own mut:E replacement) mut`       |
-| `observer_array`     | `shared E set(index, shared E replacement) mut`         |
-| `sharing_array`      | `shared mut:E set(index, shared mut:E replacement) mut` |
+|      Array Type      |                  API (E: mutable type)                  |                 API (E: immutable type)                 |
+| -------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| `array`              | `own E set(index, own E replacement) mut`               | `E set(index, E replacement) mut`                       |
+| `owning_mut_array`   | `own mut:E set(index, own mut:E replacement) mut`       | **Usage discouraged**                                   |
+| `sharing_view_array` | `shared E set(index, shared E replacement) mut`         | **Usage discouraged**                                   |
+| `sharing_mut_array`  | `shared mut:E set(index, shared mut:E replacement) mut` | **Usage discouraged**                                   |
 
 Replaces an element in the array, returning the original value at `index`.
 
-This is considered a mutation of the array, even if it's a `observer_array` or a `sharing_array`.
+This is considered a mutation of the array, even if it's a `sharing_view_array` or a `sharing_mut_array`.
 
 
 ### Getting views of elements
 
 |      Array Type      |          API          |
 | -------------------- | --------------------- |
-| `array`              | `E get(index)`        |
-| `owning_view_array`  | `borrow E get(index)` |
+| `array`              | `borrow E get(index)` |
 | `owning_mut_array`   | `borrow E get(index)` |
-| `observer_array`     | `shared E get(index)` |
-| `sharing_array`      | `shared E get(index)` |
+| `sharing_view_array` | `shared E get(index)` |
+| `sharing_mut_array`  | `shared E get(index)` |
 
 Gets a view (a reference **without `mut:`**) of the element at `index`.
 
@@ -78,14 +75,14 @@ int elem3 = arr[3];
 |      Array Type      |                API                |
 | -------------------- | --------------------------------- |
 | `owning_mut_array`   | `borrow mut:E get_mut(index) mut` |
-| `sharing_array`      | `shared mut:E get_mut(index)`     |
+| `sharing_mut_array`  | `shared mut:E get_mut(index)`     |
 
 Gets a reference which allows the caller to mutate the element at `index`.
 
 For `owning_mut_array`, this method is marked with `mut` (because it requires returning a `mut:` reference), but the method itself does not mutate the array.
 Rather, it returns a mutable `borrow` reference to the caller, meaning the caller can temporarily mutate the element, which is owned by the array.
 
-For `sharing_array`, this method is **not** marked with `mut` because the array does not own its elements, but keeps mutable `shared` references.
+For `sharing_mut_array`, this method is **not** marked with `mut` because the array does not own its elements, but keeps mutable `shared` references.
 
 The other array types do not keep `mut:` references.
 
