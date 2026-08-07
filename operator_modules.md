@@ -17,7 +17,7 @@ Operator modules can contain `operator` declarations and operator functions.
 **Operators** (`operator`) inside operator modules define or confirm the **syntax** of an operator.
 
 They have:
-- a grammar: a set of syntax tokens with parameters (untyped) within round brackets `()`, e.g. `(a) + (b)` which defines them
+- a grammar: a set of syntax tokens with parameters as underscores (`_`), e.g. `__ + __` which defines them
 - a `subordination` level (the opposite of precedence, with 0 being the highest precedence)
 - an optional `associativity` (`left`/`right` associativity)
 
@@ -56,37 +56,37 @@ if you only want this operator module to apply in specific locations.
 ```
 pkg my_project;
 
-operator (lhs) ^ (rhs)
+operator __ ^ _
 {
 	subordination 1;
 	associativity right;
 }
 
-operator (lhs) root (rhs)
+operator _ root __
 {
 	subordination 1;
 	associativity right;
 }
 
-operator (lhs) * (rhs)
+operator __ * __
 {
 	subordination 2;
 	associativity left;
 }
 
-operator (lhs) / (rhs)
+operator __ / __
 {
 	subordination 2;
 	associativity left;
 }
 
-operator (lhs) + (rhs)
+operator __ + __
 {
 	subordination 3;
 	associativity left;
 }
 
-operator (lhs) - (rhs)
+operator __ - __
 {
 	subordination 3;
 	associativity left;
@@ -97,17 +97,17 @@ operator (lhs) - (rhs)
 ```
 pkg my_project::temperature;
 
-operator (v) °K
+operator __ °K
 {
 	subordination 0;
 }
 
-operator (v) °C
+operator __ °C
 {
 	subordination 0;
 }
 
-operator (v) °F
+operator __ °F
 {
 	subordination 0;
 }
