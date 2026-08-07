@@ -14,8 +14,12 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 3. [Hello World Example](#hello-world-example)
 
 #### 2. [Native Types](./native_types.md)
-1. [Table](./native-types.md#table)
-2. [Notation](./native-types.md#notation)
+1. [Default numeric types](./native_types.md#default-numeric-types)
+2. [Different size numeric types](./native_types.md#default-numeric-types)
+3. [Boolean](./native_types.md#boolean)
+4. [Text types](./native_types.md#text-types)
+5. [Array types](./native_types.md#array-types)
+6. [Generic parameter types](./native_types.md#generic-parameter-types)
 
 #### 3. [Immutability and Const by Default](./immutability_and_const_by_default.md)
 1. [Immutability by Default](./immutability_and_const_by_default.md#immutability-by-default)
