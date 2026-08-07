@@ -93,15 +93,17 @@ A reference is optional when it is declared with `opt`, e.g. `opt int get_option
 
 ### `opt:` functions
 
-Example Value Type: `int`
+Example value type: `int`
 
-|  Return Reference Type (from example)  |        Syntax        |                                                   Description                                                   |
-|----------------------------------------|----------------------|-----------------------------------------------------------------------------------------------------------------|
-| `opt int`                              | `opt:empty`          | Create an empty optional.                                                                                       |
-| `bool`                                 | `opt:is_present(o)`  | Return `true` if the optional `o` has a value. If used safely, it allows dereferencing `o` (compiler-enforced). |
-| `bool`                                 | `opt:is_empty(o)`    | Return `true` if the optional `o` is empty.                                                                     |
-| `int`                                  | `opt:or(o, v)`       | If the optional `o` is empty, return `v`, otherwise return the value of `o` as a non-optional.                  |
-| `int` (may throw exception)            | `opt:or_throw(o)`    | If the optional `o` is empty, throw `unexpected_empty`, otherwise return the value of `o` as a non-optional.    |
+`o` in the table represents an optional with type `int`.
+
+|  Return Reference Type (from example)  |        Syntax        |                                           Description                                           |
+| -------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------- |
+| `opt int`                              | `opt:empty`          | Create an empty optional.                                                                       |
+| `bool`                                 | `opt:is_present(o)`  | Return `true` if `o` has a value. Used safely, allows dereferencing `o` (compiler-enforced).    |
+| `bool`                                 | `opt:is_empty(o)`    | Return `true` if `o` is empty.                                                                  |
+| `int`                                  | `opt:or(o, v)`       | If `o` is empty, return `v`, otherwise return the value of `o` as a non-optional.               |
+| `int` (may throw exception)            | `opt:or_throw(o)`    | If `o` is empty, throw `unexpected_empty`, otherwise return the value of `o` as non-optional.   |
 
 
 #### Notes

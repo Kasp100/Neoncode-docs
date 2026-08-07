@@ -9,7 +9,7 @@ Here is a full list of all access control / visibility keywords and their meanin
 ## Visibility Levels
 
 |       Keyword / Name       |       Members of Types & Pure Function Sets       |                     Package members *                     |
-|----------------------------|---------------------------------------------------|-----------------------------------------------------------|
+| -------------------------- | ------------------------------------------------- | --------------------------------------------------------- |
 | `private`                  | Accessible within the same type                   | Accessible within the same package only, not subpackages  |
 | `public`                   | Accessible from everywhere                        | Accessible from any package                               |
 | `protected`                | Accessible to subtypes                            | *Invalid for package members*                             |
@@ -45,13 +45,13 @@ By keeping fields private, types can expose controlled access through methods. T
 The `exclusive` keyword restricts access to the specified package members or patterns. Patterns use **package member pattern matching** to determine which members may access the declaration.
 Patterns can match by exact name, qualified name, wildcards, inheritance (extends), or combinations thereof.
 
-|                    Package Member Pattern                    |                                              Who can use                                              |
-|--------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| *package member path*                                        | The specified package member                                                                          |
-| `shallow` + `pkg` + *package path*                           | Any package member in *package path*, without its subpackages                                         |
-| `deep` + `pkg` + *package path*                              | Any package member in *package path* **and** its subpackages                                          |
-| `extends` + *package member path*                            | Any type that inherits from the type found by *package member path*                                   |
-| *package member pattern* + `extends` + *package member path* | Any type found by *package member pattern* that inherits from the type found by *package member path* |
+|                     Package Member Pattern                     |                                               Who can use                                               |
+| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| *package member path*                                          | The specified package member                                                                            |
+| `shallow` + `pkg` + *package path*                             | Any package member in *package path*, without its subpackages                                           |
+| `deep` + `pkg` + *package path*                                | Any package member in *package path* **and** its subpackages                                            |
+| `extends` + *package member path*                              | Any type that inherits from the type found by *package member path*                                     |
+| *package member pattern* + `extends` + *package member path*   | Any type found by *package member pattern* that inherits from the type found by *package member path*   |
 
 Note: a *package path* may consist of several `::` as well.
 

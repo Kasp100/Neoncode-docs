@@ -10,11 +10,11 @@
 # Naming Conventions
 These are the proposed naming conventions to use in NeonCode.
 
-|                 Style                  |                      Use                   |
-|----------------------------------------|--------------------------------------------|
-| lowercase_snake_casing                 | Variable and type names, the default style |
-| UPPERCASE_SNAKE_CASING                 | Constant names                             |
-| s_lowercase_snake_casing (prefix `s_`) | Names for `serialisable` types             |
+|                  Style                   |                     Use                     |
+| ---------------------------------------- | ------------------------------------------- |
+| lowercase_snake_casing                   | Variable and type names, the default style  |
+| UPPERCASE_SNAKE_CASING                   | Constant names                              |
+| s_lowercase_snake_casing (prefix `s_`)   | Names for `serialisable` types              |
 
 
 [→ Next: Object Oriented](./object_oriented.md)

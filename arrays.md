@@ -11,12 +11,12 @@ There are several kinds of arrays in Neoncode.
 
 Note: in Neoncode, "ownership", "borrowing", "sharing", and "view" are terminology for mutating permission rather than memory ownership.
 
-|     Type Name + Parameter     | Can others mutate the elements? | Can you mutate the elements?  |
-| ----------------------------- | ------------------------------- | ----------------------------- |
-| `array<type E>`               | No                              | No                            |
-| `owning_mut_array<type E>`    | No                              | Yes\*                         |
-| `sharing_view_array<type E>`  | Yes                             | No                            |
-| `sharing_mut_array<type E>`   | Yes                             | Yes                           |
+|     Type Name + Parameter     |  Can others mutate the elements?  |  Can you mutate the elements?  |
+| ----------------------------- | --------------------------------- | ------------------------------ |
+| `array<type E>`               | No                                | No                             |
+| `owning_mut_array<type E>`    | No                                | Yes\*                          |
+| `sharing_view_array<type E>`  | Yes                               | No                             |
+| `sharing_mut_array<type E>`   | Yes                               | Yes                            |
 
 \* Considered to also be a mutation of the array and, as a consequence, a mutation of the owner of that array if the array is **not** `shared`.
 
@@ -33,12 +33,12 @@ The length of these fixed-length arrays is known at compile time, making them sa
 
 ### Replacing elements
 
-|      Array Type      |                  API (E: mutable type)                  |                 API (E: immutable type)                 |
-| -------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| `array`              | `own E set(index, own E replacement) mut`               | `E set(index, E replacement) mut`                       |
-| `owning_mut_array`   | `own mut:E set(index, own mut:E replacement) mut`       | **Usage discouraged**                                   |
-| `sharing_view_array` | `shared E set(index, shared E replacement) mut`         | **Usage discouraged**                                   |
-| `sharing_mut_array`  | `shared mut:E set(index, shared mut:E replacement) mut` | **Usage discouraged**                                   |
+|       Array Type       |                   API (E: mutable type)                   |       API (E: immutable type)       |
+| ---------------------- | --------------------------------------------------------- | ----------------------------------- |
+| `array`                | `own E set(index, own E replacement) mut`                 | `E set(index, E replacement) mut`   |
+| `owning_mut_array`     | `own mut:E set(index, own mut:E replacement) mut`         | **Usage discouraged**               |
+| `sharing_view_array`   | `shared E set(index, shared E replacement) mut`           | **Usage discouraged**               |
+| `sharing_mut_array`    | `shared mut:E set(index, shared mut:E replacement) mut`   | **Usage discouraged**               |
 
 Replaces an element in the array, returning the original value at `index`.
 
@@ -47,12 +47,12 @@ This is considered a mutation of the array, even if it's a `sharing_view_array` 
 
 ### Getting views of elements
 
-|      Array Type      |          API          |
-| -------------------- | --------------------- |
-| `array`              | `borrow E get(index)` |
-| `owning_mut_array`   | `borrow E get(index)` |
-| `sharing_view_array` | `shared E get(index)` |
-| `sharing_mut_array`  | `shared E get(index)` |
+|       Array Type       |           API           |
+| ---------------------- | ----------------------- |
+| `array`                | `borrow E get(index)`   |
+| `owning_mut_array`     | `borrow E get(index)`   |
+| `sharing_view_array`   | `shared E get(index)`   |
+| `sharing_mut_array`    | `shared E get(index)`   |
 
 Gets a view (a reference **without `mut:`**) of the element at `index`.
 
@@ -72,10 +72,10 @@ int elem3 = arr[3];
 
 ### Mutating elements
 
-|      Array Type      |                API                |
-| -------------------- | --------------------------------- |
-| `owning_mut_array`   | `borrow mut:E get_mut(index) mut` |
-| `sharing_mut_array`  | `shared mut:E get_mut(index)`     |
+|      Array Type      |                 API                 |
+| -------------------- | ----------------------------------- |
+| `owning_mut_array`   | `borrow mut:E get_mut(index) mut`   |
+| `sharing_mut_array`  | `shared mut:E get_mut(index)`       |
 
 Gets a reference which allows the caller to mutate the element at `index`.
 
