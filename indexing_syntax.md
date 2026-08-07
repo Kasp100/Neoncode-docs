@@ -6,7 +6,7 @@ Allowing indexing using square brackets on a type requires it implementing the i
 
 Example: getting the 8th element from an array
 
-We define an array: `array<string> strings = ("ab", "cd", "ef", "gh", "ij");`
+We define an array: `array<string> strings = array::of("ab", "cd", "ef", "gh", "ij");`
 
 Now, `strings[3]` will give the **fourth** element from the array, which will be "gh".
 
