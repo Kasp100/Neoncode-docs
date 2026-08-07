@@ -10,11 +10,17 @@
 # Naming Conventions
 These are the proposed naming conventions to use in NeonCode.
 
-|                  Style                   |                     Use                     |
-| ---------------------------------------- | ------------------------------------------- |
-| lowercase_snake_casing                   | Variable and type names, the default style  |
-| UPPERCASE_SNAKE_CASING                   | Constant names                              |
-| s_lowercase_snake_casing (prefix `s_`)   | Names for `serialisable` types              |
+|                      Use                      |          Style          |             Examples             |
+| --------------------------------------------- | ----------------------- | -------------------------------- |
+| Default: package members, type members, etc.  | Lowercase snake casing  | `vehicle`, `speed`, `get_speed`  |
+| Constant names, generic parameters *          | Uppercase snake casing  | `MAX_SPEED`, `<type T>`          |
+
+\* With generic parameters, it is conventional to keep use a single character if it is clear.
+
+For example:
+- Default: `T`
+- Element type in a collection: `E`
+- Length of an array: `L`
 
 
 [→ Next: Object Oriented](./object_oriented.md)
