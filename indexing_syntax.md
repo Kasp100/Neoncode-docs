@@ -21,3 +21,6 @@ The `[]` syntax implies constant-time (`O(1)`) lookup, so indexable types that d
 The operator (`[]`) is implemented using default [operator functions](operators_and_operator_function_sets.md).
 
 There's no need to explicitly write `use`.
+
+
+[→ Next: Generics](./generics.md)
