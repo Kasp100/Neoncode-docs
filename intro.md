@@ -18,9 +18,9 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 2. [Serialisable](./regular_types_copyable_and_serialisable.md#2-serialisable)
 3. [Copyable](./regular_types_copyable_and_serialisable.md#3-copyable)
 
-#### 3. [Primitives](./primitives.md)
-1. [Table](./primitives.md#table)
-2. [Notation](./primitives.md#notation)
+#### 3. [Native Types](./native_types.md)
+1. [Table](./native-types.md#table)
+2. [Notation](./native-types.md#notation)
 
 #### 4. [Immutability and Const by Default](./immutability_and_const_by_default.md)
 1. [Immutability by Default](./immutability_and_const_by_default.md#immutability-by-default)
