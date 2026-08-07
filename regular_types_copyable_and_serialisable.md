@@ -41,33 +41,33 @@ import std::format_convertors;
 
 public class s_uuid_v4 serialisable
 {
-	uint32 a;
-	uint16 b;
-	uint16 c;
-	uint16 d;
-	uint48 e;
+	nat32 a;
+	nat16 b;
+	nat16 c;
+	nat16 d;
+	nat48 e;
 }
 
 public pure_function_set serialising_example
 {
 	public string stringify(s_uuid_v4 uuid)
 	{
-		mut:string_builder sb = ();
+		mut:string s = "";
 
 		serialising uuid
 		{
-			sb.append(format_convertors::number_to_hex_string(uuid.a)); // `uuid.a` wouldn't be allowed outside the `serialising` block.
-			sb.append('-');
-			sb.append(format_convertors::number_to_hex_string(uuid.b));
-			sb.append('-');
-			sb.append(format_convertors::number_to_hex_string(uuid.c));
-			sb.append('-');
-			sb.append(format_convertors::number_to_hex_string(uuid.d));
-			sb.append('-');
-			sb.append(format_convertors::number_to_hex_string(uuid.e));
+			s.append(format_convertors::number_to_hex_string(uuid.a)); // `uuid.a` wouldn't be allowed outside the `serialising` block.
+			s.append('-');
+			s.append(format_convertors::number_to_hex_string(uuid.b));
+			s.append('-');
+			s.append(format_convertors::number_to_hex_string(uuid.c));
+			s.append('-');
+			s.append(format_convertors::number_to_hex_string(uuid.d));
+			s.append('-');
+			s.append(format_convertors::number_to_hex_string(uuid.e));
 		}
 
-		ret sb.build();
+		ret s;
 	}
 }
 ```
