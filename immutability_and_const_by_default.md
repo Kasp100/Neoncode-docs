@@ -1,4 +1,4 @@
-[← Go back](./intro.md#4-immutability-and-const-by-default)
+[← Go back](./intro.md#3-immutability-and-const-by-default)
 
 # Immutability and Const by Default
 

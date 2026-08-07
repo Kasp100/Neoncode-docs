@@ -1,4 +1,4 @@
-[← Go back](./intro.md#9-object-oriented)
+[← Go back](./intro.md#8-object-oriented)
 
 # Object Oriented Programming
 

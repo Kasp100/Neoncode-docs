@@ -1,4 +1,4 @@
-[← Go back](./intro.md#15-functional--lambda)
+[← Go back](./intro.md#14-functional--lambda)
 
 # Functional Programming
 

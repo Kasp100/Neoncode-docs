@@ -1,4 +1,4 @@
-[← Go back](./intro.md#18-indexing-syntax)
+[← Go back](./intro.md#17-indexing-syntax)
 
 # Indexing Syntax
 

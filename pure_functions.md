@@ -1,4 +1,4 @@
-[← Go back](./intro.md#14-pure-functions)
+[← Go back](./intro.md#13-pure-functions)
 
 # Pure Functions
 

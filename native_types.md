@@ -1,4 +1,4 @@
-[← Go back](./intro.md#3-native-types)
+[← Go back](./intro.md#2-native-types)
 
 # Native Types
 

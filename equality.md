@@ -1,4 +1,4 @@
-[← Go back](./intro.md#17-equality)
+[← Go back](./intro.md#16-equality)
 
 # Equality
 

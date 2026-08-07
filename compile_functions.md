@@ -1,4 +1,4 @@
-[← Go back](./intro.md#13-compile-functions)
+[← Go back](./intro.md#12-compile-functions)
 
 # Compile Functions
 

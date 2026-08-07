@@ -1,4 +1,4 @@
-[← Go back](./intro.md#5-types-of-references)
+[← Go back](./intro.md#4-types-of-references)
 
 # Types of References
 
