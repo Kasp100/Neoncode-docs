@@ -43,17 +43,17 @@ public class person mut
 ```
 pkg main;
 
-import std::collections::trace; // trace: a variable size list
+import std::collections::sequence;
 
 public class bank_account mut
 {
 	string name;
-	mut:trace<transaction> transactions_history;
+	mut:sequence<transaction> transactions_history;
 	shared bank keeper;
 
-	public constructor(bank set_keeper)
+	public constructor(bank keeper)
 	{
-		keeper = set_keeper;
+		this.keeper = keeper;
 		transactions_history = ();
 	}
 
@@ -62,7 +62,7 @@ public class bank_account mut
 		transactions_history.add(tr);
 	}
 
-	public trace<transaction> get_transactions_history()
+	public sequence<transaction> get_transactions_history()
 	{
 		ret transactions_history; // An immutable view can always be returned
 	}
@@ -71,7 +71,7 @@ public class bank_account mut
 	{
 		var float balance = 0;
 
-		for_each_in transactions_history (transaction tr)
+		for_each transaction tr in transactions_history
 		{
 			balance += tr.get_balance_diff(this);
 		}
@@ -83,7 +83,6 @@ public class bank_account mut
 
 public class transaction
 {
-
 	shared bank_account source;
 	shared bank_account destination;
 
@@ -91,11 +90,11 @@ public class transaction
 
 	string<255> comment;
 
-	public constructor(bank_account set_source, bank_account set_destination, float set_amount, string<255> set_comment) {
-		source = set_source;
-		destination = set_destination;
-		amount = set_amount;
-		comment = set_comment;
+	public constructor(bank_account source, bank_account destination, float amount, own string<255> comment) {
+		this.source = source;
+		this.destination = destination;
+		this.amount = amount;
+		this.comment = give comment;
 	}
 
 	public float get_balance_diff(bank_account for_account)
@@ -117,11 +116,11 @@ public class transaction
 public class bank mut
 {
 	string name;
-	mut:trace<bank_account> accounts = ();
+	mut:sharing_view_sequence<bank_account> accounts = ();
 
-	public constructor(string set_name)
+	public constructor(own string name)
 	{
-		name = set_name;
+		this.name = give name;
 	}
 
 	public string get_name()
@@ -129,7 +128,7 @@ public class bank mut
 		ret name;
 	}
 
-	public void add(bank_account ba) mut
+	public void add(shared bank_account ba) mut
 	{
 		accounts.add(ba);
 	}
@@ -143,22 +142,6 @@ public class bank mut
 ```
 pkg main;
 
-public class s_license_plate serialisable
-{
-	array<char,7> chars;
-
-	public constructor(license_plate original)
-	{
-		chars = original.get_chars();
-	}
-
-	public license_plate create() throws invalid_char, invalid_length
-	{
-		ret license_plate(chars);
-	}
-
-}
-
 public class license_plate
 {
 	const nat LENGTH = 7;
@@ -166,11 +149,11 @@ public class license_plate
 
 	array<char,LENGTH> chars;
 
-	public constructor(array<char,LENGTH> set_chars) throws invalid_char, invalid_length
+	public constructor(array<char,LENGTH> chars) throws invalid_char, invalid_length
 	{
-		mut:trace<char> validated_chars = trace::with_capacity(LENGTH);
+		mut:array<char> validated_chars = array<char>(LENGTH, ' ');
 
-		for_each_in set_chars (char c)
+		for_each char c in chars
 		{
 			if(!is_valid(c))
 			{
@@ -182,12 +165,12 @@ public class license_plate
 			}
 		}
 
-		chars = validated_chars.to_array(); // This may throw invalid_length.
+		chars = validated_chars;
 	}
 
-	bool is_valid(char check_char)
+	static bool is_valid(char check_char)
 	{
-		for_each_in VALID_CHARS (char c)
+		for_each char c in VALID_CHARS
 		{
 			if(c == check_char)
 			{
