@@ -8,7 +8,6 @@ As described in [Immutability and Const by Default](./immutability_and_const_by_
 
 > **Important language notes**:
 > - In Neoncode, "ownership", "borrowing", "sharing", and "view" are terminology for **mutating permission** rather than memory ownership like in traditional languages.
-> - 
 
 
 ## Defaults
@@ -59,8 +58,24 @@ The caller or the assigner must provide an `own` reference.
 
 An `own` reference can be provided either by giving or by copying the object.
 
-A `give` expression transfers ownership. After giving, the reference becomes **`shared` without `mut:`**.  
-If the original reference had `mut:`, the mutating permission is also provided.
+A `give` expression transfers ownership:
+
+1. **The giver loses**:
+	- ownership
+	- mutating permission (if present).
+2. **The receiver gains**:
+	- ownership
+	- mutating permission if the original reference had it.
+
+**Examples**:
+- `own string` → `shared string` (giver), `own string` (receiver)
+- `own mut:string` → `shared string` (giver), `own mut:string` (receiver)
+- `borrow mut:string` → **cannot be given - no ownership**
+- `shared mut:string` → **cannot be given - no ownership**
+
+**Notes**:
+- The giver keeps a `shared` reference without mutating permission.
+- The resulting reference, ownership, and mutating permssions can also be discarded.
 
 
 ## Constants (`const`)
