@@ -1,6 +1,6 @@
 [← Go back](./intro.md#4-types-of-references)
 
-# Types of References
+# Mutation Ownership
 
 Mutations to objects of mutable types are controlled through the keywords `own`, `borrow`, `shared`, and `give`.
 
