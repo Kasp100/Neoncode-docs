@@ -12,8 +12,10 @@ As described in [Immutability and Const by Default](./immutability_and_const_by_
 
 ## Defaults
 
-- **Fields** and **local variables** are `own` by default, without keyword, but can be set `shared`
-- **Parameters** and **return values** are `borrow` by default, but can be set explicitly `own` or `shared`
+Without keyword:
+
+- **Fields** and **local variables** default to `own`.
+- **Parameters** and **return values** default to `borrow`.
 
 
 ## Controlled Mutations (`own`)
@@ -44,15 +46,11 @@ The object is owned by someone else, but it won't be mutated by its owner or by 
 **With `mut:`**, you get exclusive mutating permission.
 
 `borrow` references:
-- **Cannot** be passed to `own` or mutable `shared` references
+- **Cannot** be passed to `own` references
+- **Cannot** be passed to `shared` references with mutating permission
 - **Can** be passed to immutable `shared` references
 - **Can** be passed to mutable `borrow` references
 
-
-## Parameters, Return Values and Local Variables
-
-Parameters, return values, and local variables default to `own` semantics.  
-The caller or the assigner must provide an `own` reference.
 
 ## Giving up ownership
 

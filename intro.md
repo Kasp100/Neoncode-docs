@@ -33,10 +33,9 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 3. [Controlled Mutations](./mutation_ownership.md#controlled-mutations-own)
 4. [Shared Mutability](./mutation_ownership.md#shared-mutability-shared)
 5. [Borrowed Mutability](./mutation_ownership.md#borrowed-mutability-borrow)
-6. [Parameters, Return Values and Local Variables](./mutation_ownership.md#parameters-return-values-and-local-variables)
-7. [Giving up ownership](./mutation_ownership.md#giving-up-ownership)
-8. [Constants](./mutation_ownership.md#constants-const)
-9. [Optional](./mutation_ownership.md#optional)
+6. [Giving up ownership](./mutation_ownership.md#giving-up-ownership)
+7. [Constants](./mutation_ownership.md#constants-const)
+8. [Optional](./mutation_ownership.md#optional)
 
 #### 5. [Access Control & Imports](./access_control_and_imports.md)
 1. [Visibility Levels](./access_control_and_imports.md#visibility-levels)
