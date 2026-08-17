@@ -2,8 +2,8 @@
 
 # Mutating Permission
 
-Some traditional programming languages use extra keywords like `const` to prevent unintentional mutations to data.  
-In Neoncode, the keywords `mut` (mutating/mutable) and `var` (reassignable) are used to explicitly allow mutations to data when needed.
+Unlike languages where a single keyword such as `const` may conflate or ambiguously represent different forms of immutability, Neoncode distinguishes reassignment from object mutation.  
+In Neoncode, the keywords `mut` (mutating/mutable) and `var` (reassignable) are used to explicitly allow mutations to data where needed.
 
 The benefit of this model is that code looks cleaner and intentions are more explicit.
 
