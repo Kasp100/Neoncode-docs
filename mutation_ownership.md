@@ -1,13 +1,15 @@
-[← Go back](./intro.md#4-types-of-references)
+[← Go back](./intro.md#4-mutation-ownership)
 
 # Mutation Ownership
 
 Mutations to objects of mutable types are controlled through the keywords `own`, `borrow`, `shared`, and `give`.
 
-As described in [Immutability and Const by Default](./immutability_and_const_by_default.md), a `mut:` reference is needed to mutate an object or to pass it to other `mut:` references.
+As described in [the previous chapter](./mutating_access.md), a reference with mutating permission is needed to mutate an object.
 
-> **Important language notes**:
-> - In Neoncode, "ownership", "borrowing", "sharing", and "view" are terminology for **mutating permission** rather than memory ownership like in traditional languages.
+This is also required to pass it to other references that have mutating permission.
+
+> **Important language note**:
+> - In Neoncode, "ownership", "borrowing", "sharing", and "view" are terminology for **mutating ownership** rather than memory ownership like in traditional languages.
 
 
 ## Defaults

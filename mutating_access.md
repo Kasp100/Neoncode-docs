@@ -1,6 +1,6 @@
-[← Go back](./intro.md#3-mutating-permission)
+[← Go back](./intro.md#3-mutating-access)
 
-# Mutating Permission
+# Mutating Access
 
 Unlike languages where a single keyword such as `const` may conflate or ambiguously represent different forms of immutability, Neoncode distinguishes reassignment from object mutation.  
 In Neoncode, the keywords `mut` (mutating/mutable) and `var` (reassignable) are used to explicitly allow mutations to data where needed.
@@ -76,7 +76,7 @@ class lamp mut
 ```
 
 
-## Mutating Access
+## Reference Mutation Access
 
 In Neoncode, normal references can be used to call **non-mutating** methods on objects.  
 References with explicit **mutating permission** have the additional capability of calling **mutating methods**.
