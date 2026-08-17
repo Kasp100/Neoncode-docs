@@ -86,6 +86,8 @@ References with explicit **mutating permission** have the additional capability 
 
 In reference declarations, the prefix `mut:` before the type gives this reference **mutating permission** over the object it refers to.
 
+**Note**: The colon may be omitted as a syntactic shorthand, but `mut:` is the canonical form used throughout this specification.
+
 **Example**:
 
 Using the `lamp` type from the previous example.
