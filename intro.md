@@ -21,10 +21,12 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 5. [Array types](./native_types.md#array-types)
 6. [Generic parameter types](./native_types.md#generic-parameter-types)
 
-#### 3. [Immutability and Const by Default](./immutability_and_const_by_default.md)
-1. [Immutability by Default](./immutability_and_const_by_default.md#immutability-by-default)
-2. [Const by Default](./immutability_and_const_by_default.md#const-by-default)
-3. [Mutable Declarations](./immutability_and_const_by_default.md#mutable-declarations)
+#### 3. [Mutating Permission](./mutating_permission.md)
+1. [Reassignable References](./mutating_permission.md#reassignable-references)
+2. [Mutable Types and Mutating Methods](./mutating_permission.md#mutable-types-and-mutating-methods)
+3. [Mutating Access](./mutating_permission.md#mutating-access)
+4. [Difference between `var` and `mut:`](./mutating_permission.md#difference-between-var-and-mut)
+5. [`mut` in different places](./mutating_permission.md#mut-in-different-places)
 
 #### 4. [Types of References](./types_of_references.md)
 1. [Defaults](./types_of_references.md#defaults)
