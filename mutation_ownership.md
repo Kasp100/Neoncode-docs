@@ -2,63 +2,76 @@
 
 # Mutation Ownership
 
-Mutations to objects of mutable types are controlled through the keywords `own`, `borrow`, `shared`, and `give`.
+In Neoncode, when working with mutable types (or unknown types from generics), **mutating permission** and **mutation ownership** become relevant.
+
+
+## Giving Mutating Permission
 
 As described in [the previous chapter](./mutating_access.md), a reference with mutating permission is needed to mutate an object.
 
-This is also required to pass it to other references that have mutating permission.
-
-> **Important language note**:
-> - In Neoncode, "ownership", "borrowing", "sharing", and "view" are terminology for **mutating ownership** rather than memory ownership like in traditional languages.
+This is also required to provide new references with mutating permission.
 
 
-## Defaults
+## Mutation Control Levels
+
+In Neoncode, there are three mutation control levels, from safest to least safe:
+
+1. [Owned Mutations](#owned-mutations-own) (safest)
+2. [Borrowed Mutations](#borrowed-mutations-borrow)
+3. [Shared Mutations](#shared-mutations-shared) (least safe)
+
+These levels describe how safe an object is from mutations through other references.
+
+
+### Rules
+
+- A reference with a less safe control level **cannot** provide references with a safer control level. *
+- A reference with a safer control level **can** provide references with a less safe control level **only without mutating permission**.
+- New objects start with the safest control level alongside mutating permission.
+
+\* Unless the object if copied or [mutation ownership is lost when passing](#giving-mutating-permission).
+
+
+### Owned Mutations (`own`)
+
+You own mutations of the object. It cannot be mutated through other references unless the mutations are temporarily [borrowed](#temporarily-owned-mutations-borrow).
+
+The mutations owner's state also includes the object's state. This means mutating the object is considered mutating the mutations owner.
+
+
+### Borrowed Mutations (`borrow`)
+
+You may temporarily use an [Owned Mutations (`own`) reference](#owned-mutations-own) without owning mutations of the object.
+
+There's no other reference through which is can mutate the object. This means operations that require mutating permission over the object are blocked.
+
+A borrow remains active until the borrowed reference is no longer used. Once the compiler determines that the reference has no further uses, the borrowed mutation control is returned to its owner.
+
+> This concept is only applicable for **and parameters, return values, local variables.**
+
+
+### Shared Mutations (`shared`)
+
+You don't own mutations of the object. It may be mutated through other references.
+
+The object is separate from reference holder's state, but the reference itself still is.
+
+> Use this mutation control level cautiously to avoid unintended side effects.
+
+
+## Default Mutation Ownership
 
 Without keyword:
 
-- **Fields** and **local variables** default to `own`.
-- **Parameters** and **return values** default to `borrow`.
+- **Fields** and **local variables** default to [`own` - Owned Mutations](#owned-mutations-own).
+- **Parameters** and **return values** default to [`borrow` - Borrowed Mutations](#borrowed-mutations-borrow).
 
 
-## Controlled Mutations (`own`)
+## Giving Up Mutations Ownership (`give`)
 
-You own the object, no one else can mutate it unless you let them [**borrow**](#borrowed-mutability-borrow) it **with a `mut:` reference**.
+An [Owned Mutations](#owned-mutations-own) reference can be provided from an existing reference either by handing over mutations ownership or by copying the object.
 
-Properties:
-- Mutating the object is considered mutating the owner, so the type it's inside must be mutable.
-- Can be freely passed to immutable `shared` references.
-- `own` is often paired with `mut:` (to mutate a mutable type)
-
-
-## Shared Mutability (`shared`)
-
-The object is owned by no one and can possibly be mutated by others.
-
-- Mutating the referenced object is **not** considered mutating the container.
-- Can be freely passed to immutable **and mutable** `shared` or `borrow` references.
-
-This is the most permissive type of reference. It carries the most risk. Use `shared` cautiously to avoid unintended side effects.
-
-
-## Borrowed Mutability (`borrow`)
-
-This concept is only applicable for **return values and parameters.**
-
-The object is owned by someone else, but it won't be mutated by its owner or by other borrowers while you have the reference.  
-**With `mut:`**, you get exclusive mutating permission.
-
-`borrow` references:
-- **Cannot** be passed to `own` references
-- **Cannot** be passed to `shared` references with mutating permission
-- **Can** be passed to immutable `shared` references
-- **Can** be passed to mutable `borrow` references
-
-
-## Giving up ownership
-
-An `own` reference can be provided either by giving or by copying the object.
-
-A `give` expression transfers ownership:
+A `give` expression transfers mutations ownership:
 
 1. **The giver loses**:
 	- ownership
@@ -70,114 +83,12 @@ A `give` expression transfers ownership:
 **Examples**:
 - `own string` → `shared string` (giver), `own string` (receiver)
 - `own mut:string` → `shared string` (giver), `own mut:string` (receiver)
-- `borrow mut:string` → **cannot be given - no ownership**
-- `shared mut:string` → **cannot be given - no ownership**
+- `borrow mut:string` → **cannot be given - no mutations ownership**
+- `shared mut:string` → **cannot be given - no mutations ownership**
 
 **Notes**:
-- The giver keeps a `shared` reference without mutating permission.
-- The resulting reference, ownership, and mutating permssions can also be discarded.
-
-
-## Constants (`const`)
-Constants are static fields in a class, non-reassignable, and immutable.
-Conventionally, their names are in UPPERCASE_SNAKE_CASING.
-
-
-## Optional
-
-In Neoncode, variables can never hold a `null` value - the language does not support nullability.  
-Instead, optional (`opt`) is used to explicitly represent values that may or may not be present.
-
-Nullable:
-- Found in older languages
-- Does not signal intention clearly, may as well be accidental
-- `null` is considered low level, associated with segmentation faults
-
-Optional:
-- Found in newer and some older languages (with both nullable and optional)
-- Signals **intention**: a value may or may not be present
-- Not meant to cause segmentation faults if a value is empty
-
-The compiler ensures optional is used safely, without unexpected exceptions or segmentation faults.
-
-
-### Declaring optionals
-
-A reference is optional when it is declared with `opt`, e.g. `opt int get_optional_number()`.
-
-
-### `opt:` functions
-
-Example value type: `int`
-
-`o` in the table represents an optional with type `int`.
-
-|  Return Reference Type (from example)  |        Syntax        |                                           Description                                           |
-| -------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------- |
-| `opt int`                              | `opt:empty`          | Create an empty optional.                                                                       |
-| `bool`                                 | `opt:is_present(o)`  | Return `true` if `o` has a value. Used safely, allows dereferencing `o` (compiler-enforced).    |
-| `bool`                                 | `opt:is_empty(o)`    | Return `true` if `o` is empty.                                                                  |
-| `int`                                  | `opt:or(o, v)`       | If `o` is empty, return `v`, otherwise return the value of `o` as a non-optional.               |
-| `int` (may throw exception)            | `opt:or_throw(o)`    | If `o` is empty, throw `unexpected_empty`, otherwise return the value of `o` as non-optional.   |
-
-
-#### Notes
-
-- `opt int x = 7` assigns a present value to the optional reference.
-
-### Dereferencing optionals
-
-An optional reference may be used as a regular reference when the compiler knows for sure there's a value present.
-The example demonstrates this.
-
-
-### Example
-```
-pkg main;
-
-public class vehicle mut
-{
-	var bool damaged = false;
-
-	public void crash() mut
-	{
-		damaged = true;
-	}
-
-    public bool is_damaged()
-    {
-        ret damaged;
-    }
-
-}
-
-public class success {}
-
-public class parking_lot mut
-{
-	var opt shared mut:vehicle occupant = opt:empty;
-
-	public opt success park(shared mut:vehicle driving_vehicle) mut
-	{
-		if(opt:is_present(occupant))
-		{
-			occupant.crash(); // Allowed after is_present
-			driving_vehicle.crash();
-			ret opt:empty;
-		}
-
-		occupant = driving_vehicle;
-		ret success();
-	}
-
-    public bool is_occupied()
-    {
-        ret opt:is_present(occupant);
-    }
-
-}
-
-```
+- The giver keeps a [Shared Mutations](#shared-mutations-shared) reference **without mutating permission**.
+- The result may be discarded, which makes the object effectively finalised.
 
 
 [→ Next: Access Control & Imports](./access_control_and_imports.md)

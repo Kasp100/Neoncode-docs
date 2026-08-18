@@ -99,6 +99,10 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 
 #### 18. [Generics](./generics.md)
 
+#### 19. [Optional](./optional.md)
+
+#### 20. [Constants](./constants.md)
+
 
 ## About Neoncode
 
