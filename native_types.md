@@ -82,4 +82,4 @@ Generic parameters may accept different categories of compile-time values. Nativ
 See [Generics](./generics.md#generics).
 
 
-[→ Next: Immutability and Const by Default](./immutability_and_const_by_default.md)
+[→ Next: Mutating Access](./mutating_access.md)
