@@ -85,4 +85,22 @@ There are two kinds:
 - `local_or_field_reference` is reassigned to the result of `replacement_expression`, which be the correct reference type.
 
 
+## Reference Providing Matrix
+
+This matrix shows which mutation control levels and mutating permission status can be obtained from an existing reference without copying the referenced object.
+
+How to interpret these:
+- "**give**" means the existing reference can provide the requested reference only by [giving up its current mutation ownership](#giving-mutation-ownership-give).
+- "**pass**" means the existing reference can provide the requested reference through ordinary reference passing, while retaining its own mutation control level.
+
+|  From  |                    |   `own mut:T`   |     `own T`     | `borrow mut:T`  |   `borrow T`    | `shared mut:T`  |   `shared T`    |
+| ------ | ------------------ | --------------- | --------------- | --------------- | --------------- | --------------- | --------------- |
+| **To** | **`own mut:T`**    | give            | /               | /               | /               | /               | /               |
+|        | **`own T`**        | give            | give            | /               | /               | /               | /               |
+|        | **`borrow mut:T`** | pass, give      | /               | pass            | /               | /               | /               |
+|        | **`borrow T`**     | pass, give      | pass, give      | pass            | pass            | /               | /               |
+|        | **`shared mut:T`** | give            | /               | /               | /               | pass            | /               |
+|        | **`shared T`**     | pass, give      | pass, give      | pass            | pass            | pass            | pass            |
+
+
 [→ Next: Access Control & Imports](./access_control_and_imports.md)
