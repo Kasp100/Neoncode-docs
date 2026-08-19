@@ -76,10 +76,12 @@ class lamp mut
 ```
 
 
-## Reference Mutation Access
+## Reference Mutating Permission (`mut:`)
 
-In Neoncode, normal references can be used to call **non-mutating** methods on objects.  
-References with explicit **mutating permission** have the additional capability of calling **mutating methods**.
+In Neoncode, references can be used to call **non-mutating** methods on objects.  
+A reference with **mutating permission** has the additional ability of mutating the object through the type's **mutating methods**.
+
+Mutating permission is also required to provide new references with mutating permission.
 
 
 ### Syntax
