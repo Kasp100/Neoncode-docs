@@ -5,13 +5,6 @@
 In Neoncode, when working with mutable types (or unknown types from generics), **mutating permission** and **mutation ownership** become relevant.
 
 
-## Giving Mutating Permission
-
-As described in [the previous chapter](./mutating_access.md), a reference with mutating permission is needed to mutate an object.
-
-This is also required to provide new references with mutating permission.
-
-
 ## Mutation Control Levels
 
 In Neoncode, there are three mutation control levels, from safest to least safe:
@@ -22,8 +15,7 @@ In Neoncode, there are three mutation control levels, from safest to least safe:
 
 These levels describe how safe an object is from mutations through other references.
 
-
-### Rules
+**Rules**:
 
 - A reference with a less safe control level **cannot** provide references with a safer control level. *
 - A reference with a safer control level **can** provide references with a less safe control level **only without mutating permission**.
@@ -67,28 +59,30 @@ Without keyword:
 - **Parameters** and **return values** default to [`borrow` - Borrowed Mutations](#borrowed-mutations-borrow).
 
 
-## Giving Up Mutations Ownership (`give`)
+## Giving Mutations Ownership (`give`)
 
 An [Owned Mutations](#owned-mutations-own) reference can be provided from an existing reference either by handing over mutations ownership or by copying the object.
 
-A `give` expression transfers mutations ownership:
+A `give` expression transfers mutations ownership and mutating permission (if present) over an object.
 
-1. **The giver loses**:
-	- ownership
-	- mutating permission (if present).
-2. **The receiver gains**:
-	- ownership
-	- mutating permission if the original reference had it.
+There are two kinds:
 
-**Examples**:
-- `own string` → `shared string` (giver), `own string` (receiver)
-- `own mut:string` → `shared string` (giver), `own mut:string` (receiver)
-- `borrow mut:string` → **cannot be given - no mutations ownership**
-- `shared mut:string` → **cannot be given - no mutations ownership**
 
-**Notes**:
-- The giver keeps a [Shared Mutations](#shared-mutations-shared) reference **without mutating permission**.
-- The result may be discarded, which makes the object effectively finalised.
+### 1. Give and Downgrade
+
+**Syntax**: `give local_reference`
+
+- `local_reference` must be the name of a local variable or parameter in this scope.
+- `local_reference` is downgraded to a [Shared Mutations](#shared-mutations-shared) reference **without mutating permission**.
+
+
+### 2. Give and Reassign
+
+**Syntax**: `give local_or_field_reference = replacement_expression`
+
+- `local_or_field_reference` must be the name of a local variable or parameter in this scope, or the name of a field within the current type.
+- `local_or_field_reference` must be [reassignable](./mutating_access.md#reassignable-references) (`var`).
+- `local_or_field_reference` is reassigned to the result of `replacement_expression`, which be the correct reference type.
 
 
 [→ Next: Access Control & Imports](./access_control_and_imports.md)
