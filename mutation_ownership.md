@@ -51,7 +51,7 @@ The object is separate from reference holder's state, but the reference itself s
 > Use this mutation control level cautiously to avoid unintended side effects.
 
 
-## Default Mutation Ownership
+## Default Mutation Control Levels
 
 Without keyword:
 
@@ -59,7 +59,7 @@ Without keyword:
 - **Parameters** and **return values** default to [`borrow` - Borrowed Mutations](#borrowed-mutations-borrow).
 
 
-## Giving Mutations Ownership (`give`)
+## Giving Mutation Ownership (`give`)
 
 An [Owned Mutations](#owned-mutations-own) reference can be provided from an existing reference either by handing over mutations ownership or by copying the object.
 
