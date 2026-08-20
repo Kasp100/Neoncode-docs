@@ -4,21 +4,19 @@
 
 Modern programs often need to do things simultaneously. For example, handling user input from a GUI or communicating over a network. Concurrency allows a program to make progress on multiple tasks simultaneously. This improves performance, responsiveness, and takes advantage of modern multi-core processors.
 
+
 ## Multithreading
 
-A thread can be made using `std::thread`.
+A `system` command creates threads.
 
-**API**: `thread::start(runnable)`
-
-### `runnable`: a functional interface
 ```
-pkg std::functional;
 
-public interface runnable mut func
-{
-	void run() mut;
-}
+runnable r1 = () -> { console::print_line("Running " + system: thread_name + "..."); };
+
+thread t1 = system: start_thread(r1, "Thread 1");
+
 ```
+
 
 ### Example
 
@@ -26,8 +24,6 @@ public interface runnable mut func
 pkg main;
 
 import std::console;
-import std::runnable;
-import std::thread;
 
 entrypoint main(array<string> args)
 {
@@ -46,10 +42,12 @@ class program
 
 ```
 
+
 ## Mutex
 
 If a mutable object is accessed from multiple threads and at least one can mutate the object, then it **must** be guarded by a mutex unless it's atomic.
 This ensures thread safety.
+
 
 ### Example
 
@@ -73,17 +71,20 @@ class int_container mut
 
 entrypoint main(array<string> args)
 {
-	shared mutex mut:int_container c;
+	mutex shared mut:int_container c;
 
-	thread::start(() ->
-	{
-		lock c
+	thread::start
+	(
+		() ->
 		{
-			var int v = c.get();
-			v++;
-			c.set(v);
+			lock c
+			{
+				var int v = c.get();
+				v++;
+				c.set(v);
+			}
 		}
-	});
+	);
 }
 
 ```
