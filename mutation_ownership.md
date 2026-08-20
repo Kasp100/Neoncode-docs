@@ -2,26 +2,28 @@
 
 # Mutation Ownership
 
-In Neoncode, when working with mutable types (or unknown types from generics), **mutating permission** and **mutation ownership** become relevant.
+In Neoncode, when working with mutable types, [mutating permission](./mutating_access.md#reference-mutating-permission-mut) and **mutation ownership** become relevant.
+
+Owning or borrowing mutations over an object means no one else can mutate the object.
 
 
 ## Mutation Control Levels
 
-In Neoncode, there are three mutation control levels, from safest to least safe:
+In Neoncode, there are three mutation control levels:
 
-1. [Owned Mutations](#owned-mutations-own) (safest)
-2. [Borrowed Mutations](#borrowed-mutations-borrow)
-3. [Shared Mutations](#shared-mutations-shared) (least safe)
+- [Owned Mutations (`own`)](#owned-mutations-own) (highest)
+- [Borrowed Mutations (`borrow`)](#borrowed-mutations-borrow) (middle)
+- [Shared Mutations (`shared`)](#shared-mutations-shared) (lowest)
 
-These levels describe how safe an object is from mutations through other references.
+Constructors return [`own` references](#owned-mutations-own) with mutating permission.
 
-**Rules**:
+**Reference Passing Rules**:
 
-- A reference with a less safe control level **cannot** provide references with a safer control level. *
-- A reference with a safer control level **can** provide references with a less safe control level **only without mutating permission**.
-- New objects start with the safest control level alongside mutating permission.
+- Higher mutation control levels cannot be obtained from lower mutation control levels.
+- Except from [`own`](#owned-mutations-own) to [`borrow`](#borrowed-mutations-borrow), mutating permission must be dropped when passing to a lower mutation control level.
+- Finally, as stated in [Reference Mutating Permission](./mutating_access.md#reference-mutating-permission-mut), mutating permission **cannot** be obtained from a reference without it.
 
-\* Unless the object if copied or [mutation ownership is lost when passing](#giving-mutating-permission).
+The [Reference Providing Matrix](#reference-providing-matrix) further explains how this works.
 
 
 ### Owned Mutations (`own`)
@@ -87,7 +89,7 @@ There are two kinds:
 
 ## Reference Providing Matrix
 
-This matrix shows which mutation control levels and mutating permission status can be obtained from an existing reference without copying the referenced object.
+This matrix shows each mutation control level and mutating permission status that can be obtained from an existing reference without copying the referenced object.
 
 How to interpret these:
 - "**give**" means the existing reference can provide the requested reference only by [giving up its current mutation ownership](#giving-mutation-ownership-give).
