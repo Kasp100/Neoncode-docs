@@ -31,3 +31,6 @@ The first two are generic **type paramters**, while the second two are generic *
 - [Any default numeric types](./native_types.md#default-numeric-types)
 - [Any different size numeric types](./native_types.md#different-size-numeric-types)
 - [Boolean](./native_types.md#boolean)
+
+
+[→ Next: Optional](./optional.md)
