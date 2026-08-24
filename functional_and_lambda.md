@@ -1,81 +1,77 @@
 [← Go back](./intro.md#14-functional--lambda)
 
-# Functional Programming
+# Functional Programming & Lambda
 
-## Functional Interfaces
+## Functions & Closures
 
-Neoncode has functional interfaces. These allow implementations to be written like lambda expressions.
+`func` is a native type that holds a function (or closure).
 
-Here are some functional interfaces included in the standard library:
+A closure keeps a captured environment of [Shared Mutations](./mutation_ownership.md#shared-mutations-shared) references.
+Mutations to objects behind these references are not considered mutations of the captured environment.
 
-```
-pkg std::functional;
+The return type, optional generic parameters, parameter types enclosed in `()`, optional IO marking, and optional mutating marking are enclosed in `{}` after `func`.
+Example: `func{void <type T> (T) mut io}`
 
-// Without side effects
+If the mutating marking (`mut`) is included, it means this function mutates its captured environment. [This is like how mutating method are declared in types.](./mutating_access.md#mutable-types-and-mutating-methods)
 
-public interface predicate<type T> func
-{
-	pure bool check(T value);
-}
+Calling `func.run(...)` on the function runs it in the current thread. See [Concurrency](./concurrency.md) on how to run it in a new thread.
 
-public interface mapper<type T, type R> func
-{
-	pure R map(T value);
-}
 
-public interface comparator<type T> func
-{
-	pure int compare(T a, T b); // -1, 0, +1
-}
+## Lambda
 
-// With side effects
+TODO
 
-public interface runnable mut func
-{
-	void run() mut;	
-}
 
-public interface supplier<type R> mut func
-{
-	R get() mut;
-}
+## Examples
 
-public interface function<type T, type R> mut func
-{
-	R apply(T value) mut;
-}
 
-```
-
-# Lambda
-
-Lambda allows anonymous implementations of functional interfaces.
-
-## Example
+### Comparator
 
 ```
 pkg main;
 
 import std::console;
-import std::container;
-import std::conversions;
 
-entrypoint main(array<string> args)
+void main(array<string> args) io
 {
-	shared mut:container<int> c = (0);
-
-	runnable r = () mut ->
+	func{T <subtype T { std::comparable }> (T a, T b)} comparator = () ->
 	{
-		var int i = c.get();
-		i++;
-		c.set(i); // Because "c" is mutated here, shared mutability is needed with "c".
+		ret a < b;
 	};
 
-	console::print_line(conversions::number_to_string(c.get())); // 0
+	console::print_line(comparator.run(7, 5)); // false
+
+	console::print_line(comparator.run(0, 2)); // true
+}
+
+```
+
+
+### Counter
+
+```
+pkg main;
+
+import std::console;
+
+void main(array<string> args) io
+{
+	var shared int n = 0;
+
+	mut:func{void() mut} r = () ->
+	{
+		n++;
+	};
+
+	console::print_line(n); // 0
+
 	r.run();
-	console::print_line(conversions::number_to_string(c.get())); // 1
+
+	console::print_line(n); // 1
+
 	r.run();
-	console::print_line(conversions::number_to_string(c.get())); // 2
+
+	console::print_line(n); // 2
 }
 
 ```
