@@ -4,16 +4,96 @@
 
 Modern programs often need to do things simultaneously. For example, handling user input from a GUI or communicating over a network. Concurrency allows a program to make progress on multiple tasks simultaneously. This improves performance, responsiveness, and takes advantage of modern multi-core processors.
 
+Objects shared across threads must be thread-safe or synchronised.
 
-## Multithreading
 
-A `system` command creates threads.
+## Synchronised Access
+
+A non-thread-safe object can be shared across threads only with [synchronised access](#synchronised-objects-sync).
+
+
+### Synchronised Objects (`sync`)
+
+A synchronised object requires synchronised access for read and write operations.
+
+**Syntax**: The keyword `sync` placed between `shared` and `mut:` declares that an object is synchronised.
+
+E.g., `shared sync mut:bank_account`, `shared sync bank_account`
+
+
+### Locking (`lock`, `unlock`)
+
+Read and write operations with a synchronised object require synchronisation using a **lock**.
+
+While an object is locked, mutations from other threads wait.
+If the object is mutated during the lock, reading operations from other threads also wait.
+
+**Syntax**:
+
+- `lock obj` locks `obj`.  
+  The compiler automatically chooses between read lock and write lock.  
+  If the object (`obj`) is mutated during the lock, a write lock is inferred.
+
+- `unlock obj` unlocks `obj`.  
+  Every lock must definitely be matched by an unlock on every control-flow path in code block.  
+  With multiple locks, each object must be unlocked in **reverse order**.
+
+
+### Example
 
 ```
 
-runnable r1 = () -> { console::print_line("Running " + system: thread_name + "..."); };
+shared sync mut:bank_account b = ();
 
-thread t1 = system: start_thread(r1, "Thread 1");
+lock b;
+
+b.deposit(100);
+
+unlock b;
+
+```
+
+
+## Thread-Safe Types
+
+Thread-safe types internally handle synchronisation. Instances of these types do not need external synchronisation.
+
+**Syntax**: `thread_safe` before curly brackets in type declaration, among `mut` and `io`.
+
+
+### Example
+
+```
+
+interface repository<type K, type V> mut thread_safe
+{
+	result<K, repository_err> create(own V value) mut io;
+
+	void save(own K key, own V value) mut io;
+
+	result<V, repository_err> delete(own K key) mut io;
+
+	result<V, repository_err> get(own K key) io;
+}
+
+```
+
+
+## Multithreading
+
+A few `system` commands allow for multithreading.
+
+- Starting a thread: `thread_handle system: start_thread(func{void() mut io} runnable)`
+- Wait for a thread to finish: `void system: join_thread(thread_handle thread_to_wait_for)`
+
+
+Example:
+
+```
+
+func{void() io} r1 = () -> { console::print_line("New thread"); };
+
+thread_handle t1 = system: start_thread(r1);
 
 ```
 
@@ -25,66 +105,41 @@ pkg main;
 
 import std::console;
 
-entrypoint main(array<string> args)
+void main(array<string> args) io
 {
-	program p = ();
-	thread::start(() -> p.run());
-	console::print_line("Thread 1");
+	shared sync mut:counter c = ();
+
+	func{void() io} r = () ->
+	{
+		lock c;
+
+		c.count();
+
+		console::print_line(c.get_value());
+
+		unlock c;
+	};
+
+	system: start_thread(r);
 }
 
-class program
+class counter mut
 {
-	public void run()
+	var nat v = 0;
+
+	public void count() mut
 	{
-		console::print_line("Thread 2");
+		++v;
 	}
+
+	public nat get_value()
+	{
+		ret v;
+	}
+
 }
 
 ```
 
 
-## Mutex
-
-If a mutable object is accessed from multiple threads and at least one can mutate the object, then it **must** be guarded by a mutex unless it's atomic.
-This ensures thread safety.
-
-
-### Example
-
-```
-pkg main;
-
-class int_container mut
-{
-	var int value;
-
-	public int get()
-	{
-		ret value;
-	}
-
-	public void set(int new_value) mut
-	{
-		value = new_value;
-	}
-}
-
-entrypoint main(array<string> args)
-{
-	mutex shared mut:int_container c;
-
-	thread::start
-	(
-		() ->
-		{
-			lock c
-			{
-				var int v = c.get();
-				v++;
-				c.set(v);
-			}
-		}
-	);
-}
-
-```
+[→ Next: Equality](./equality.md)
