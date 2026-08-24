@@ -82,4 +82,11 @@ Generic parameters may accept different categories of compile-time values. Nativ
 See [Generics](./generics.md#generics).
 
 
+## Concurrency
+
+`thread_handle` is used to handle threads.
+
+See [Concurrency](./concurrency.md#multithreading).
+
+
 [→ Next: Mutating Access](./mutating_access.md)
