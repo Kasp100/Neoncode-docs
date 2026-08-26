@@ -82,7 +82,7 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 1. [Example Usage](./compile_functions.md#example-usage)
 2. [Writing Compile Functions](./compile_functions.md#writing-compile-functions)
 
-#### 14. [Functional & Lambda](./functional_and_lambda.md)
+#### 14. [Callables](./callables.md)
 
 #### 15. [Concurrency](./concurrency.md)
 
@@ -109,11 +109,11 @@ The language supports paradigms like object-oriented and functional programming.
 ## Hello World Example
 
 ```
-pkg main;
+pkg examples::hello_world;
 
 import std::console;
 
-entrypoint main(array<string> args)
+void main(array<string> args) io
 {
 	console::print_line("Hello, world!");
 }
