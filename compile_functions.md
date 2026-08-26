@@ -1,4 +1,4 @@
-[← Go back](./intro.md#12-compile-functions)
+[← Go back](./intro.md#13-compile-functions)
 
 # Compile Functions
 
@@ -97,4 +97,5 @@ These allow you to append to the AST (abstract syntax tree).
 
 Compile functions are package members, so they are private by default. They need to be imported if used from another package.
 
-[→ Next: Pure Functions](./pure_functions.md)
+
+[→ Next: Callables](./callables.md)

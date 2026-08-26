@@ -1,4 +1,4 @@
-[← Go back](./intro.md#5-access-control--imports)
+[← Go back](./intro.md#6-access-control--imports)
 
 # Access Control & Imports
 
