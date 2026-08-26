@@ -82,10 +82,6 @@ Neoncode is object-oriented, functional and general-purpose. It features types, 
 1. [Example Usage](./compile_functions.md#example-usage)
 2. [Writing Compile Functions](./compile_functions.md#writing-compile-functions)
 
-#### 13. [Pure Functions](./pure_functions.md)
-1. [Inside types](./pure_functions.md#inside-types)
-2. [Pure Function Sets](./pure_functions.md#pure-function-sets)
-
 #### 14. [Functional & Lambda](./functional_and_lambda.md)
 
 #### 15. [Concurrency](./concurrency.md)
