@@ -91,7 +91,7 @@ Example:
 
 ```
 
-func{void() io} r1 = () -> { console::print_line("New thread"); };
+func{void() io} r1 = func: () -> { console::print_line("New thread"); };
 
 thread_handle t1 = system: start_thread(r1);
 
@@ -109,7 +109,7 @@ void main(array<string> args) io
 {
 	shared sync mut:counter c = ();
 
-	func{void() io} r = () ->
+	func{void() shared_mut io} r = func: () ->
 	{
 		lock c;
 
