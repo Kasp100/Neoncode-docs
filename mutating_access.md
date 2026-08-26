@@ -125,4 +125,4 @@ The `mut:` prefix allows mutating the object behind the reference, while `var` a
 - `mut` in a **method declaration** makes it a **mutating method**, allowing it to modify the object's state.
 
 
-[→ Next: Mutation Ownership](./mutation_ownership.md.md)
+[→ Next: Mutation Ownership](./mutation_ownership.md)
