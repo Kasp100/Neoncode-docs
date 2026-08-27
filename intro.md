@@ -1,6 +1,104 @@
 # Neoncode: A Programming Language
 
 
+## Introduction
+
+Neoncode is a statically typed, compiled, object-oriented programming language designed around **safe defaults and explicit capabilities**.
+
+The language aims to make important operations - such as **mutation, reassignment, mutation control, concurrency, and I/O** - explicit. Code only gains these capabilities when they are intentionally requested, making it easier to reason about what code is allowed to do while keeping ordinary code clean and ergonomic.
+
+**Safe by default. Explicit when necessary.**
+
+
+### At a Glance
+
+| Property           | Neoncode                             |
+| ------------------ | ------------------------------------ |
+| Compilation        | Compiled through LLVM                |
+| Memory management  | Compiler-inserted reference counting |
+| Type system        | Static, with no type inference       |
+| Programming model  | Object-oriented                      |
+| Generics           | Supported                            |
+| Nullability        | No nullable types                    |
+| Error handling     | Result/error values                  |
+| Concurrency        | Compiler-managed synchronization     |
+| C interoperability | Major design goal                    |
+
+
+### References and Values
+
+From the programmer's perspective, Neoncode uses reference semantics throughout the language. Variables, parameters, and fields refer to objects or values, and assigning with `=` reassigns the corresponding reference.
+
+Neoncode does not require programmers to manually manage memory. The compiler inserts the necessary reference-counting operations automatically.
+
+Memory management and mutation control are separate concepts. The `own`, `borrow`, and `shared` mutation-control levels describe **who has control over an object's mutations**, not who is responsible for its memory or lifetime.
+
+
+### Explicit Mutation
+
+Mutation is treated as an explicit capability.
+
+A reference must have **mutating permission** to perform mutations on the object it refers to. Mutation control can additionally be described using `own`, `borrow`, and `shared`, allowing Neoncode to distinguish exclusive mutation control from shared mutation.
+
+Reassignment is a separate operation and is explicitly enabled with `var`.
+
+This separation allows Neoncode to distinguish:
+
+* changing **what a reference refers to**
+* changing **the state of an object**
+* controlling **who may mutate an object**
+
+
+### Explicit Effects
+
+Neoncode uses effect annotations to make important side effects visible in function and method declarations.
+
+For example:
+
+* `mut` indicates mutation of owned state or reassignment of fields.
+* `share_mut` indicates mutation of shared state.
+* `io` indicates that a function may perform input/output.
+
+Functions without these effects can be treated as pure when their parameters also do not provide mutating permission.
+
+
+### Concurrency
+
+Neoncode is designed to make synchronized concurrent access explicit while allowing the compiler to handle the underlying synchronization mechanisms.
+
+Mutation control and concurrency are related but distinct concepts. `own` and `borrow` references cannot be shared across threads, while shared mutation requires appropriate synchronization such as atomic operations or mutexes.
+
+The programmer describes **which accesses must be synchronized**, while the compiler is responsible for inserting the required synchronization behaviour.
+
+
+### Error Handling
+
+Neoncode uses **result/error values** for ordinary error handling. Errors are therefore represented explicitly in function results rather than being implicitly propagated through a hidden control-flow mechanism.
+
+Exception-based error handling may be introduced in the future, but is not currently part of the language.
+
+
+### Optional Values
+
+Neoncode does not have nullable types. The term **optional** is reserved for things that are genuinely optional rather than serving as a general representation of null.
+
+This distinction allows the language to avoid treating the absence of a value as an implicit property of every reference.
+
+
+### Interoperability
+
+**C interoperability is a major goal of Neoncode.** The language is intended to be capable of interacting with existing C libraries and systems software, allowing Neoncode programs to make use of the extensive ecosystem of C APIs.
+
+
+### Current Status
+
+Neoncode is currently in **very early development**.
+
+The language specification is largely complete, but remains subject to change as implementation work reveals new requirements and edge cases. The compiler's parser and AST are currently under active development.
+
+The specification should therefore be considered a description of the **current intended language**, rather than a guarantee that every described feature is already implemented or permanently finalized.
+
+
 ## Philosophy
 
 Neoncode is built around safe defaults and explicit capabilities.
