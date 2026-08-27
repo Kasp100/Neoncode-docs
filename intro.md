@@ -108,8 +108,7 @@ The specification should therefore be considered a description of the **current 
 #### 1. [Intro](#neoncode-a-programming-language)
 1. [Introduction](#introduction)
 2. [Overview](#documentation-overview)
-3. [About Neoncode](#about-neoncode)
-4. [Hello World Example](#hello-world-example)
+3. [Hello World Example](#hello-world-example)
 
 #### 2. [Native Types](./native_types.md)
 1. [Default numeric types](./native_types.md#default-numeric-types)
@@ -202,18 +201,10 @@ The specification should therefore be considered a description of the **current 
 #### 20. [Constants](./constants.md)
 
 
-## About Neoncode
-
-Neoncode is a general-purpose, compiled programming language.
-
-The goals of Neoncode are optimal safety, quick development, and beginner friendliness.
-
-The language supports paradigms like object-oriented and functional programming.
-
-
 ## Hello World Example
 
 ```
+
 pkg examples::hello_world;
 
 import std::console;
@@ -222,6 +213,7 @@ void main(array<string> args) io
 {
 	console::print_line("Hello, world!");
 }
+
 ```
 
 
