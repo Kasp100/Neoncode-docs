@@ -6,6 +6,7 @@ Access control is essential for writing safe code. This can be done by setting v
 
 Here is a full list of all access control / visibility keywords and their meaning.
 
+
 ## Visibility Levels
 
 |       Keyword / Name       |       Members of Types & Pure Function Sets       |                     Package members *                     |
@@ -22,6 +23,7 @@ Here is a full list of all access control / visibility keywords and their meanin
 - operator modules
 - compile functions
 
+
 ## Defaults
 
 There are a few defaults to take into account.
@@ -33,12 +35,14 @@ There are a few defaults to take into account.
     > Having private methods makes them unable to be used.
 - **Constants, static methods**
 
+
 ### Reasoning
 
 > Fields are always private by default, and this visibility cannot be changed.
 
 This design ensures that a type maintains full control over how its internal state is accessed and modified. Public fields allow unrestricted external access, making it impossible to enforce invariants.  
 By keeping fields private, types can expose controlled access through methods. This is valuable in inheritance hierarchies - where subclasses may override getters or setters to implement custom behaviour.  
+
 
 ## Exclusive
 
@@ -55,6 +59,7 @@ Patterns can match by exact name, qualified name, wildcards, inheritance (extend
 
 Note: a *package path* may consist of several `::` as well.
 
+
 ## Imports
 
 Imports are used to bring **public** package members from other packages (and subpackages) into a **file** to be used.
@@ -62,5 +67,6 @@ Imports are used to bring **public** package members from other packages (and su
 Example: `import my_domain::my_project::my_class` 
 
 Package members from the current package (see the `pkg` package declaration in the file), including packages which contain the current package package do not need importing.
+
 
 [→ Next: Arrays](./arrays.md)
