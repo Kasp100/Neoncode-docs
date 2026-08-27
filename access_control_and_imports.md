@@ -61,11 +61,31 @@ Note: a *package path* may consist of several `::` as well.
 
 ## Imports
 
-Imports are used to bring **public** package members from other packages (and subpackages) into a **file** to be used.
+Imports are used to bring packages and package members into the current file so they can be referenced by just their name instead of their full path.
 
-Example: `import my_domain::my_project::my_class` 
+Example:
 
-Package members from the current package (see the `pkg` package declaration in the file), including packages which contain the current package package do not need importing.
+```
+
+pkg examples::imports;
+
+import my_domain::my_project::my_class; // "my_class" now refers to "my_domain::my_project::my_class" in this file.
+
+// Use "my_class"...
+
+```
+
+If `::` is used after the `import` keyword, the current package is automatically inserted.
+
+Example:
+
+```
+
+pkg my_domain;
+
+import ::my_project::my_class; // "my_class" now refers to "my_domain::my_project::my_class" in this file.
+
+```
 
 
 [→ Next: Arrays](./arrays.md)
