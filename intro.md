@@ -138,4 +138,4 @@ void main(array<string> args) io
 ```
 
 
-[→ Next: ](./native_types.md)
+[→ Next: Native Types](./native_types.md)
