@@ -1,17 +1,28 @@
 # Neoncode: A Programming Language
 
-A programming language designed for safety and quick development.
 
-Neoncode is object-oriented, functional and general-purpose. It features types, interfaces, classes, and more.
+## Philosophy
+
+Neoncode is built around safe defaults and explicit capabilities.
+
+The language aims to make important operations - such as mutation, reassignment, mutation control, and side effects - explicit. Code only gains these capabilities when they are intentionally requested, making it easier to reason about what code is allowed to do.
+
+At the same time, Neoncode aims to avoid unnecessary verbosity. Explicitness should clarify a programmer's intentions without making ordinary code cumbersome.
+
+Safe by default. Explicit when necessary.
+
 
 ## Documentation Overview
 
+
 ### Contents
 
+
 #### 1. [Intro](#neoncode-a-programming-language)
-1. [Overview](#documentation-overview)
-2. [About Neoncode](#about-neoncode)
-3. [Hello World Example](#hello-world-example)
+1. [Philosophy](#philosophy)
+2. [Overview](#documentation-overview)
+3. [About Neoncode](#about-neoncode)
+4. [Hello World Example](#hello-world-example)
 
 #### 2. [Native Types](./native_types.md)
 1. [Default numeric types](./native_types.md#default-numeric-types)
