@@ -1,26 +1,29 @@
 [← Go back](./intro.md#10-examples-1)
 
+
 # Neoncode Examples
+
 
 ## 1. Mutable Person Class
 
 ```
-pkg main;
 
-import std::time::e_date;
+pkg examples::mutable_person_class;
+
+import std::time::date;
 
 public class person mut
 {
-	e_date birthdate; // Assuming that a person cannot change their birthdate.
+	date birthdate; // Assuming that a person cannot change their birthdate.
 	var string name; // Assuming that a person may change their name.
 
-	public constructor(e_date birthdate, string name)
+	public constructor(date init_birthdate, own string init_name)
 	{
-		this.birthdate = birthdate; // "this" is a reference to the object self. It can is used to make sure the field is assigned to, not the parameter.
-		this.name = name;
+		date = init_birthdate;
+		name = give init_name;
 	}
 
-	public e_date get_birthdate()
+	public date get_birthdate()
 	{
 		ret birthdate;
 	}
@@ -36,30 +39,31 @@ public class person mut
 	}
 
 }
+
 ```
+
 
 ## 2. Bank Account
 
 ```
-pkg main;
+
+pkg examples::bank_account;
 
 import std::collections::sequence;
 
 public class bank_account mut
 {
-	string name;
 	mut:sequence<transaction> transactions_history;
-	shared bank keeper;
 
-	public constructor(bank keeper)
+	public constructor(bank init_keeper)
 	{
-		this.keeper = keeper;
-		transactions_history = ();
+		keeper = init_keeper;
+		transactions_history = sequence::of<transaction>();
 	}
 
-	public void perform_transaction(transaction tr) mut
+	public void perform_transaction(own transaction tr) mut
 	{
-		transactions_history.add(tr);
+		transactions_history.add(give tr);
 	}
 
 	public sequence<transaction> get_transactions_history()
@@ -67,9 +71,9 @@ public class bank_account mut
 		ret transactions_history; // An immutable view can always be returned
 	}
 
-	public float get_balance()
+	public real get_balance()
 	{
-		var float balance = 0;
+		var real balance = 0;
 
 		for_each transaction tr in transactions_history
 		{
@@ -86,66 +90,48 @@ public class transaction
 	shared bank_account source;
 	shared bank_account destination;
 
-	float amount;
+	real amount;
 
-	string<255> comment;
+	string comment;
 
-	public constructor(bank_account source, bank_account destination, float amount, own string<255> comment) {
-		this.source = source;
+	public constructor(bank_account source, bank_account destination, real amount, own string comment) {
+		this.source = source; // "this" is a reference to the object self. It can is used to make sure the field is assigned to, not the parameter.
 		this.destination = destination;
 		this.amount = amount;
 		this.comment = give comment;
 	}
 
-	public float get_balance_diff(bank_account for_account)
+	public real get_balance_diff(bank_account other)
 	{
-		if(for_account == source)
+		if(other == source)
 		{
 			ret -amount;
 		}
-		if(for_account == destination)
+
+		if(other == destination)
 		{
 			ret amount;
 		}
+
 		ret 0;
 	}
 
 }
 
 
-public class bank mut
-{
-	string name;
-	mut:sharing_view_sequence<bank_account> accounts = ();
-
-	public constructor(own string name)
-	{
-		this.name = give name;
-	}
-
-	public string get_name()
-	{
-		ret name;
-	}
-
-	public void add(shared bank_account ba) mut
-	{
-		accounts.add(ba);
-	}
-
-}
-
 ```
+
 
 ### 3. Licence Plate
 
 ```
-pkg main;
+
+pkg examples::license_plate;
 
 public class license_plate
 {
-	const nat LENGTH = 7;
-	const array<char> VALID_CHARS = ('A','B','C'); // To be expanded
+	nat LENGTH = 7;
+	array<char> VALID_CHARS = array::of('A','B','C'); // To be expanded
 
 	array<char,LENGTH> chars;
 
@@ -168,7 +154,7 @@ public class license_plate
 		chars = validated_chars;
 	}
 
-	static bool is_valid(char check_char)
+	bool is_valid(char check_char)
 	{
 		for_each char c in VALID_CHARS
 		{
@@ -182,6 +168,8 @@ public class license_plate
 	}
 
 }
+
 ```
+
 
 [→ Next: Name Inference](./name_inference.md)
