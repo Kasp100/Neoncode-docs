@@ -99,17 +99,6 @@ The language specification is largely complete, but remains subject to change as
 The specification should therefore be considered a description of the **current intended language**, rather than a guarantee that every described feature is already implemented or permanently finalized.
 
 
-## Philosophy
-
-Neoncode is built around safe defaults and explicit capabilities.
-
-The language aims to make important operations - such as mutation, reassignment, mutation control, and side effects - explicit. Code only gains these capabilities when they are intentionally requested, making it easier to reason about what code is allowed to do.
-
-At the same time, Neoncode aims to avoid unnecessary verbosity. Explicitness should clarify a programmer's intentions without making ordinary code cumbersome.
-
-Safe by default. Explicit when necessary.
-
-
 ## Documentation Overview
 
 
@@ -117,7 +106,7 @@ Safe by default. Explicit when necessary.
 
 
 #### 1. [Intro](#neoncode-a-programming-language)
-1. [Philosophy](#philosophy)
+1. [Introduction](#introduction)
 2. [Overview](#documentation-overview)
 3. [About Neoncode](#about-neoncode)
 4. [Hello World Example](#hello-world-example)
