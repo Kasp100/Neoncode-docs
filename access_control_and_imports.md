@@ -31,8 +31,7 @@ There are a few defaults to take into account.
 - **Fields** are irrevertably **private**. This is by design - getters and setters are used to allow access from the outside. 
 - **Fields** inside **serialisable** types are only directly readable from the outside within `serialising` blocks.
 - **Methods and constructors** are in classes and abstract classes private by default.
-- **Abstract methods** (incl. methods inside interfaces) are **public by default**, and cannot be set `private`.
-    > Having private methods makes them unable to be used.
+- **Abstract methods** (incl. methods inside interfaces) are **public by default**.
 - **Constants, static methods**
 
 
