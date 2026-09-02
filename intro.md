@@ -182,9 +182,7 @@ The specification should therefore be considered a description of the **current 
 3. [Usage Tips](./operator_modules.md#usage-tips)
 4. [Examples](./operator_modules.md#examples)
 
-#### 13. [Compile Functions](./compile_functions.md)
-1. [Example Usage](./compile_functions.md#example-usage)
-2. [Writing Compile Functions](./compile_functions.md#writing-compile-functions)
+#### 13. [Compile-Time Functions](./compile_time_functions.md)
 
 #### 14. [Callables](./callables.md)
 

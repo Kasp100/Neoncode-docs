@@ -167,4 +167,4 @@ pure_function_set temperature_conversions
 }
 ```
 
-[→ Next: Compile Functions](./compile_functions.md)
+[→ Next: Compile-Time Functions](./compile_time_functions.md)
