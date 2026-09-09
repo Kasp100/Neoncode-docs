@@ -19,7 +19,11 @@ There are three ways to define a type:
   They do not define an inherited representation or implementation.
 
 
-## Concrete Implementation Type Example
+## Concrete Implementation Type
+
+Concrete types do not have abstract methods.
+
+Example:
 
 ```
 pkg examples::concrete_types;
@@ -50,59 +54,116 @@ public impl_type point
 ```
 
 
-## Abstract Implementation Type Example
+## Contract Types
 
-Concrete types become a subtype of an abstract implementation type through implementing it in the same way contract types are implement, through the `impl` keyword.  
-
-All methods a subtype implements, need to be marked with `impl` to explicitly state the intention of implementing.
+Contract types only have abstract methods. They are implicitly public and abstract.
 
 Example:
 
 ```
-pkg examples::abstract_implementation_type;
+pkg examples::contract_types;
 
-import some_graphics_lib::canvas;
+import examples::concrete_types::point;
 
-contract_type shape
+public contract_type shape // This contract type requires subtypes to be immutable
 {
 	real get_area();
 }
 
-abstract impl_type drawable mut
+public contract_type has_location mut // This contract type does not require subtypes to be immutable, but allows it
 {
-	point position;
+	point get_location();
+}
 
-	public constructor(point init_position)
+// Concrete type implementing two contracts
+public impl_type rectangle impl shape, has_location
+{
+	point location;
+	nat width;
+	nat height;
+
+	public constructor(point init_location, nat init_width, nat init_height)
 	{
-		position = init_position;
+		location = init_location;
+		width = init_width;
+		height = init_height;
 	}
 
-	implementers point get_position()
+	public real get_area() impl
 	{
-		ret position;
+		ret width * height;
+	}
+
+	public point get_location() impl
+	{
+		ret location;
+	}
+
+}
+
+```
+
+
+## Abstract Implementation Types
+
+Abstract implementation type can have
+
+
+Example:
+
+```
+pkg examples::abstract_implementation_types;
+
+import examples::concrete_types::point;
+import examples::contract_types::has_location;
+
+import some_graphics_lib::canvas;
+
+public abstract impl_type drawable mut impl has_location // This type may be mutable because "has_location" allows it
+{
+	point location;
+
+	implementers constructor(point init_location)
+	{
+		location = init_location;
+	}
+
+	public point get_location() impl
+	{
+		ret location;
 	}
 
 	public void draw(mut:canvas c) abstract;
 
 }
 
-impl_type square impl drawable, shape
+public impl_type square impl drawable mut
 {
-	real side;
+	var nat side;
+
+	public constructor(nat init_side)
+	{
+		side = init_side;
+	}
+
+	public void get_side()
+	{
+		ret side;
+	}
+
+	public void set_side(new_side) mut
+	{
+		side = new_side;
+	}
 
 	public void draw(mut:canvas c) impl
 	{
-		point pos = super.get_position(); // "super" refers to the abstract implementation type this is a subtype of.
+		point pos = super.get_location(); // "super" refers to the abstract implementation type this is a subtype of.
 
 		int x = pos.get_x();
-		int y pos.get_y();
+		int y = pos.get_y();
 
 		c.fill_rectangle(x, y, x + side, y + side;)
-	}
-
-	public real get_area() impl
-	{
-		ret side * side;
 	}
 
 }
@@ -122,7 +183,7 @@ pkg examples::combining_contract_types;
 import std::equatable;
 import std::hashable;
 
-public contract_type value_type impl equatable, hashable {}
+public contract_type value_obj impl equatable, hashable {}
 // Note: "equatable" and "hashable" must also be contract types.
 
 ```
@@ -170,10 +231,11 @@ public impl shape for circle
 	}
 }
 
-use impl_drawable_for_circle;
 
 void main()
 {
+	use impl_drawable_for_circle;
+
 	draw
 	(
 		circle(10),
