@@ -54,117 +54,88 @@ if you only want this operator module to apply in specific locations.
 ## Examples
 
 ```
-pkg my_project;
+pkg examples::operators;
 
-operator __ ^ _
+public operator_module my_operator_module
 {
-	subordination 1;
-	associativity right;
+	operator __ + __
+	{
+		subordination 2;
+		associativity left;
+	}
+
+	operator __ * __
+	{
+		subordination 1;
+		associativity left;
+	}
+
 }
 
-operator _ root __
-{
-	subordination 1;
-	associativity right;
-}
-
-operator __ * __
-{
-	subordination 2;
-	associativity left;
-}
-
-operator __ / __
-{
-	subordination 2;
-	associativity left;
-}
-
-operator __ + __
-{
-	subordination 3;
-	associativity left;
-}
-
-operator __ - __
-{
-	subordination 3;
-	associativity left;
-}
 ```
 
+Now `1 + 2 * 3 == 1 + (2 * 3)`. Lower subordination means higher precedence.
 
 ```
-pkg my_project::temperature;
+pkg examples::temperature;
 
-operator __ °K
+public impl_type temperature
 {
-	subordination 0;
-}
+	/** Value in Kelvin. */
+	real value;
 
-operator __ °C
-{
-	subordination 0;
-}
-
-operator __ °F
-{
-	subordination 0;
-}
-
-public operator_function_set temperature_notation
-{
-	temperature (double v)°K
+	public constructor(real init_value)
 	{
-		ret temperature_conversions::from_kelvin(v);
+		value = init_value;
 	}
 
-	temperature (double v)°C
+	public real get_value()
 	{
-		ret temperature_conversions::from_celcius(v);
-	}
-
-	temperature (double v)°F
-	{
-		ret temperature_conversions::from_fahrenheit(v);
-	}
-}
-
-use temperature_notation;
-
-public impl_type temperature serialisable
-{
-	double value_kelvin;
-
-	public constructor(double set_value_kelvin)
-	{
-		value_kelvin = set_value_kelvin;
-	}
-
-	public double get_value_kelvin()
-	{
-		ret value_kelvin;
+		ret value;
 	}
 
 }
 
-pure_function_set temperature_conversions
+public module temperature_notation
 {
-	temperature from_kelvin(double value)
+	operator __ °K
 	{
-		ret temperature(value);
+		subordination 0;
 	}
 
-	temperature from_celcius(double value)
+	operator __ °C
 	{
-		ret temperature(value+273.15);
+		subordination 0;
 	}
 
-	temperature from_fahrenheit(double value)
+	operator __ °F
 	{
-		ret temperature((value+459.67)/1.8);
+		subordination 0;
+	}
+
+	temperature (real v)°K
+	{
+		ret temperature(v);
+	}
+
+	temperature (real v)°C
+	{
+		ret temperature(v + 273.15)
+	}
+
+	temperature (real v)°F
+	{
+		ret temperature((value + 459.67) / 1.8)
 	}
 }
+
+void main() io
+{
+	use temperature_notation;
+	std::console::print_line(22°C.get_value()); // Prints "295.15"
+}
+
 ```
+
 
 [→ Next: Compile-Time Functions](./compile_time_functions.md)
