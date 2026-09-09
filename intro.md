@@ -159,14 +159,10 @@ The specification should therefore be considered a description of the **current 
 1. [Developer Guidelines](./developer_guidelines_and_naming_conventions.md#developer-guidelines)
 2. [Naming Conventions](./developer_guidelines_and_naming_conventions.md#naming-conventions)
 
-#### 9. [Object Oriented](./object_oriented.md)
-1. [Implementing Interfaces](./object_oriented.md#implementing-interfaces)
-2. [Extending Classes](./object_oriented.md#extending-classes)
-3. [Using Abstract Classes](./object_oriented.md#using-abstract-classes)
-4. [Extending Interfaces](./object_oriented.md#extending-interfaces)
+#### 9. [Concrete Types and Contract Types](./concrete_types_and_contract_types.md)
 
 #### 10. [Examples #1](./examples_1.md)
-1. [Mutable Person Class](./examples_1.md#1-mutable-person-class)
+1. [Mutable Person Type](./examples_1.md#1-mutable-person-type)
 2. [Bank Account](./examples_1.md#2-bank-account)
 3. [Licence Plate](./examples_1.md#3-licence-plate)
 

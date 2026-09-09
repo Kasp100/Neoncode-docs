@@ -2,14 +2,14 @@
 
 # Equality
 
-If a type implements the interface `equatable`, the `==` operator can be used with it.
+If a type implements the contract type `equatable`, the `==` operator can be used with it.
 
-## `equatable` interface
+## `equatable` contract type
 
 ```neoncode
 pkg std;
 
-public interface equatable mut
+public contract_type equatable mut
 {
 	/** Check whether this object is conceptually equal to the other. */
 	bool equals(equatable other);

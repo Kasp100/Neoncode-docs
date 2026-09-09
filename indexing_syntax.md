@@ -2,7 +2,7 @@
 
 # Indexing Syntax
 
-Allowing indexing using square brackets on a type requires it implementing the interface `indexable`.
+Allowing indexing using square brackets on a type requires it implementing the contract type `indexable`.
 
 Example: getting the 8th element from an array
 

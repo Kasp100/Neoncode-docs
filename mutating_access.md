@@ -45,14 +45,14 @@ In Neoncode:
 
 ### Syntax
 
-- To make a type (interface, abstract class, or concrete class) **mutable**, the `mut` keyword is placed **after the type name** in the type's declaration.
+- To make a type **mutable**, the `mut` keyword is placed **after the type name** in the type's declaration.
 - To make a method **mutating**, the `mut` keyword is placed immediately after the parameter declarations.
 
 **Example**:
 
 ```
 
-class lamp mut
+impl_type lamp mut
 {
     var bool on = false;
 

@@ -70,7 +70,7 @@ Examples: `"This is line of text.\n"`, `"こんにちは"`
 
 ## Array types
 
-Arrays are native collection types that store multiple values of the same type. The language provides several array forms with different ownership, size, and mutability semantics.
+Arrays are native collection types that store multiple values of the same type. The language provides several array types with different ownership, size, and mutability semantics.
 
 See [Arrays](./arrays.md#arrays).
 

@@ -101,7 +101,7 @@ pkg main;
 
 import std::stringable;
 
-public class using_arrays_example
+public impl_type using_arrays_example
 {
     public void use_owning_mut_array(logger l)
     {
@@ -122,7 +122,7 @@ public class using_arrays_example
 
 }
 
-public class player mut impl stringable
+public impl_type player mut impl stringable
 {
     string name;
     var int score = 0;

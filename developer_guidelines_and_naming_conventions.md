@@ -5,7 +5,7 @@
 1. Avoid using `var` if the field or variable will never be reassigned.
 2. Avoid using `shared` if the object or array is never referenced elsewhere.
 3. Avoid using `mut:` if the object or array will never be mutated from the scope it's referenced by.
-4. Avoid using `mut` if the method does not mutate the object, or the class is an unmutable type.
+4. Avoid using `mut` if the method does not mutate the object, or the type is an unmutable type.
 
 # Naming Conventions
 These are the proposed naming conventions to use in NeonCode.
@@ -23,4 +23,4 @@ For example:
 - Length of an array: `L`
 
 
-[→ Next: Object Oriented](./object_oriented.md)
+[→ Next: Implementation Types, Capabilities, and Extensions](./forms_capabilities_and_extensions.md)

@@ -11,7 +11,7 @@ The `auto:` directive tells the compiler to run a compile-time function.
 
 ```
 
-public class person
+public impl_type person
 {
 	string name;
 	date birthdate;

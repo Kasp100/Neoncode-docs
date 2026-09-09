@@ -4,7 +4,7 @@
 # Neoncode Examples
 
 
-## 1. Mutable Person Class
+## 1. Mutable Person Type
 
 ```
 
@@ -12,7 +12,7 @@ pkg examples::mutable_person_class;
 
 import std::time::date;
 
-public class person mut
+public impl_type person mut
 {
 	date birthdate; // Assuming that a person cannot change their birthdate.
 	var string name; // Assuming that a person may change their name.
@@ -51,7 +51,7 @@ pkg examples::bank_account;
 
 import std::collections::sequence;
 
-public class bank_account mut
+public impl_type bank_account mut
 {
 	mut:sequence<transaction> transactions_history;
 
@@ -85,7 +85,7 @@ public class bank_account mut
 
 }
 
-public class transaction
+public impl_type transaction
 {
 	shared bank_account source;
 	shared bank_account destination;
@@ -128,7 +128,7 @@ public class transaction
 
 pkg examples::license_plate;
 
-public class license_plate
+public impl_type license_plate
 {
 	nat LENGTH = 7;
 	array<char> VALID_CHARS = array::of('A','B','C'); // To be expanded

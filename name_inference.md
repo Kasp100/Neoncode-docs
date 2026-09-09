@@ -42,7 +42,7 @@ import std::codegen::public_constructor;
 import std::codegen::public_getters;
 import std::codegen::public_setters;
 
-public class person mut copyable
+public impl_type person mut copyable
 {
 	string name;
 	var nat age;
@@ -51,7 +51,7 @@ public class person mut copyable
 	auto:public_setters(age);
 }
 
-public class example mut
+public impl_type example mut
 {
 	mut:person;
 

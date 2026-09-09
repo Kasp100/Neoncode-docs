@@ -42,7 +42,7 @@ The example demonstrates this.
 ```
 pkg main;
 
-public class vehicle mut
+public impl_type vehicle mut
 {
 	var bool damaged = false;
 
@@ -58,9 +58,9 @@ public class vehicle mut
 
 }
 
-public class success {}
+public impl_type success {}
 
-public class parking_lot mut
+public impl_type parking_lot mut
 {
 	var opt shared mut:vehicle occupant = opt:empty;
 

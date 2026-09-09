@@ -37,13 +37,13 @@ The [Reference Providing Matrix](#reference-providing-matrix) further explains h
 
 ```
 
-class type_1
+impl_type type_1
 {
 	bool a; // "bool" is an immutable type (values "true" or "false").
 	bool b;
 }
 
-class type_2
+impl_type type_2
 {
 	bool first;
 	type_1 second; // "own" is implicit with fields.
@@ -161,7 +161,7 @@ s0.append("d");             // ❌ Error: "s0" was given, so at this point it's 
 
 ```
 
-class container<type T> mut
+impl_type container<type T> mut
 {
 	var opt mut:T v;
 

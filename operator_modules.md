@@ -132,7 +132,7 @@ public operator_function_set temperature_notation
 
 use temperature_notation;
 
-public class temperature serialisable
+public impl_type temperature serialisable
 {
 	double value_kelvin;
 

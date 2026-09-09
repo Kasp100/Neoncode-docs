@@ -9,29 +9,28 @@ Here is a full list of all access control / visibility keywords and their meanin
 
 ## Visibility Levels
 
-|       Keyword / Name       |       Members of Types & Pure Function Sets       |                     Package members *                     |
-| -------------------------- | ------------------------------------------------- | --------------------------------------------------------- |
-| `private`                  | Accessible within the same type                   | Accessible within the same package only, not subpackages  |
-| `public`                   | Accessible from everywhere                        | Accessible from any package                               |
-| `protected`                | Accessible to subtypes                            | *Invalid for package members*                             |
-| [`exclusive`](#exclusive)  | Accessible to a specific list of package members  | Accessible to a specific list of package members          |
+|       Keyword / Name       |                 Members of Types                 |                     Package members *                     |
+| -------------------------- | ------------------------------------------------ | --------------------------------------------------------- |
+| `private`                  | Accessible within the same type                  | Accessible within the same package only, not subpackages  |
+| `public`                   | Accessible from everywhere                       | Accessible from any package                               |
+| `implementers`             | Accessible to implementers                       | *Invalid for package members*                             |
+| `extensions`               | Accessible to extensions                         | *Invalid for package members*                             |
+| [`exclusive`](#exclusive)  | Accessible to a specific list of package members | Accessible to a specific list of package members          |
 
-\* A **package member** can be one of the following:
-- types (classes, abstract classes, and interfaces)
-- functions
-- constants
-- operator modules
-- compile functions
+\* **Package members** can the following:
+- types (`impl_type`, `abstract impl_type`, `contract_type`)
+- package functions
+- package constants
+- operator modules (`operator_module`)
 
 
 ## Defaults
 
 There are a few defaults to take into account.
-- **Package members** are private by default. They can be set public using the `public` keyword.
+- **Package members** are private by default. They can be set **public** with the `public` keyword.
 - **Fields** are irrevertably **private**. This is by design - getters and setters are used to allow access from the outside. 
-- **Fields** inside **serialisable** types are only directly readable from the outside within `serialising` blocks.
-- **Methods and constructors** are in classes and abstract classes private by default.
-- **Abstract methods** (incl. methods inside interfaces) are **public by default**.
+- **Methods and constructors** in implementation types and abstract implementation types private by default. 
+- **Methods inside contract types** are **public by default**.
 - **Constants, static methods**
 
 
