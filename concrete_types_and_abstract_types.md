@@ -106,7 +106,7 @@ import examples::abstract_types::locatable;
 
 import some_graphics_lib::canvas;
 
-public partial_impl abstract type drawable mut impl locatable
+public semi_abstract type drawable mut impl locatable
 {
 	point location;
 
