@@ -138,7 +138,7 @@ public type square impl drawable mut
 		ret side;
 	}
 
-	public void set_side(new_side) mut
+	public void set_side(nat new_side) mut
 	{
 		side = new_side;
 	}
