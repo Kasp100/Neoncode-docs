@@ -61,7 +61,7 @@ public abstract type locatable mut // This abstract type does not require subtyp
 	point locate();
 }
 
-// Concrete type implementing two contracts
+// Concrete type implementing two contracts with "impl".
 public type rectangle impl shape, locatable
 {
 	point location;
@@ -75,7 +75,7 @@ public type rectangle impl shape, locatable
 		height = init_height;
 	}
 
-	public impl real get_area() // "impl" is used to make clear that this method implements a
+	public impl real get_area() // "impl" in method declarations means it is implementing a method from the supertype.
 	{
 		ret width * height;
 	}
@@ -216,7 +216,6 @@ public impl shape for circle
 		ret math::PI * get_radius() * get_radius();
 	}
 }
-
 
 void main()
 {
