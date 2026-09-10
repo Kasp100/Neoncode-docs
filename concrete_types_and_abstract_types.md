@@ -176,10 +176,9 @@ public abstract type value_obj impl equatable, hashable {}
 ```
 
 
-## Extendable and Extensions
+## Extensions
 
-An extension is an external implementation of a fully abstract type for an extendable type that does not already implement it.
-An extension does not define a type, but adds a supertype to an existing type.
+An extension is an external implementation of a fully abstract type for a type that does not already implement it.
 
 Extensions get a generated name. They are also package members, so they can be public/private and imported from other packages.
 
@@ -192,7 +191,7 @@ pkg examples::extensions;
 
 import some_graphics_lib::canvas;
 
-public type circle extendable
+public type circle
 {
 	real radius;
 
@@ -214,7 +213,7 @@ public impl shape for circle
 {
 	public impl void get_area()
 	{
-		ret math::PI * radius * radius;
+		ret math::PI * get_radius() * get_radius();
 	}
 }
 
