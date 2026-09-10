@@ -44,7 +44,7 @@ Neoncode does not support type inference. There are two big reasons for that.
 ```
 pkg main;
 
-public impl_type person mut
+public type person mut
 {
 	string name;
 	var nat age;
@@ -54,7 +54,7 @@ public impl_type person mut
 	public auto:setters(age);
 }
 
-public impl_type example mut
+public type example mut
 {
 	mut:person;
 

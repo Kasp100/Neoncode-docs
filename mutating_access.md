@@ -52,7 +52,7 @@ In Neoncode:
 
 ```
 
-impl_type lamp mut
+type lamp mut
 {
     var bool on = false;
 

@@ -8,11 +8,11 @@
 
 ```
 
-pkg examples::mutable_person_class;
+pkg examples::mutable_person_type;
 
 import std::time::date;
 
-public impl_type person mut
+public type person mut
 {
 	date birthdate; // Assuming that a person cannot change their birthdate.
 	var string name; // Assuming that a person may change their name.
@@ -51,7 +51,7 @@ pkg examples::bank_account;
 
 import std::collections::sequence;
 
-public impl_type bank_account mut
+public type bank_account mut
 {
 	mut:sequence<transaction> transactions_history;
 
@@ -85,7 +85,7 @@ public impl_type bank_account mut
 
 }
 
-public impl_type transaction
+public type transaction
 {
 	shared bank_account source;
 	shared bank_account destination;
@@ -128,7 +128,7 @@ public impl_type transaction
 
 pkg examples::license_plate;
 
-public impl_type license_plate
+public type license_plate
 {
 	nat LENGTH = 7;
 	array<char> VALID_CHARS = array::of('A','B','C'); // To be expanded

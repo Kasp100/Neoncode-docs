@@ -23,4 +23,4 @@ For example:
 - Length of an array: `L`
 
 
-[→ Next: Implementation Types, Capabilities, and Extensions](./forms_capabilities_and_extensions.md)
+[→ Next: Concrete Types and Abstract Types](./concrete_types_and_abstract_types.md)

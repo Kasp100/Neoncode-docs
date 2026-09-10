@@ -26,7 +26,7 @@ public real PI = 3.141592;
 ```
 pkg examples::constant_field;
 
-public impl_type calendar_week
+public type calendar_week
 {
     public nat DAYS_IN_WEEK = 7;
 }

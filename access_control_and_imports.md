@@ -11,27 +11,34 @@ Here is a full list of all access control / visibility keywords and their meanin
 
 |       Keyword / Name       |                 Members of Types                 |                     Package members *                     |
 | -------------------------- | ------------------------------------------------ | --------------------------------------------------------- |
-| `private`                  | Accessible within the same type                  | Accessible within the same package only, not subpackages  |
+| private (no keyword)       | Accessible within the same type                  | Accessible within the same package only, not subpackages  |
 | `public`                   | Accessible from everywhere                       | Accessible from any package                               |
 | `implementers`             | Accessible to implementers                       | *Invalid for package members*                             |
 | `extensions`               | Accessible to extensions                         | *Invalid for package members*                             |
 | [`exclusive`](#exclusive)  | Accessible to a specific list of package members | Accessible to a specific list of package members          |
 
 \* **Package members** can the following:
-- types (`impl_type`, `abstract impl_type`, `contract_type`)
 - package functions
 - package constants
-- operator modules (`operator_module`)
+- types
+- operator modules
 
 
 ## Defaults
 
-There are a few defaults to take into account.
-- **Package members** are private by default. They can be set **public** with the `public` keyword.
-- **Fields** are irrevertably **private**. This is by design - getters and setters are used to allow access from the outside. 
-- **Methods and constructors** in implementation types and abstract implementation types private by default. 
-- **Methods inside contract types** are **public by default**.
-- **Constants, static methods**
+The defaults define the visibility level if no visibility keyword is used.
+
+
+### Unmodifiable default visibility levels
+
+- Methods inside [fully abstract types](./concrete_types_and_abstract_types.md#fully-abstract-types) are irrevertably public by default.
+- Fields are irreverably private by default. Outside access is provided in a controlled way through getters and setters.
+
+
+### Modifiable default visibility levels
+
+- Package members are private by default
+- Methods and constructors are private by default, except for those inside fully abstract types.
 
 
 ### Reasoning
@@ -39,7 +46,7 @@ There are a few defaults to take into account.
 > Fields are always private by default, and this visibility cannot be changed.
 
 This design ensures that a type maintains full control over how its internal state is accessed and modified. Public fields allow unrestricted external access, making it impossible to enforce invariants.  
-By keeping fields private, types can expose controlled access through methods. This is valuable in inheritance hierarchies - where subclasses may override getters or setters to implement custom behaviour.  
+By keeping fields private, types can expose controlled access through methods.
 
 
 ## Exclusive
@@ -68,9 +75,9 @@ Example:
 
 pkg examples::imports;
 
-import my_domain::my_project::my_class; // "my_class" now refers to "my_domain::my_project::my_class" in this file.
+import my_domain::my_project::my_type; // "my_type" now refers to "my_domain::my_project::my_type" in this file.
 
-// Use "my_class"...
+// Use "my_type"...
 
 ```
 
@@ -82,7 +89,7 @@ Example:
 
 pkg my_domain;
 
-import ::my_project::my_class; // "my_class" now refers to "my_domain::my_project::my_class" in this file.
+import ::my_project::my_type; // "my_type" now refers to "my_domain::my_project::my_type" in this file.
 
 ```
 

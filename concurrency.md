@@ -65,7 +65,7 @@ Thread-safe types internally handle synchronisation. Instances of these types do
 
 ```
 
-contract_type repository<type K, type V> mut thread_safe
+abstract type repository<type K, type V> mut thread_safe
 {
 	result<K, repository_err> create(own V value) mut io;
 
@@ -123,7 +123,7 @@ void main(array<string> args) io
 	system: start_thread(r);
 }
 
-impl_type counter mut
+type counter mut
 {
 	var nat v = 0;
 

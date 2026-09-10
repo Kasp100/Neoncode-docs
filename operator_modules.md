@@ -79,7 +79,7 @@ Now `1 + 2 * 3 == 1 + (2 * 3)`. Lower subordination means higher precedence.
 ```
 pkg examples::temperature;
 
-public impl_type temperature
+public type temperature
 {
 	/** Value in Kelvin. */
 	real value;

@@ -159,7 +159,7 @@ The specification should therefore be considered a description of the **current 
 1. [Developer Guidelines](./developer_guidelines_and_naming_conventions.md#developer-guidelines)
 2. [Naming Conventions](./developer_guidelines_and_naming_conventions.md#naming-conventions)
 
-#### 9. [Concrete Types and Contract Types](./concrete_types_and_contract_types.md)
+#### 9. [Concrete Types and Abstract Types](./concrete_types_and_abstract_types.md)
 
 #### 10. [Examples #1](./examples_1.md)
 1. [Mutable Person Type](./examples_1.md#1-mutable-person-type)

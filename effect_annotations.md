@@ -17,7 +17,7 @@ Effect annotations are placed at the end of a function or method's parameter dec
 ```
 pkg examples::effect_annotations;
 
-impl_type counter mut
+type counter mut
 {
 	nat v = 0;
 
@@ -29,7 +29,7 @@ impl_type counter mut
 	public nat get_value()
 }
 
-impl_type example
+type example
 {
 	shared mut:counter c;
 
@@ -65,7 +65,7 @@ The `mut` effect indicates that a function or method may mutate objects through 
 
 ```
 
-impl_type counter mut
+type counter mut
 {
 	mut:int value;
 
@@ -86,7 +86,7 @@ The `share_mut` effect indicates that a function or method may mutate objects wi
 
 ```
 
-impl_type example
+type example
 {
 	shared mut:string s = "";
 
