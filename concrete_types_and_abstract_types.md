@@ -180,7 +180,10 @@ public abstract type value_obj impl equatable, hashable {}
 
 An extension is an external implementation of a fully abstract type for a type that does not already implement it.
 
-Extensions get a generated name. They are also package members, so they can be public/private and imported from other packages.
+
+### Extension Modules
+
+Extensions are declared inside **extension modules**. Extension modules are package members, so they can be public/private and imported from other packages.
 
 Similar to operator modules, they are activated with `use`.
 
@@ -207,19 +210,22 @@ public type circle
 
 }
 
-// "shape" extension for "circle"
-// generated name: "impl_shape_for_circle"
-public impl shape for circle
+public extension_module circle_extensions
 {
-	public impl void get_area()
+	impl shape for circle
 	{
-		ret math::PI * get_radius() * get_radius();
+		public impl real get_area()
+		{
+			ret math::PI * get_radius() * get_radius();
+		}
+
 	}
+
 }
 
 void main()
 {
-	use impl_shape_for_circle;
+	use circle_extensions;
 
 	shape s = circle(10);
 
