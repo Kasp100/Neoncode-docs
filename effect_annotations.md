@@ -19,7 +19,7 @@ pkg examples::effect_annotations;
 
 type counter mut
 {
-	nat v = 0;
+	var nat v = 0;
 
 	public void increment() mut // May mutate Owned Mutations state.
 	{
@@ -27,11 +27,19 @@ type counter mut
 	}
 
 	public nat get_value()
+	{
+		ret v;
+	}
 }
 
 type example
 {
 	shared mut:counter c;
+
+	public constructor(shared mut:counter init_counter)
+	{
+		c = init_counter;
+	}
 
 	public void increment_counter() share_mut // May mutate Shared Mutations state.
 	{
