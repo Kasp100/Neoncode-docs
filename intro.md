@@ -160,6 +160,11 @@ The specification should therefore be considered a description of the **current 
 2. [Naming Conventions](./developer_guidelines_and_naming_conventions.md#naming-conventions)
 
 #### 9. [Concrete Types and Abstract Types](./concrete_types_and_abstract_types.md)
+1. [Concrete Types](./concrete_types_and_abstract_types.md#concrete-types)
+2. [Fully Abstract Types](./concrete_types_and_abstract_types.md#fully-abstract-types)
+3. [Partially Implemented Abstract Types](./concrete_types_and_abstract_types.md#partially-implemented-abstract-types)
+4. [Combining Fully Abstract Types](./concrete_types_and_abstract_types.md#combining-fully-abstract-types)
+5. [Extensions](./concrete_types_and_abstract_types.md#extensions)
 
 #### 10. [Examples #1](./examples_1.md)
 1. [Mutable Person Type](./examples_1.md#1-mutable-person-type)
