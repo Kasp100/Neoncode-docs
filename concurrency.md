@@ -1,4 +1,4 @@
-[← Go back](./intro.md#15-concurrency)
+[← Go back](./intro.md#concurrency)
 
 # Concurrency
 

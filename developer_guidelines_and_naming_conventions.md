@@ -1,4 +1,4 @@
-[← Go back](./intro.md#8-developer-guidelines-and-naming-conventions)
+[← Go back](./intro.md#developer-guidelines-and-naming-conventions)
 
 # Developer Guidelines
 

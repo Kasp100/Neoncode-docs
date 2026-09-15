@@ -105,12 +105,12 @@ The specification should therefore be considered a description of the **current 
 ### Contents
 
 
-#### 1. [Intro](#neoncode-a-programming-language)
+#### [Intro](#neoncode-a-programming-language)
 1. [Introduction](#introduction)
 2. [Overview](#documentation-overview)
 3. [Hello World Example](#hello-world-example)
 
-#### 2. [Native Types](./native_types.md)
+#### [Native Types](./native_types.md)
 1. [Default numeric types](./native_types.md#default-numeric-types)
 2. [Different size numeric types](./native_types.md#default-numeric-types)
 3. [Boolean](./native_types.md#boolean)
@@ -118,34 +118,41 @@ The specification should therefore be considered a description of the **current 
 5. [Array types](./native_types.md#array-types)
 6. [Generic parameter types](./native_types.md#generic-parameter-types)
 
-#### 3. [Mutating Access](./mutating_access.md)
+#### [Mutating Access](./mutating_access.md)
 1. [Reassignable References](./mutating_access.md#reassignable-references)
 2. [Mutable Types and Mutating Methods](./mutating_access.md#mutable-types-and-mutating-methods)
 3. [Reference Mutating Permission (`mut:`)](./mutating_access.md#reference-mutating-permission-mut)
 4. [Difference between `var` and `mut:`](./mutating_access.md#difference-between-var-and-mut)
 5. [`mut` in different places](./mutating_access.md#mut-in-different-places)
 
-#### 4. [Mutation Ownership](./mutation_ownership.md)
+#### [Mutation Ownership](./mutation_ownership.md)
 1. [Mutation Control Levels](./mutation_ownership.md#mutation-control-levels)
 2. [Default Mutation Control Levels](./mutation_ownership.md#default-mutation-control-levels)
 3. [Giving Mutation Ownership](./mutation_ownership.md#giving-mutation-ownership-give)
 4. [Reference Providing Matrix](./mutation_ownership.md#reference-providing-matrix)
 
-#### 5. [Effect Annotations](./effect_annotations.md)
+#### [Effect Annotations](./effect_annotations.md)
 1. [Syntax Example](./effect_annotations.md#syntax-example)
 2. [`mut`](./effect_annotations.md#mut)
 3. [`share_mut`](./effect_annotations.md#share_mut)
 4. [`io`](./effect_annotations.md#io)
 5. [Pure functions](./effect_annotations.md#pure-functions)
 
-#### 6. [Access Control & Imports](./access_control_and_imports.md)
+#### [Access Control & Imports](./access_control_and_imports.md)
 1. [Visibility Levels](./access_control_and_imports.md#visibility-levels)
 2. [Defaults](./access_control_and_imports.md#defaults)
 3. [Reasoning](./access_control_and_imports.md#reasoning)
 4. [Exclusive](./access_control_and_imports.md#exclusive)
 5. [Imports](./access_control_and_imports.md#imports)
 
-#### 7. [Arrays](./arrays.md)
+#### [Concrete Types and Abstract Types](./concrete_types_and_abstract_types.md)
+1. [Concrete Types](./concrete_types_and_abstract_types.md#concrete-types)
+2. [Fully Abstract Types](./concrete_types_and_abstract_types.md#fully-abstract-types)
+3. [Partially Implemented Abstract Types](./concrete_types_and_abstract_types.md#partially-implemented-abstract-types)
+4. [Combining Fully Abstract Types](./concrete_types_and_abstract_types.md#combining-fully-abstract-types)
+5. [Extensions](./concrete_types_and_abstract_types.md#extensions)
+
+#### [Arrays](./arrays.md)
 1. [Types of Arrays](./arrays.md#types-of-arrays)
 2. [Fixed-size & Runtime-sized](./arrays.md#fixed-size--runtime-sized)
 3. [Arrays of immutable type](./arrays.md#arrays-of-immutable-type)
@@ -155,49 +162,42 @@ The specification should therefore be considered a description of the **current 
 7. [Arrays of mutable `shared` references](./arrays.md#arrays-of-mutable-shared-references)
 8. [Array Example](./arrays.md#array-example)
 
-#### 8. [Developer Guidelines and Naming Conventions](./developer_guidelines_and_naming_conventions.md)
+#### [Developer Guidelines and Naming Conventions](./developer_guidelines_and_naming_conventions.md)
 1. [Developer Guidelines](./developer_guidelines_and_naming_conventions.md#developer-guidelines)
 2. [Naming Conventions](./developer_guidelines_and_naming_conventions.md#naming-conventions)
 
-#### 9. [Concrete Types and Abstract Types](./concrete_types_and_abstract_types.md)
-1. [Concrete Types](./concrete_types_and_abstract_types.md#concrete-types)
-2. [Fully Abstract Types](./concrete_types_and_abstract_types.md#fully-abstract-types)
-3. [Partially Implemented Abstract Types](./concrete_types_and_abstract_types.md#partially-implemented-abstract-types)
-4. [Combining Fully Abstract Types](./concrete_types_and_abstract_types.md#combining-fully-abstract-types)
-5. [Extensions](./concrete_types_and_abstract_types.md#extensions)
-
-#### 10. [Examples #1](./examples_1.md)
+#### [Examples #1](./examples_1.md)
 1. [Mutable Person Type](./examples_1.md#1-mutable-person-type)
 2. [Bank Account](./examples_1.md#2-bank-account)
 3. [Licence Plate](./examples_1.md#3-licence-plate)
 
-#### 11. [Name Inference](./name_inference.md)
+#### [Name Inference](./name_inference.md)
 1. [Using Name Inference](./name_inference.md#using-name-inference)
 2. [How names are inferred](./name_inference.md#how-names-are-inferred)
 3. [Why no type inference](./name_inference.md#why-no-type-inference)
 4. [Example](./name_inference.md#example)
 
-#### 12. [Operator Modules](./operator_modules.md)
+#### [Operator Modules](./operator_modules.md)
 1. [Operators](./operator_modules.md#operators)
 2. [Operator Functions](./operator_modules.md#operator-functions)
 3. [Usage Tips](./operator_modules.md#usage-tips)
 4. [Examples](./operator_modules.md#examples)
 
-#### 13. [Compile-Time Functions](./compile_time_functions.md)
+#### [Compile-Time Functions](./compile_time_functions.md)
 
-#### 14. [Callables](./callables.md)
+#### [Callables](./callables.md)
 
-#### 15. [Concurrency](./concurrency.md)
+#### [Concurrency](./concurrency.md)
 
-#### 16. [Equality](./equality.md)
+#### [Equality](./equality.md)
 
-#### 17. [Indexing Syntax](./indexing_syntax.md)
+#### [Indexing Syntax](./indexing_syntax.md)
 
-#### 18. [Generics](./generics.md)
+#### [Generics](./generics.md)
 
-#### 19. [Optional](./optional.md)
+#### [Optional](./optional.md)
 
-#### 20. [Constants](./constants.md)
+#### [Constants](./constants.md)
 
 
 ## Hello World Example

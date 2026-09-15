@@ -1,4 +1,4 @@
-[← Go back](./intro.md#11-name-inference)
+[← Go back](./intro.md#name-inference)
 
 # Name Inference
 

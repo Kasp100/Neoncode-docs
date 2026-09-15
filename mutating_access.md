@@ -1,4 +1,4 @@
-[← Go back](./intro.md#3-mutating-access)
+[← Go back](./intro.md#mutating-access)
 
 # Mutating Access
 

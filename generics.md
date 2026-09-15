@@ -1,4 +1,4 @@
-[← Go back](./intro.md#18-generics)
+[← Go back](./intro.md#generics)
 
 # Generics
 

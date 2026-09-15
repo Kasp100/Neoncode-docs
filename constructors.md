@@ -1,3 +1,5 @@
+[← Go back](./intro.md#constructors)
+
 # Constructors
 
 A **constructor** is a special method used to initialise an instance of a type. Unlike constructors in many object-oriented languages, Neoncode constructors are explicitly named or anonymous and have an explicit return type.

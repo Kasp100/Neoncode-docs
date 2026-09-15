@@ -1,4 +1,4 @@
-[← Go back](./intro.md#5-effect-annotations)
+[← Go back](./intro.md#effect-annotations)
 
 # Effect Annotations
 

@@ -1,4 +1,4 @@
-[← Go back](./intro.md#4-mutation-ownership)
+[← Go back](./intro.md#mutation-ownership)
 
 # Mutation Ownership
 

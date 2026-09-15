@@ -1,4 +1,4 @@
-[← Go back](./intro.md#7-arrays)
+[← Go back](./intro.md#arrays)
 
 # Arrays
 

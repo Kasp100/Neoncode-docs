@@ -1,4 +1,4 @@
-[← Go back](./intro.md#9-concrete-types-and-abstract-types)
+[← Go back](./intro.md#concrete-types-and-abstract-types)
 
 # Concrete Types and Abstract Types
 

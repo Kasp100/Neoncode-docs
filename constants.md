@@ -1,4 +1,4 @@
-[← Go back](./intro.md#20-constants)
+[← Go back](./intro.md#constants)
 
 # Constants
 

@@ -1,4 +1,4 @@
-[← Go back](./intro.md#19-optional)
+[← Go back](./intro.md#optional)
 
 # Optional
 
