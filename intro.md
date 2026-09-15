@@ -152,6 +152,13 @@ The specification should therefore be considered a description of the **current 
 4. [Combining Fully Abstract Types](./concrete_types_and_abstract_types.md#combining-fully-abstract-types)
 5. [Extensions](./concrete_types_and_abstract_types.md#extensions)
 
+#### [Constructors](./constructors.md)
+1. [Anonymous constructors](./constructors.md#anonymous-constructors)
+2. [Named constructors](./constructors.md#named-constructors)
+3. [Constructor return types](./constructors.md#constructor-return-types)
+4. [Supertype initialisation](./constructors.md#supertype-initialisation)
+5. [Constructors and static methods](./constructors.md#constructors-and-static-methods)
+
 #### [Arrays](./arrays.md)
 1. [Types of Arrays](./arrays.md#types-of-arrays)
 2. [Fixed-size & Runtime-sized](./arrays.md#fixed-size--runtime-sized)
