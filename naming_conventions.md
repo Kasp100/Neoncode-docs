@@ -55,6 +55,7 @@ The following letters are recommended for common meanings:
 | `K`       | key     |
 | `V`       | value   |
 | `L`       | length  |
+| `S`       | size    |
 
 For example:
 
