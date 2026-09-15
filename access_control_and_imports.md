@@ -53,7 +53,6 @@ By keeping fields private, types can expose controlled access through methods.
 ## Exclusive
 
 The `exclusive` keyword restricts access to the specified package members or patterns. Patterns use **package member pattern matching** to determine which members may access the declaration.
-Patterns can match by exact name, qualified name, wildcards, inheritance (extends), or combinations thereof.
 
 |                   Package Member Pattern                   |                                               Who can use                                               |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
