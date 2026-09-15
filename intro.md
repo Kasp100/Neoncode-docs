@@ -169,16 +169,34 @@ The specification should therefore be considered a description of the **current 
 7. [Arrays of mutable `shared` references](./arrays.md#arrays-of-mutable-shared-references)
 8. [Array Example](./arrays.md#array-example)
 
-#### [Examples #1](./examples_1.md)
-1. [Mutable Person Type](./examples_1.md#1-mutable-person-type)
-2. [Bank Account](./examples_1.md#2-bank-account)
-3. [Licence Plate](./examples_1.md#3-licence-plate)
-
 #### [Name Inference](./name_inference.md)
 1. [Using Name Inference](./name_inference.md#using-name-inference)
 2. [How names are inferred](./name_inference.md#how-names-are-inferred)
 3. [Why no type inference](./name_inference.md#why-no-type-inference)
 4. [Example](./name_inference.md#example)
+
+#### [Optional](./optional.md)
+1. [Declaring optionals](./optional.md#declaring-optionals)
+2. [Dereferencing optionals](./optional.md#dereferencing-optionals)
+3. [Example](./optional.md#example)
+
+#### [Constants](./constants.md)
+1. [Package constants](./constants.md#package-constants)
+2. [Type member constants](./constants.md#type-member-constants)
+3. [Local constants](./constants.md#local-constants)
+
+#### [Naming Conventions](./naming_conventions.md)
+
+#### [Callables](./callables.md)
+
+#### [Generics](./generics.md)
+
+#### [Examples #1](./examples_1.md)
+1. [Mutable Person Type](./examples_1.md#1-mutable-person-type)
+2. [Bank Account](./examples_1.md#2-bank-account)
+3. [Licence Plate](./examples_1.md#3-licence-plate)
+
+#### [Equality](./equality.md)
 
 #### [Operator Modules](./operator_modules.md)
 1. [Operators](./operator_modules.md#operators)
@@ -188,21 +206,14 @@ The specification should therefore be considered a description of the **current 
 
 #### [Compile-Time Functions](./compile_time_functions.md)
 
-#### [Callables](./callables.md)
-
 #### [Concurrency](./concurrency.md)
-
-#### [Equality](./equality.md)
 
 #### [Indexing Syntax](./indexing_syntax.md)
 
-#### [Generics](./generics.md)
 
-#### [Optional](./optional.md)
 
-#### [Constants](./constants.md)
 
-#### [Naming Conventions](./naming_conventions.md)
+
 
 
 ## Hello World Example
