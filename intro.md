@@ -169,10 +169,6 @@ The specification should therefore be considered a description of the **current 
 7. [Arrays of mutable `shared` references](./arrays.md#arrays-of-mutable-shared-references)
 8. [Array Example](./arrays.md#array-example)
 
-#### [Developer Guidelines and Naming Conventions](./developer_guidelines_and_naming_conventions.md)
-1. [Developer Guidelines](./developer_guidelines_and_naming_conventions.md#developer-guidelines)
-2. [Naming Conventions](./developer_guidelines_and_naming_conventions.md#naming-conventions)
-
 #### [Examples #1](./examples_1.md)
 1. [Mutable Person Type](./examples_1.md#1-mutable-person-type)
 2. [Bank Account](./examples_1.md#2-bank-account)
@@ -205,6 +201,8 @@ The specification should therefore be considered a description of the **current 
 #### [Optional](./optional.md)
 
 #### [Constants](./constants.md)
+
+#### [Naming Conventions](./naming_conventions.md)
 
 
 ## Hello World Example
