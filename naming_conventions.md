@@ -1,11 +1,11 @@
 [← Go back](./intro.md#naming-conventions)
 
-## Naming conventions
+# Naming conventions
 
 The following naming conventions are recommended as the default style for Neoncode programs. They are conventions rather than syntactic requirements, and implementations and libraries may use other conventions where appropriate, particularly when interoperating with external APIs.
 
 
-### General names
+## General names
 
 Names should generally use **lowercase snake case**:
 
@@ -26,7 +26,7 @@ Spaces and dashes in names should be written as underscores:
 This convention applies to most identifiers, including variables, functions, types, fields, methods, and other named declarations.
 
 
-### Constants
+## Constants
 
 Names representing [constants](./constants.md) should use **uppercase snake case**:
 
@@ -37,11 +37,11 @@ PI
 ```
 
 
-### Generic parameters
+## Generic parameters
 
 Generic parameters should generally use a **single uppercase character** when their meaning is clear from context:
 
-```neoncode
+```
 T first<type T>(sequence<T> items) {...}
 ```
 
