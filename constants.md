@@ -7,38 +7,60 @@ In Neoncode, **constants** are variables that are initialised at their declarati
 Constants can exist at package level and inside type definitions. They do not use a special keyword - the absence of reassignment and mutation-related keywords and the assignment at their declaration already guarantees constant properties.
 
 
-## Static type member contants
+## Package constants
 
-Constants in types can be made **static**, unlike normal fields.
+Constants declared at package-level are known as **package constants**. They are package members and can have a [custom visibility](./access_control_and_imports.md).
 
-Unlike ordinary fields, static constants can have a custom [visibility](./access_control_and_imports.md).
-
-
-## Examples
-
-**Package constant**:
+Example:
 
 ```
-pkg examples::package_constant;
+pkg examples::package_constants;
 
 public real PI = 3.141592;
-
 ```
 
 
-**Constants in types**
+## Type member constants
+
+Constants in types are known as **type member constants**.
+
+There are two kinds:
+
+- **Instance type member constants**: A field that happens to have constant properties.
+- **Static type member constants**: A special type of field that is also accessible in static contexts.
+
+Unlike ordinary fields, **static type member constants** may set a [custom visibility](./access_control_and_imports.md).
+
+
+Examples:
 
 ```
-pkg examples::constant_field;
+pkg examples::type_member_constants;
 
 public type calendar_week
 {
-    nat WORKING_DAYS = 5; // private non-static constant - accessible to instances of this type only, cannot be set public
+	// instance constant - visible to instances of this type only, cannot be set public:
+	nat WORKING_DAYS = 5;
 
-    static nat WEEKEND_DAYS = 2; // private static constant - accessible from local static and non-static contexts
+	// static constant - visible from local static and non-static contexts:
+	static nat WEEKEND_DAYS = 2; 
 
-    public static nat DAYS_IN_WEEK = 7; // public static constant - accessible from all static and non-static contexts
+	// static constant with custom visibility - visible from all static and non-static contexts, according to the custom visibility:
+	public static nat DAYS_IN_WEEK = 7;
 }
+```
 
+## Local constants
+
+Local constants are constants declared within the body of a function. They are local variables that happen to have constant properties.
+
+Example:
+
+```
+public bool is_weekend(nat day)
+{
+	nat WEEKEND_START = 4;
+	ret day > WEEKEND_START;
+}
 ```
 
