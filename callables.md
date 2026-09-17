@@ -22,7 +22,7 @@ A callable type is written like `func` followed by its **generic arguments** enc
 
 The structure of `func`'s generic arguments is like method declarations, but without code block, method name and parameter names.
 
-1. Return type, including mutation control level and mutating permission
+1. Return type, including mutation ownership type and mutating permission
 2. Generic parameters (optional)
 3. Parameters enclosed in `()`, without names
 4. Effect annotations for the state of its captured environment:

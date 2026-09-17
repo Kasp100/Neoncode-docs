@@ -7,20 +7,18 @@ In Neoncode, when working with mutable types, [mutating permission](./mutating_a
 Owning or borrowing mutations over an object means no one else can mutate the object.
 
 
-## Mutation Control Levels
+## Mutation Ownership Types
 
-In Neoncode, there are three mutation control levels:
+In Neoncode, there are three mutation ownership types:
 
-- [Owned Mutations (`own`)](#owned-mutations-own) (highest)
-- [Borrowed Mutations (`borrow`)](#borrowed-mutations-borrow) (middle)
-- [Shared Mutations (`shared`)](#shared-mutations-shared) (lowest)
-
-Constructors return [`own` references](#owned-mutations-own) with mutating permission.
+- [Owned Mutations (`own`)](#owned-mutations-own)
+- [Shared Mutations (`shared`)](#shared-mutations-shared)
+- [Borrowed Mutations (`borrow`)](#borrowed-mutations-borrow)
 
 **Reference Passing Rules**:
 
-- Higher mutation control levels cannot be obtained from lower mutation control levels.
-- Except from [`own`](#owned-mutations-own) to [`borrow`](#borrowed-mutations-borrow), mutating permission must be dropped when passing to a lower mutation control level.
+- An [`own`](#owned-mutations-own) reference can only be obtained from other `own` references or if the object is new.
+- Mutating permission must be dropped when passing to a [`shared`](#shared-mutations-shared) reference.
 - Finally, as stated in [Reference Mutating Permission](./mutating_access.md#reference-mutating-permission-mut), mutating permission **cannot** be obtained from a reference without it.
 
 The [Reference Providing Matrix](#reference-providing-matrix) further explains how this works.
@@ -55,23 +53,6 @@ type type_2
 - `type_2`'s state is composed of `first` and `second` (`a` and `b`).
 
 
-
-### Borrowed Mutations (`borrow`)
-
-**You temporarily own mutations of the object, until you are done using it locally.**
-
-- Temporarily means you cannot obtain permanent references with equal or higher mutation control level, or with mutating permission from this reference.
-  Permanent references include fields and local variables or parameters used in closures.
-
-- As with [Owned Mutations](#owned-mutations-own) references: There are no other references through which the object can be mutated.
-  This means any operations that require mutating permission over the object through different references are blocked.
-
-- A borrow remains active until the borrowed reference is no longer used.
-  Once the compiler determines that the reference has no further uses, the borrowed mutation control is returned to its original owner.
-
-- Borrows can be obtained from references with mutations ownership ([`own`](#owned-mutations-own) / `borrow`).
-
-
 ### Shared Mutations (`shared`)
 
 **You do not own mutations of the object.**
@@ -80,10 +61,26 @@ type type_2
 
 - The object is separate from reference holder's state, but the reference itself still is.
 
-- Use this mutation control level cautiously to avoid unintended side effects.
+- Use this mutation ownership type cautiously to avoid unintended side effects.
 
 
-## Default Mutation Control Levels
+### Borrowed Mutations (`borrow`)
+
+**You temporarily own mutations of the object, until you are done using it locally.**
+
+- Temporarily means you cannot obtain permanent references from it, except for [`shared`](#shared-mutations-shared) references **without mutating permission**.  
+  Permanent references include fields and variables in a closure's captured environment.
+
+- As with [`own`](#owned-mutations-own) references: There are no other references through which the object can be mutated.  
+  This means any operations that require mutating permission over the object through different references are blocked.
+
+- A borrow remains active until the borrowed reference is no longer used.  
+  Once the compiler determines that the reference has no further uses, the borrowed mutation control is returned to its original owner.
+
+- Borrows can be obtained from references any reference.
+
+
+## Default Mutation Ownership Types
 
 Without keyword:
 
@@ -93,7 +90,7 @@ Without keyword:
 
 ## Giving Mutation Ownership (`give`)
 
-An [Owned Mutations](#owned-mutations-own) reference can be provided from an existing reference either by handing over mutations ownership or by copying the object.
+An [`own`](#owned-mutations-own) reference can be provided from an existing reference either by handing over mutations ownership or by copying the object.
 
 A `give` expression transfers mutations ownership and mutating permission (if present) over an object.
 
@@ -105,7 +102,7 @@ There are two kinds:
 **Syntax**: `give local_reference`
 
 - `local_reference` must be the name of a local variable or parameter in this scope.
-- `local_reference` is downgraded to a [Shared Mutations](#shared-mutations-shared) reference **without mutating permission**.
+- `local_reference` is downgraded to a [`shared`](#shared-mutations-shared) reference **without mutating permission**.
 
 
 ### 2. Give and Reassign
@@ -119,20 +116,22 @@ There are two kinds:
 
 ## Reference Providing Matrix
 
-This matrix shows each mutation control level and mutating permission status that can be obtained from an existing reference without copying the referenced object.
+This matrix shows each mutation ownership type and mutating permission status that can be obtained from an existing reference without copying the referenced object.
 
 How to interpret these:
 - "**give**" means the existing reference can provide the requested reference only by [giving up its current mutation ownership](#giving-mutation-ownership-give).
-- "**pass**" means the existing reference can provide the requested reference through ordinary reference passing, while retaining its own mutation control level.
+- "**pass**" means the existing reference can provide the requested reference through ordinary reference passing, while retaining its own mutation ownership type.
 
-|  From  |                    |   `own mut:T`   |     `own T`     | `borrow mut:T`  |   `borrow T`    | `shared mut:T`  |   `shared T`    |
+|  From  |                    |   `own mut:T`   |     `own T`     | `shared mut:T`  |   `shared T`    | `borrow mut:T`  |   `borrow T`    |
 | ------ | ------------------ | --------------- | --------------- | --------------- | --------------- | --------------- | --------------- |
 | **To** | **`own mut:T`**    | give            | /               | /               | /               | /               | /               |
 |        | **`own T`**        | give            | give            | /               | /               | /               | /               |
-|        | **`borrow mut:T`** | pass, give      | /               | pass            | /               | /               | /               |
-|        | **`borrow T`**     | pass, give      | pass, give      | pass            | pass            | /               | /               |
-|        | **`shared mut:T`** | give            | /               | /               | /               | pass            | /               |
+|        | **`shared mut:T`** | give            | /               | pass            | /               | /               | /               |
 |        | **`shared T`**     | pass, give      | pass, give      | pass            | pass            | pass            | pass            |
+|        | **`borrow mut:T`** | pass, give      | /               | pass            | /               | pass            | /               |
+|        | **`borrow T`**     | pass, give      | pass, give      | pass            | pass            | pass            | pass            |
+
+Passing to a [`borrow`](#borrowed-mutations-borrow) reference starts a borrow.
 
 
 ## Mutation Control Examples
@@ -145,17 +144,17 @@ borrow mut:string s1 = s0;  // ✅ Allowed. This starts a borrow of "s0".
 
 s0.append("b");             // ❌ Error: "s0" temporarily lost mutating permission while the borrow is active.
 
-s1.append("b");             // ✅ Allowed. Now both "s0" and "s1" are "ab". The borrow end after this - "s1" has no uses left.
+s1.append("b");             // ✅ Allowed. Now both "s0" and "s1" are "ab". The borrow end after this because "s1" has no uses left.
 
 s0.append("c");             // ✅ Allowed because the borrow just ended.
 
-shared mut:string s2 = s0;  // ❌ Error: Cannot obtain a Shared Mutations reference with mutating permission from any Owned Mutations reference.
+shared mut:string s2 = s0;  // ❌ Error: Cannot obtain a "shared" reference with mutating permission from any "own" reference without "give".
 
 shared string s3 = s0;      // ✅ Allowed.
 
-mut:string s3 = give s0;    // ✅ Allowed. Mutations ownership is given.
+mut:string s3 = give s0;    // ✅ Allowed. Mutation ownership is given.
 
-s0.append("d");             // ❌ Error: "s0" was given, so at this point it's a Shared Mutations reference without mutating permission.
+s0.append("d");             // ❌ Error: "s0" was given, so at this point it's a "shared" reference without mutating permission.
 
 ```
 

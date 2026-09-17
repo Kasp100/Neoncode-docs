@@ -126,8 +126,8 @@ The specification should therefore be considered a description of the **current 
 5. [`mut` in different places](./mutating_access.md#mut-in-different-places)
 
 #### [Mutation Ownership](./mutation_ownership.md)
-1. [Mutation Control Levels](./mutation_ownership.md#mutation-control-levels)
-2. [Default Mutation Control Levels](./mutation_ownership.md#default-mutation-control-levels)
+1. [Mutation Ownership Types](./mutation_ownership.md#mutation-ownership-types)
+2. [Default Mutation Ownership Types](./mutation_ownership.md#default-mutation-ownership-types)
 3. [Giving Mutation Ownership](./mutation_ownership.md#giving-mutation-ownership-give)
 4. [Reference Providing Matrix](./mutation_ownership.md#reference-providing-matrix)
 
