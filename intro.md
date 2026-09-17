@@ -210,13 +210,6 @@ The specification should therefore be considered a description of the **current 
 3. [Multi-Thread Methods](./concurrency.md#multi-thread-methods)
 4. [Working with Threads](./concurrency.md#working-with-threads)
 
-#### [Indexing Syntax](./indexing_syntax.md)
-
-
-
-
-
-
 
 ## Hello World Example
 
