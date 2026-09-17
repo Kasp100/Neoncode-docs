@@ -4,29 +4,26 @@
 
 Modern programs often need to do things simultaneously. For example, handling user input from a GUI or communicating over a network. Concurrency allows a program to make progress on multiple tasks simultaneously. This improves performance, responsiveness, and takes advantage of modern multi-core processors.
 
-Objects shared across threads must be thread-safe or synchronised.
+Objects shared across threads must be synchronised.
 
 
-## Synchronised Access
+## Multi-Thread Objects (`multi_thread`)
 
-A non-thread-safe object can be shared across threads only with [synchronised access](#synchronised-objects-sync).
+A multi-thread object is an object that is shared across threads.
 
+**Syntax**: The keyword `multi_thread` declares that an object can be shared across threads.
+The keyword should be placed before the [mutation ownership type](./mutation_ownership.md#mutation-control-levels) of the reference.
 
-### Synchronised Objects (`sync`)
-
-A synchronised object requires synchronised access for read and write operations.
-
-**Syntax**: The keyword `sync` placed between `shared` and `mut:` declares that an object is synchronised.
-
-E.g., `shared sync mut:bank_account`, `shared sync bank_account`
+E.g., `multi_thread shared mut:bank_account`, `multi_thread repository get_repository()`
 
 
-### Locking (`lock`, `unlock`)
+## Locking (`lock`, `unlock`)
 
-Read and write operations with a synchronised object require synchronisation using a **lock**.
+Operations on a multi-thread object require synchronisation using a **lock**, though some operations may be [defined as multi-thread](#multi-thread-methods), removing the requirement for an external lock.
 
-While an object is locked, mutations from other threads wait.
-If the object is mutated during the lock, reading operations from other threads also wait.
+While an object is locked, mutations from other threads wait. If the object is mutated while locked, read operations from other threads also wait.
+
+The implementation of locks is compiler-defined. The compiler may use any mechanism that satisfies the semantics of lock.
 
 **Syntax**:
 
@@ -35,15 +32,14 @@ If the object is mutated during the lock, reading operations from other threads 
   If the object (`obj`) is mutated during the lock, a write lock is inferred.
 
 - `unlock obj` unlocks `obj`.  
-  Every lock must definitely be matched by an unlock on every control-flow path in code block.  
+  Every lock must definitely be matched by an unlock on every control-flow path in the code block.  
   With multiple locks, each object must be unlocked in **reverse order**.
 
-
-### Example
+Example:
 
 ```
 
-shared sync mut:bank_account b = ();
+multi_thread shared mut:bank_account b = ();
 
 lock b;
 
@@ -54,32 +50,35 @@ unlock b;
 ```
 
 
-## Thread-Safe Types
+## Multi-Thread Methods
 
-Thread-safe types internally handle synchronisation. Instances of these types do not need external synchronisation.
+Multi-thread methods internally handle synchronisation. They represent operations that **do not require locking by the caller**.
 
-**Syntax**: `thread_safe` before curly brackets in type declaration, among `mut` and `io`.
+Fields can be accessed in these methods if either of the following requirements is met:
+- the field is multi-thread, or
+- the object itself is [locked](#locking-lock-unlock) (`lock self`).
 
+**Syntax:** `multi_thread` before `mut` in a type declaration.
 
-### Example
+Example:
 
 ```
 
-abstract type repository<type K, type V> mut thread_safe
+abstract type repository<type K, type V> mut
 {
-	result<K, repository_err> create(own V value) mut io;
+	result<K, repository_err> create(own V value) multi_thread mut io;
 
-	void save(own K key, own V value) mut io;
+	void save(own K key, own V value) multi_thread mut io;
 
-	result<V, repository_err> delete(own K key) mut io;
+	result<V, repository_err> delete(own K key) multi_thread mut io;
 
-	result<V, repository_err> get(own K key) io;
+	result<V, repository_err> get(own K key) multi_thread io;
 }
 
 ```
 
 
-## Multithreading
+## Working with Threads
 
 A few `system` commands allow for multithreading.
 
@@ -87,7 +86,7 @@ A few `system` commands allow for multithreading.
 - Wait for a thread to finish: `void system: join_thread(thread_handle thread_to_wait_for)`
 
 
-Example:
+Examples:
 
 ```
 
@@ -98,8 +97,6 @@ thread_handle t1 = system: start_thread(r1);
 ```
 
 
-### Example
-
 ```
 pkg main;
 
@@ -107,9 +104,9 @@ import std::console;
 
 void main(array<string> args) io
 {
-	shared sync mut:counter c = ();
+	multi_thread shared mut:counter c = ();
 
-	func{void() shared_mut io} r = func: () ->
+	func{void() share_mut io} r = func: () ->
 	{
 		lock c;
 

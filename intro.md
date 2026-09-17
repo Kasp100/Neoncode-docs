@@ -207,6 +207,10 @@ The specification should therefore be considered a description of the **current 
 #### [Compile-Time Functions](./compile_time_functions.md)
 
 #### [Concurrency](./concurrency.md)
+1. [Multi-Thread Objects](./concurrency.md#multi-thread-objects-multi_thread)
+2. [Locking](./concurrency.md#locking-lock-unlock)
+3. [Multi-Thread Methods](./concurrency.md#multi-thread-methods)
+4. [Working with Threads](./concurrency.md#working-with-threads)
 
 #### [Indexing Syntax](./indexing_syntax.md)
 
