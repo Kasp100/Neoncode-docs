@@ -104,8 +104,8 @@ type user
 These constructors are called as:
 
 ```
-user user = user.from_name("Kasp");
-user anonymous = user.anonymous();
+user user = user::from_name("Neon");
+user anonymous = user::anonymous();
 ```
 
 Named constructors are useful when a type has multiple distinct ways of being initialised.
