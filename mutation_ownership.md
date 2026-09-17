@@ -18,8 +18,9 @@ In Neoncode, there are three mutation ownership types:
 **Reference Passing Rules**:
 
 - An [`own`](#owned-mutations-own) reference can only be obtained from other `own` references or if the object is new.
-- Mutating permission must be dropped when passing to a [`shared`](#shared-mutations-shared) reference.
-- Finally, as stated in [Reference Mutating Permission](./mutating_access.md#reference-mutating-permission-mut), mutating permission **cannot** be obtained from a reference without it.
+- A [`shared`](#shared-mutations-shared) reference can be obtained from any other mutation ownership type.
+- A [`borrow`](#borrowed-mutations-borrow) reference can only be obtained from `own` references, if the object is new, or from other `borrow` references.
+- Note: As stated in [Reference Mutating Permission](./mutating_access.md#reference-mutating-permission-mut), mutating permission **cannot** be obtained from a reference without it.
 
 The [Reference Providing Matrix](#reference-providing-matrix) further explains how this works.
 
@@ -77,7 +78,12 @@ type type_2
 - A borrow remains active until the borrowed reference is no longer used.  
   Once the compiler determines that the reference has no further uses, the borrowed mutation control is returned to its original owner.
 
-- Borrows can be obtained from references any reference.
+- Borrows can be obtained from references that have mutations ownership ([`own`](#owned-mutations-own) / `borrow`).
+
+
+#### Borrowing from `shared` References
+
+Borrows cannot be obtained from [`shared`](#shared-mutations-shared) references because other references to the same object may have mutating permission, including aliases within the same thread. Therefore, exclusive mutation ownership cannot be guaranteed.
 
 
 ## Default Mutation Ownership Types
@@ -128,8 +134,8 @@ How to interpret these:
 |        | **`own T`**        | give            | give            | /               | /               | /               | /               |
 |        | **`shared mut:T`** | give            | /               | pass            | /               | /               | /               |
 |        | **`shared T`**     | pass, give      | pass, give      | pass            | pass            | pass            | pass            |
-|        | **`borrow mut:T`** | pass, give      | /               | pass            | /               | pass            | /               |
-|        | **`borrow T`**     | pass, give      | pass, give      | pass            | pass            | pass            | pass            |
+|        | **`borrow mut:T`** | pass, give      | /               | /               | /               | pass            | /               |
+|        | **`borrow T`**     | pass, give      | pass, give      | /               | /               | pass            | pass            |
 
 Passing to a [`borrow`](#borrowed-mutations-borrow) reference starts a borrow.
 
