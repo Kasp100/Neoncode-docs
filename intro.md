@@ -196,8 +196,6 @@ The specification should therefore be considered a description of the **current 
 2. [Bank Account](./examples_1.md#2-bank-account)
 3. [Licence Plate](./examples_1.md#3-licence-plate)
 
-#### [Equality](./equality.md)
-
 #### [Operator Modules](./operator_modules.md)
 1. [Operators](./operator_modules.md#operators)
 2. [Operator Functions](./operator_modules.md#operator-functions)
