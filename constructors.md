@@ -235,3 +235,4 @@ is an ordinary static method, even though it returns a `user`.
 Named constructors provide an explicit and convenient way to distinguish different forms of initialisation without requiring construction to be tied to a single unnamed operation.
 
 
+[→ Next: Arrays](./arrays.md)

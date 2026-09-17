@@ -172,4 +172,4 @@ public type license_plate
 ```
 
 
-[→ Next: Name Inference](./name_inference.md)
+[→ Next: Operator Modules](./operator_modules.md)

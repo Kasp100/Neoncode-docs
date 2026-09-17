@@ -33,4 +33,4 @@ The first two are generic **type paramters**, while the second two are generic *
 - [Boolean](./native_types.md#boolean)
 
 
-[→ Next: Optional](./optional.md)
+[→ Next: Examples #1](./examples_1.md)

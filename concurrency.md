@@ -137,6 +137,3 @@ type counter mut
 }
 
 ```
-
-
-[→ Next: Equality](./equality.md)

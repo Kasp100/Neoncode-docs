@@ -70,3 +70,6 @@ TARGET convert<type SOURCE, type TARGET>(SOURCE value) {...}
 ```
 
 Generic parameter names should communicate their semantic role rather than merely being chosen for brevity.
+
+
+[→ Next: Callables](./callables.md)

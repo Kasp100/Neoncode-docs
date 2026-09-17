@@ -147,4 +147,4 @@ public type player mut impl stringable
 ```
 
 
-[→ Next: Developer Guidelines and Naming Conventions](./developer_guidelines_and_naming_conventions.md)
+[→ Next: Name Inference](./name_inference.md)

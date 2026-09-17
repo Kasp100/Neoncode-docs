@@ -64,3 +64,5 @@ public bool is_weekend(nat day)
 }
 ```
 
+
+[→ Next: Naming Conventions](./naming_conventions.md)

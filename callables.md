@@ -179,4 +179,4 @@ void main(array<string> args) io
 ```
 
 
-[→ Next: Concurrency](./concurrency.md)
+[→ Next: Generics](./generics.md)

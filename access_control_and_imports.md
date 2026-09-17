@@ -94,4 +94,4 @@ import ::my_project::my_type; // "my_type" now refers to "my_domain::my_project:
 ```
 
 
-[→ Next: Arrays](./arrays.md)
+[→ Next: Concrete Types and Abstract Types](./concrete_types_and_abstract_types.md)
