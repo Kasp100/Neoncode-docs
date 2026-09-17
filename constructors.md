@@ -83,20 +83,36 @@ element create_element_6()
 A type may define any number of named constructors. Named constructors are called using the type name followed by the constructor name.
 
 ```
-type user
+type user mut
 {
-    string name;
+    nat id;
+    var string name;
 
-    public constructor user from_name(own string init_name)
+    public nat get_id()
     {
-        name = give init_name;
-        ret self;
+        ret id;
     }
 
-    public constructor user anonymous()
+    public string get_name()
+    {
+        ret name;
+    }
+
+    public string set_name(own string new_name) mut
+    {
+        name = new_name;
+    }
+
+    public constructor own user from_name(own string init_name)
+    {
+        name = give init_name;
+        ret give self;
+    }
+
+    public constructor own user anonymous()
     {
         name = "Anonymous";
-        ret self;
+        ret give self;
     }
 }
 ```
@@ -116,26 +132,26 @@ Named constructors are useful when a type has multiple distinct ways of being in
 Constructors have explicit return types. A constructor may return the constructed type directly:
 
 ```
-public constructor user (string init_name)
+public constructor own user (string init_name)
 {
     name = give init_name;
-    ret self;
+    ret give self;
 }
 ```
 
 A constructor may instead return another type, such as `result<T>`, when initialisation can fail:
 
 ```
-public constructor result<user> (own string init_name)
+public constructor own result<user> (own string init_name)
 {
-    if(name == "")
+    if(init_name == "")
     {
         ret result::err("invalid name");
     }
 
     name = give init_name;
 
-    ret result::of(self);
+    ret result::of(give self);
 }
 ```
 
@@ -152,25 +168,44 @@ When a type derives from a semi-abstract type, its constructor must initialise t
 semi_abstract type vehicle
 {
     string plate;
+    var nat speed = 0;
 
-    implementers constructor vehicle (own string init_plate)
+    public nat get_speed()
+    {
+        ret speed;
+    }
+
+    public void accelerate() mut
+    {
+        ++speed;
+    }
+
+    public void brake() mut
+    {
+        if(speed > 0)
+        {
+            --speed;
+        }
+    }
+
+    implementers constructor own vehicle (own string init_plate)
     {
         plate = give init_plate;
-        ret self;
+        ret give self;
     }
 }
 
-type car impl vehicle
+type car impl vehicle mut
 {
     string model;
 
-    public constructor(own string init_plate, own string init_model)
+    public constructor own car (own string init_plate, own string init_model)
     {
-        super = (init_plate); // or "vehicle(init_plate)", because "vehicle" is semi-abstract
+        super = (give init_plate); // or "vehicle(give init_plate)", because "vehicle" is the semi-abstract "car" implements.
 
         model = give init_model;
 
-        ret self;
+        ret give self;
     }
 }
 ```
@@ -189,7 +224,7 @@ A constructor may initialise fields and the inherited portion of an instance. A 
 For example:
 
 ```
-public static result<user> load_from_file(string path) io
+public static own result<user> load_from_file(string path) io
 {
     ...
 }
